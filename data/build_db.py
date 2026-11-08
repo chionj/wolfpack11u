@@ -18,6 +18,7 @@ GC_EVENTS = {
     '2026-10-04': '922fc7b9-f56e-4340-bbd0-5344d3b1f838', '2026-10-18': 'dd9edbc8-a3bf-44db-9c4a-01e3eed083e1',
     '2026-10-25': '9e991d32-71b1-4a2c-b9b6-8276e9a230af', '2026-10-25b': '3605b691-0410-4694-8631-f9d8db07271a',
     '2026-11-07': '11960856-54f9-435f-859a-7da2bbbd9b1b', '2026-11-07b': '852ea087-4692-4e1f-afdb-e78d2b8e6a40',
+    '2026-11-08': '7615a6a3-d549-4885-bb0a-918ecc087716',
 }
 PITCH_NAMES = {'B': 'Ball', 'I': 'Intentional ball', 'C': 'Called strike', 'S': 'Swinging strike', 'F': 'Foul',
                'U': 'Foul bunt', 'T': 'Foul tip', 'X': 'In play'}

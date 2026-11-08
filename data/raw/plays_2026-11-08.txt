@@ -1,0 +1,45 @@
+T1 ~ Single ~ BX ~ G Nebo singles on a fly ball to right fielder DYNS #11, G Nebo advances to 2nd on error by right fielder DYNS #11.
+T1 ~ Strikeout/1 Out ~ CBFFS ~ R Johnson strikes out swinging, DYNS #6 pitching, G Nebo remains at 2nd.
+T1 ~ Ground Out/2 Outs ~ BCBBX ~ C Davis grounds out to shortstop DYNS #27, G Nebo advances to 3rd.
+T1 ~ Strikeout/3 Outs ~ CSFS ~ G Balogh strikes out swinging, DYNS #6 pitching.
+B1 ~ Hit By Pitch ~ CBBFB ~ DYNS #11 is hit by pitch, C Davis pitching.
+B1 ~ Ground Out/NCWL 0 - DYNS 1 / 1 Out ~ FB{DYNS #11 steals 2nd}B{DYNS #11 advances to 3rd on passed ball}BX ~ DYNS #13 grounds out to shortstop N Fujishiro, DYNS #11 scores.
+B1 ~ Error ~ BFBSBFX ~ DYNS #27 hits a ground ball and reaches on an error by first baseman R Johnson.
+B1 ~ Walk ~ BSS{DYNS #27 steals 2nd}FFBB{DYNS #27 steals 3rd}B ~ DYNS #19 walks, C Davis pitching, DYNS #27 remains at 3rd.
+B1 ~ Strikeout/NCWL 0 - DYNS 2 / 2 Outs ~ B{DYNS #19 advances to 2nd on passed ball}{DYNS #27 scores on the same pitch}BBCSS ~ DYNS #24 strikes out swinging, C Davis pitching, DYNS #19 remains at 2nd.
+B1 ~ Fly Out/3 Outs ~ CCFBX ~ DYNS #6 flies out to second baseman N Koletsos.
+T2 ~ Ground Out/1 Out ~ SX ~ F Lane grounds out to shortstop DYNS #27.
+T2 ~ Error ~ CX ~ A Stanford hits a ground ball and reaches on an error by shortstop DYNS #27.
+T2 ~ Sacrifice Bunt/2 Outs ~ X ~ R Lovati sacrifices to pitcher DYNS #6, R Lovati out advancing to 1st, A Stanford advances to 2nd.
+T2 ~ Hit By Pitch ~ FB ~ B Currier is hit by pitch, DYNS #6 pitching, A Stanford remains at 2nd.
+T2 ~ Strikeout/3 Outs ~ {Courtesy runner L Mercuriali in for B Currier}SS{A Stanford steals 3rd}{L Mercuriali steals 2nd}S ~ J Grissinger strikes out swinging, DYNS #6 pitching.
+B2 ~ Single ~ X ~ DYNS #34 singles on a ground ball to center fielder G Nebo.
+B2 ~ Ground Out/1 Out ~ CX ~ DYNS #22 grounds out to second baseman N Koletsos, DYNS #34 advances to 2nd.
+B2 ~ Single ~ FB{DYNS #34 steals 3rd}SFBBFX ~ DYNS #41 singles on a fly ball to shortstop N Fujishiro, DYNS #34 held up at 3rd.
+B2 ~ Dropped 3rd Strike/NCWL 0 - DYNS 3 ~ SBFB{DYNS #41 advances to 2nd on defensive indifference}S ~ DYNS #31 reaches on dropped 3rd strike (passed ball), DYNS #34 scores, DYNS #41 advances to 3rd.
+B2 ~ Fly Out/NCWL 0 - DYNS 4 / 2 Outs ~ CFX ~ DYNS #9 flies out to right fielder A Stanford, DYNS #41 scores after tagging up, DYNS #31 advances to 2nd on the throw.
+B2 ~ Error/NCWL 0 - DYNS 5 ~ C{DYNS #31 steals 3rd}CX ~ DYNS #11 hits a ground ball and reaches on an error by shortstop N Fujishiro, DYNS #31 scores.
+B2 ~ Error/NCWL 0 - DYNS 6 ~ {DYNS #11 advances to 2nd}X ~ DYNS #13 hits a ground ball and reaches on an error by second baseman N Koletsos, DYNS #11 scores.
+B2 ~ Fly Out/3 Outs ~ CX ~ DYNS #27 flies out to second baseman N Koletsos.
+T3 ~ Strikeout/1 Out ~ SSBFC ~ N Fujishiro strikes out looking, DYNS #6 pitching.
+T3 ~ Fly Out/2 Outs ~ X ~ N Koletsos flies out to second baseman DYNS #22.
+T3 ~ Home Run/NCWL 1 - DYNS 6 ~ BCX ~ G Nebo hits an inside the park home run on a line drive to right fielder DYNS #11.
+T3 ~ Single ~ FFX ~ R Johnson singles on a line drive to right fielder DYNS #11.
+T3 ~ Strikeout/3 Outs ~ BSBC{R Johnson steals 2nd}S ~ C Davis strikes out swinging, DYNS #6 pitching.
+B3 ~ Walk ~ BBBSFFB ~ DYNS #19 walks, N Fujishiro pitching.
+B3 ~ Walk ~ FBB{DYNS #19 steals 2nd}BS{DYNS #19 advances to 3rd on passed ball}B ~ DYNS #24 walks, N Fujishiro pitching, DYNS #19 remains at 3rd.
+B3 ~ Fly Out/1 Out ~ B{DYNS #24 advances to 2nd on defensive indifference}X ~ DYNS #6 flies out to third baseman F Lane, DYNS #19 remains at 3rd, DYNS #24 remains at 2nd.
+B3 ~ Ground Out/NCWL 1 - DYNS 7 / 2 Outs ~ BCX ~ DYNS #34 grounds out to second baseman N Koletsos, DYNS #19 scores, DYNS #24 advances to 3rd.
+B3 ~ Strikeout/3 Outs ~ CBSBC ~ DYNS #22 strikes out looking, N Fujishiro pitching.
+T4 ~ Strikeout/1 Out ~ CSBFBC ~ G Balogh strikes out looking, DYNS #6 pitching.
+T4 ~ Fly Out/2 Outs ~ SX ~ F Lane flies out to pitcher DYNS #6.
+T4 ~ Error ~ BCFBX ~ A Stanford hits a ground ball and reaches on an error by second baseman DYNS #22.
+T4 ~ Ground Out/3 Outs ~ B{A Stanford steals 2nd}X ~ R Lovati grounds out to pitcher DYNS #6.
+B4 ~ Hit By Pitch ~ B ~ DYNS #41 is hit by pitch, N Fujishiro pitching.
+B4 ~ Strikeout/1 Out ~ SBP1{Balk by pitcher N Fujishiro}{DYNS #41 advances to 2nd}CC ~ DYNS #31 strikes out looking, N Fujishiro pitching, DYNS #41 remains at 2nd.
+B4 ~ Strikeout/2 Outs ~ FCBS ~ DYNS #9 strikes out swinging, N Fujishiro pitching, DYNS #41 remains at 2nd.
+B4 ~ Single ~ CBFX ~ DYNS #11 singles on a ground ball to shortstop C Davis, DYNS #41 advances to 3rd.
+B4 ~ Walk ~ B{DYNS #11 advances to 2nd on wild pitch}BBCB ~ DYNS #13 walks, N Fujishiro pitching, DYNS #41 remains at 3rd, DYNS #11 remains at 2nd.
+B4 ~ Error/NCWL 1 - DYNS 8 ~ X ~ DYNS #27 hits a ground ball and reaches on an error by third baseman F Lane, DYNS #41 scores, DYNS #11 advances to 3rd, DYNS #13 advances to 2nd.
+B4 ~ Walk/NCWL 1 - DYNS 9 ~ FBBBB ~ DYNS #19 walks, N Fujishiro pitching, DYNS #11 scores, DYNS #13 advances to 3rd, DYNS #27 advances to 2nd.
+B4 ~ DYNS #24 at bat/NCWL 1 - DYNS 11 ~ {Balk by pitcher A Stanford}{DYNS #13 scores}{DYNS #27 advances to 3rd}{DYNS #19 advances to 2nd}B{DYNS #27 scores on wild pitch}{DYNS #19 advances to 3rd on the same pitch} ~ 

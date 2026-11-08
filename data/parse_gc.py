@@ -2,7 +2,7 @@ import re, json, itertools, sys, os
 RAW = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'raw')
 from collections import defaultdict, Counter
 
-GAMES = ['2026-08-30','2026-09-13','2026-09-20','2026-09-27','2026-10-04','2026-10-18','2026-10-25','2026-10-25b','2026-11-07','2026-11-07b']
+GAMES = ['2026-08-30','2026-09-13','2026-09-20','2026-09-27','2026-10-04','2026-10-18','2026-10-25','2026-10-25b','2026-11-07','2026-11-07b','2026-11-08']
 POS = {'pitcher':'P','catcher':'C','first baseman':'1B','second baseman':'2B','third baseman':'3B','shortstop':'SS',
        'left fielder':'LF','center fielder':'CF','right fielder':'RF','left field':'LF','center field':'CF','right field':'RF'}
 POSRE = '|'.join(sorted(POS, key=len, reverse=True))

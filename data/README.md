@@ -13,7 +13,7 @@ Every GameChanger box score and play-by-play for NC Wolfpack 11U, fall 2026, in 
 **Names.** This repo is public, so no child's full name is stored. Our players appear as first initial and
 last name (`G Nebo`), the same as on the report. Opposing players appear only as team code and jersey number (`AZBC #21`).
 
-**Coverage.** 10 games, Aug 30 – Nov 7, 2026: 575 plays and 2,066 pitches.
+**Coverage.** 11 games, Aug 30 – Nov 8, 2026: 620 plays and 2,233 pitches.
 Checked against GameChanger's box scores: every hitter's AB, H, BB and SO and every pitcher's batters faced match.
 Runs rebuilt from the plays match every final score except Oct 25 vs High Standards, where the scorer changed the score by hand
 (the plays show 11 runs for them, the line score 12).
