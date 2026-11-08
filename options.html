@@ -168,7 +168,8 @@ svg text{font-family:var(--f-body)}
     </div>
   </div>
   <div class="card"><h2><span class="opt">A</span>Paired bars</h2>
-    <div class="cap">Closest to what you have now: plate appearances next to OPS, but sortable and with real axes.</div>
+    <div class="cap">Two bars per kid. Pick any stat for the left (blue) and right (green) bars to compare them side by side. The sort above applies to the order of the rows.</div>
+    <div class="ctl"><label>Left bar <select id="hL"></select></label><label>Right bar <select id="hR"></select></label><button class="btn" id="hswap" type="button">Swap</button></div>
     <div id="hitA" style="margin-top:12px"></div></div>
   <div class="card"><h2><span class="opt">B</span>Scatter plot</h2>
     <div class="cap">Every kid is a dot. Pick what goes on each axis. Dashed lines are the average of the kids shown.</div>
@@ -335,11 +336,14 @@ $('#diamond').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){co
 $('#focus').addEventListener('change',drawPlay);
 
 /* ---------- HITTING ---------- */
+const iF=v=>String(Math.round(v)),pF=v=>v.toFixed(1)+'%';
+const HSTAT={PA:{n:'Plate appearances',k:'PA',f:iF},AB:{n:'At bats',k:'AB',f:iF},H:{n:'Hits',k:'H',f:iF},TB:{n:'Total bases',k:'TB',f:iF},R:{n:'Runs',k:'R',f:iF},RBI:{n:'RBI',k:'RBI',f:iF},BB:{n:'Walks',k:'BB',f:iF},HBP:{n:'Hit by pitch',k:'HBP',f:iF},SO:{n:'Strikeouts',k:'SO',f:iF},SB:{n:'Stolen bases',k:'SB',f:iF},avg:{n:'AVG',k:'avg',f:f3},obp:{n:'OBP',k:'obp',f:f3},slg:{n:'SLG',k:'slg',f:f3},ops:{n:'OPS',k:'ops',f:f3},k:{n:'K%',k:'k',f:pF},bb:{n:'BB%',k:'bb',f:pF}};
+['hL','hR'].forEach((id,i)=>{$('#'+id).innerHTML=Object.entries(HSTAT).map(([key,s])=>`<option value="${key}"${key===(i?'ops':'PA')?' selected':''}>${s.n}</option>`).join('')});
 function hitRows(){
   const minPA=+$('#hmin').value;
   return DATA.players.map(p=>{const gs=p.pergame.filter(x=>sel.has(x.date));if(!gs.length)return null;
     const s=k=>gs.reduce((a,x)=>a+x[k],0),AB=s('AB'),H=s('H'),BB=s('BB'),HBP=s('HBP'),TB=s('TB'),SO=s('SO'),PA=AB+BB+HBP;if(PA<minPA)return null;
-    const obp=(H+BB+HBP)/PA,slg=AB?TB/AB:0;return{name:p.name,g:gs.length,PA,AB,H,BB,SO,SB:s('SB'),R:s('R'),RBI:s('RBI'),avg:AB?H/AB:0,obp,slg,ops:obp+slg,k:SO/PA*100,bb:BB/PA*100}}).filter(Boolean);
+    const obp=(H+BB+HBP)/PA,slg=AB?TB/AB:0;return{name:p.name,g:gs.length,PA,AB,H,BB,SO,SB:s('SB'),R:s('R'),RBI:s('RBI'),HBP,TB,avg:AB?H/AB:0,obp,slg,ops:obp+slg,k:SO/PA*100,bb:BB/PA*100}}).filter(Boolean);
 }
 const htip=r=>`<b>${esc(r.name)}</b><br>${r.g} games · ${r.PA} PA<br>${r.H}-for-${r.AB} · ${r.BB} BB · ${r.SO} K · ${r.SB} SB<br>${f3(r.avg)}/${f3(r.obp)}/${f3(r.slg)} · OPS ${f3(r.ops)}`;
 function drawHit(){
@@ -350,8 +354,8 @@ function drawHit(){
   if(key==='name'&&!hdesc)rows.reverse();
   if(!rows.length){['hitA','hitB','hitC'].forEach(i=>empty($('#'+i),'No kids meet the minimum plate appearances in the selected games. Lower the minimum or add games.'));return}
   /* A */
-  const mp=Math.max(...rows.map(r=>r.PA)),mo=Math.max(...rows.map(r=>r.ops));
-  $('#hitA').innerHTML=`<div class="hhead"><span></span><span>Plate appearances</span><span>OPS</span></div>`+rows.map(r=>`<div class="hrow" data-tip="${esc(htip(r))}"><span class="nm">${esc(r.name)}</span><div class="trk"><div class="fl" style="width:${r.PA/mp*100}%;background:var(--s1)"></div><span>${r.PA}</span></div><div class="trk"><div class="fl" style="width:${r.ops/mo*100}%;background:var(--s3)"></div><span>${f3(r.ops)}</span></div></div>`).join('');
+  const sL=HSTAT[$('#hL').value],sR=HSTAT[$('#hR').value],mL=Math.max(...rows.map(r=>r[sL.k]))||1,mR=Math.max(...rows.map(r=>r[sR.k]))||1;
+  $('#hitA').innerHTML=`<div class="hhead"><span></span><span>${sL.n}</span><span>${sR.n}</span></div>`+rows.map(r=>`<div class="hrow" data-tip="${esc(htip(r))}"><span class="nm">${esc(r.name)}</span><div class="trk"><div class="fl" style="width:${r[sL.k]/mL*100}%;background:var(--s1)"></div><span>${sL.f(r[sL.k])}</span></div><div class="trk"><div class="fl" style="width:${r[sR.k]/mR*100}%;background:var(--s3)"></div><span>${sR.f(r[sR.k])}</span></div></div>`).join('');
   /* B */
   const xk=$('#hx').value,yk=$('#hy').value,XN={PA:'Plate appearances',k:'Strikeout rate (K%)',bb:'Walk rate (BB%)',SB:'Stolen bases'},YN={ops:'OPS',obp:'OBP',slg:'SLG',avg:'AVG'};
   const xs=rows.map(r=>r[xk]),ys=rows.map(r=>r[yk]);const xmax=Math.max(...xs)*1.08||1,ymax=Math.max(...ys)*1.1||1;
@@ -368,8 +372,9 @@ function drawHit(){
     `<text x="${W-Rr+14}" y="${y+4}" class="t2 tnum" font-size="11.5">OPS ${f3(r.ops)} · ${r.PA} PA</text></g>`});
   $('#hitC').innerHTML=s+`</svg><div class="legend"><span><i class="sw" style="background:var(--s1)"></i>AVG</span><span><i class="sw" style="background:var(--s2)"></i>OBP</span><span><i class="sw" style="background:var(--s3)"></i>SLG</span></div>`;
 }
-['hsort','hx','hy'].forEach(i=>$('#'+i).addEventListener('change',drawHit));
+['hsort','hx','hy','hL','hR'].forEach(i=>$('#'+i).addEventListener('change',drawHit));
 $('#hmin').addEventListener('input',drawHit);
+$('#hswap').addEventListener('click',()=>{const a=$('#hL').value;$('#hL').value=$('#hR').value;$('#hR').value=a;drawHit()});
 $('#hdir').addEventListener('click',()=>{hdesc=!hdesc;drawHit()});
 
 /* ---------- SITUATIONAL ---------- */
