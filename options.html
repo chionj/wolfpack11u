@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wolfpack Chart Options</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap">
+<style>
+/* Layout: sticky tab + game-filter bar, then one card per chart option. Same red/white/ground palette as the Wolfpack report. */
+:root{
+  --ground:#F1EEE8; --surface:#FFFFFF; --surface2:#F7F5F1;
+  --ink:#15171B; --ink2:#4C5158; --ink3:#7C828A; --line:#E2DED6; --line2:#EDEAE3;
+  --brand:#C8102E; --brand-soft:#F6D8DC;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s8:#e34948;
+  --shadow:0 1px 2px rgba(20,20,25,.05),0 4px 16px rgba(20,20,25,.05);
+  --f-disp:'Oswald',system-ui,sans-serif; --f-body:'Roboto',system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#111318; --surface:#191C22; --surface2:#1F232A;
+    --ink:#EDEEF0; --ink2:#AEB4BD; --ink3:#838B95; --line:#2A2F38; --line2:#232830;
+    --brand:#FF5A73; --brand-soft:#3A1820;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s8:#e66767;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.35); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#111318; --surface:#191C22; --surface2:#1F232A;
+  --ink:#EDEEF0; --ink2:#AEB4BD; --ink3:#838B95; --line:#2A2F38; --line2:#232830;
+  --brand:#FF5A73; --brand-soft:#3A1820;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s8:#e66767;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.35); color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font:14px/1.5 var(--f-body);-webkit-font-smoothing:antialiased;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-disp);font-weight:600;margin:0;line-height:1.1;letter-spacing:.01em;text-wrap:balance}
+.eyebrow{font-family:var(--f-disp);text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:var(--ink3)}
+.hero{padding-block:22px 12px}
+.hero h1{font-size:30px;text-transform:uppercase;letter-spacing:.02em}
+.hero p{margin:6px 0 0;color:var(--ink2);max-width:70ch}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--ground);padding-block:8px;border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:4px;background:var(--surface2);padding:4px;border-radius:10px;overflow-x:auto;width:fit-content;max-width:100%}
+.tab{font:500 13px var(--f-disp);letter-spacing:.03em;text-transform:uppercase;border:0;background:transparent;color:var(--ink2);padding:7px 12px;border-radius:7px;cursor:pointer;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.fbar{display:flex;gap:8px;align-items:center;margin-top:8px}
+.fbar .lab{font:500 11px var(--f-disp);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);flex:0 0 auto}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:3px;flex:1;min-width:0}
+.chip{flex:0 0 auto;display:inline-flex;gap:6px;align-items:center;border:1px solid var(--line);background:var(--surface);color:var(--ink3);border-radius:999px;padding:3px 10px;font:12px var(--f-body);cursor:pointer}
+.chip b{font-weight:500}
+.chip.on{color:var(--ink);border-color:var(--ink2);background:var(--surface)}
+.chip:not(.on){opacity:.55;text-decoration:line-through;text-decoration-thickness:1px}
+.chip .r{font-style:normal;font:700 10px var(--f-disp);padding:0 5px;border-radius:9px}
+.r.W{background:#D6EBE0;color:#1e6b4a}.r.L{background:var(--brand-soft);color:var(--brand)}.r.T{background:#F5E4CC;color:#8a5413}
+.chip u{width:6px;height:6px;border-radius:50%;background:var(--s1);display:inline-block;text-decoration:none}
+.presets{display:flex;gap:6px;flex:0 0 auto}
+.pre{border:1px solid var(--line);background:transparent;color:var(--ink2);border-radius:7px;padding:3px 9px;font:12px var(--f-body);cursor:pointer}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.keynote{font-size:11.5px;color:var(--ink3);margin-top:4px}
+.keynote u{width:6px;height:6px;border-radius:50%;background:var(--s1);display:inline-block;text-decoration:none;margin-right:4px}
+main{padding-block:18px 60px}
+.panel{display:none}.panel.on{display:block}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:var(--shadow);margin-bottom:16px;min-width:0}
+.card h2{font-size:17px;text-transform:uppercase;letter-spacing:.05em}
+.card .cap{font-size:12.5px;color:var(--ink2);margin-top:3px;max-width:75ch}
+.opt{display:inline-block;font:700 11px var(--f-disp);letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:var(--surface);padding:2px 8px;border-radius:4px;margin-right:8px;vertical-align:2px}
+.sec{font:600 13px var(--f-disp);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:26px 0 10px}
+.sec:first-child{margin-top:0}
+.ctl{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:12px 0 4px;font-size:12.5px;color:var(--ink2)}
+.ctl label{display:inline-flex;gap:6px;align-items:center}
+select{font:13px var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 9px;max-width:100%}
+input[type=range]{accent-color:var(--brand);width:130px}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 10px;font:13px var(--f-body);cursor:pointer}
+.note{font-size:12px;color:var(--ink2);background:var(--surface2);border:1px solid var(--line2);border-radius:9px;padding:9px 12px;margin-top:12px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:11.5px;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:11px;height:11px;border-radius:3px;display:inline-block}
+.scroll{overflow-x:auto}
+svg{display:block;max-width:100%;height:auto}
+svg text{font-family:var(--f-body)}
+.t1{fill:var(--ink)}.t2{fill:var(--ink2)}.t3{fill:var(--ink3)}
+.tnum{font-variant-numeric:tabular-nums}
+#tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--surface);font-size:12px;line-height:1.4;padding:7px 10px;border-radius:8px;max-width:260px;display:none;box-shadow:var(--shadow)}
+#tip b{font-weight:700}
+/* diamond */
+.pcard{cursor:pointer}
+.pcard rect.bg{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.pcard:hover rect.bg,.pcard.sel rect.bg{stroke:var(--brand);stroke-width:2.5}
+.pcard:focus-visible rect.bg{stroke:var(--brand);stroke-width:3}
+.grid-tbl{border-collapse:collapse;font-size:12.5px;width:100%;min-width:560px}
+.grid-tbl th{font:500 11px var(--f-disp);text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);padding:6px 8px;text-align:center}
+.grid-tbl td{padding:3px;text-align:center}
+.grid-tbl td.n{text-align:left;color:var(--ink);padding:3px 8px;white-space:nowrap}
+.grid-tbl td .cell{display:block;border-radius:5px;padding:3px 0;min-width:34px;font-variant-numeric:tabular-nums}
+/* html bar rows */
+.hrow{display:grid;grid-template-columns:112px 1fr 1fr;gap:10px;align-items:center;font-size:12.5px;margin:5px 0}
+.hrow .nm{text-align:right;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hhead{display:grid;grid-template-columns:112px 1fr 1fr;gap:10px;font:500 11px var(--f-disp);letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+.trk{position:relative;height:20px;background:var(--surface2);border-radius:5px;overflow:hidden}
+.fl{position:absolute;left:0;top:0;bottom:0;border-radius:5px}
+.trk span{position:absolute;left:7px;top:0;line-height:20px;font:600 11.5px var(--f-body);color:var(--ink)}
+.stk{display:flex;height:30px;gap:2px;border-radius:6px;overflow:hidden}
+.stk div{display:flex;align-items:center;justify-content:center;font:700 11.5px var(--f-body);color:#fff;min-width:0}
+.srow{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;margin:10px 0}
+.srow .l b{display:block;font:600 13px var(--f-disp);letter-spacing:.04em;text-transform:uppercase}
+.srow .l span{font-size:11.5px;color:var(--ink3)}
+.heat{display:grid;gap:4px;font-size:12px}
+.heat div{border-radius:6px;padding:6px 4px;text-align:center;font-variant-numeric:tabular-nums}
+.heat .hd{font:500 11px var(--f-disp);letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);padding:2px}
+.heat .rl{text-align:left;color:var(--ink2);padding-left:2px}
+.dlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px 18px;margin-top:8px}
+.dli{display:grid;grid-template-columns:96px 1fr 34px;gap:8px;align-items:center;font-size:12.5px}
+.dli .trk{height:12px}
+@media (max-width:700px){
+  .hrow,.hhead{grid-template-columns:84px 1fr 1fr;gap:6px}
+  .srow{grid-template-columns:1fr}
+  .hero h1{font-size:24px}
+  .presets{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">NC Wolfpack 11U · chart options, not yet in the report</div>
+    <h1>Wolfpack Chart Options</h1>
+    <p>Real numbers from your 10 games. Each section shows a few ways to draw it. Tell me which option you want for each (for example "Hitting B, Situational A and B") and I will put it in the report. The game buttons below filter every chart.</p>
+  </div>
+</div>
+<div class="bar"><div class="wrap">
+  <div class="tabs" role="tablist" id="tabs">
+    <button class="tab" role="tab" data-t="play" aria-selected="true">Playing time</button>
+    <button class="tab" role="tab" data-t="hit" aria-selected="false">Hitting</button>
+    <button class="tab" role="tab" data-t="sit" aria-selected="false">Situational</button>
+    <button class="tab" role="tab" data-t="disc" aria-selected="false">Plate discipline</button>
+  </div>
+  <div class="fbar"><span class="lab">Games</span><div class="chips" id="chips"></div>
+    <div class="presets"><button class="pre" data-p="all">All</button><button class="pre" data-p="last4">Last 4</button><button class="pre" data-p="sb">Scorebook only</button></div></div>
+  <div class="keynote"><u></u>has a scorebook. Situational and Plate discipline can only use those games; Plate discipline excludes Oct 4 (no pitch grid).</div>
+</div></div>
+
+<main class="wrap">
+<section class="panel on" id="p-play">
+  <div class="card">
+    <h2>Where the kids play</h2>
+    <div class="cap">Each position shows who has started there across the selected games. Click a position for the full list. Pick a kid to see only where he has played.</div>
+    <div class="ctl"><label>Show kid <select id="focus"></select></label><span id="play-n" class="tnum"></span></div>
+    <div class="scroll"><svg id="diamond" viewBox="0 0 720 570" style="min-width:640px" role="img" aria-label="Baseball field showing which kids started at each position"></svg></div>
+    <div id="detail"></div>
+    <div class="note">Position is the spot each kid started the game. Pitching is the exception: a kid who pitched is counted at P even if he started somewhere else. Mid-game moves in the field are not tracked, and a kid who started on the bench appears under "Started on the bench".</div>
+  </div>
+  <div class="card">
+    <h2>Position grid</h2>
+    <div class="cap">The same counts as a table, one row per kid. Darker means more games at that spot.</div>
+    <div class="scroll" id="posgrid" style="margin-top:10px"></div>
+  </div>
+</section>
+
+<section class="panel" id="p-hit">
+  <div class="card">
+    <h2>Sort and filter</h2>
+    <div class="cap">These controls drive all three options below.</div>
+    <div class="ctl">
+      <label>Sort by <select id="hsort">
+        <option value="ops">OPS</option><option value="obp">OBP</option><option value="slg">SLG</option><option value="avg">AVG</option>
+        <option value="PA">Plate appearances</option><option value="k">K%</option><option value="bb">BB%</option><option value="SB">Stolen bases</option><option value="name">Name</option></select></label>
+      <button class="btn" id="hdir" type="button" aria-label="Reverse sort order">High to low</button>
+      <label>Minimum PA <input type="range" id="hmin" min="1" max="20" value="4"><b id="hminv" class="tnum">4</b></label>
+    </div>
+  </div>
+  <div class="card"><h2><span class="opt">A</span>Paired bars</h2>
+    <div class="cap">Closest to what you have now: plate appearances next to OPS, but sortable and with real axes.</div>
+    <div id="hitA" style="margin-top:12px"></div></div>
+  <div class="card"><h2><span class="opt">B</span>Scatter plot</h2>
+    <div class="cap">Every kid is a dot. Pick what goes on each axis. Dashed lines are the average of the kids shown.</div>
+    <div class="ctl"><label>Across <select id="hx"><option value="PA">Plate appearances</option><option value="k">K%</option><option value="bb">BB%</option><option value="SB">Stolen bases</option></select></label>
+    <label>Up <select id="hy"><option value="ops">OPS</option><option value="obp">OBP</option><option value="slg">SLG</option><option value="avg">AVG</option></select></label></div>
+    <div class="scroll"><div id="hitB" style="min-width:560px"></div></div></div>
+  <div class="card"><h2><span class="opt">C</span>Slash-line strips</h2>
+    <div class="cap">Each row shows AVG, OBP and SLG on one scale. A long gap from AVG to OBP means he gets on by walking; a long gap to SLG means extra-base power.</div>
+    <div class="scroll"><div id="hitC" style="min-width:560px;margin-top:8px"></div></div></div>
+</section>
+
+<section class="panel" id="p-sit">
+  <div class="sec">Pitching by lineup slot</div>
+  <div class="card"><h2><span class="opt">A</span>Outcome mix by part of the order</h2>
+    <div class="cap">How our pitchers did against the top, middle and bottom of the other team's lineup. Each bar is 100% of that group's plate appearances.</div>
+    <div id="sitA" style="margin-top:12px"></div></div>
+  <div class="card"><h2><span class="opt">B</span>Heat grid by game</h2>
+    <div class="cap">How often the other team got on base (hit, walk, hit batter or error), by game and part of the order. Redder means more. The fraction is on-base over plate appearances.</div>
+    <div id="sitB" style="margin-top:12px"></div></div>
+  <div class="sec">Baserunning and hits with runners on</div>
+  <div class="card"><h2><span class="opt">A</span>Steals by game</h2>
+    <div class="cap">Stolen bases for us and for them, plus our runners caught or picked off.</div>
+    <div class="scroll"><div id="runA" style="min-width:520px"></div></div></div>
+  <div class="card"><h2><span class="opt">B</span>Hits with runners on vs bases empty</h2>
+    <div class="cap">Each bar splits a team's hits in a game by whether anyone was on base. Totals first, then game by game.</div>
+    <div id="runB" style="margin-top:10px"></div></div>
+</section>
+
+<section class="panel" id="p-disc">
+  <div class="sec">Hitters</div>
+  <div class="card"><h2>Filter</h2>
+    <div class="ctl"><label>Minimum PA <input type="range" id="dmin" min="1" max="10" value="3"><b id="dminv" class="tnum">3</b></label>
+    <label>Sort option A and C by <select id="dsort"><option value="ppa">Pitches per PA</option><option value="fps">First-pitch strike %</option><option value="surv">Two-strike survival</option><option value="K">Strikeouts</option></select></label></div>
+    <div id="dnote" class="note" style="margin-top:8px"></div></div>
+  <div class="card"><h2><span class="opt">A</span>Who goes deep in the count</h2>
+    <div class="cap">Pitches seen per plate appearance. The dashed line is the team average; each dot sits to the left or right of it. Bigger dots mean more plate appearances.</div>
+    <div class="scroll"><div id="discA" style="min-width:560px"></div></div>
+    <div class="legend"><span><i class="sw" style="background:var(--s3)"></i>deeper than team (+0.5)</span><span><i class="sw" style="background:var(--s1)"></i>near team</span><span><i class="sw" style="background:var(--s4)"></i>quicker than team (-0.5)</span></div></div>
+  <div class="card"><h2><span class="opt">B</span>Quadrant: first pitch vs at-bat length</h2>
+    <div class="cap">Across: how often his first pitch was a strike (swing, take or foul). Up: pitches per plate appearance. Dashed lines are the averages.</div>
+    <div class="scroll"><div id="discB" style="min-width:560px"></div></div></div>
+  <div class="card"><h2><span class="opt">C</span>Strikeouts: swinging vs looking</h2>
+    <div class="cap">How each hitter's strikeouts ended. Looking means a called third strike.</div>
+    <div class="scroll"><div id="discC" style="min-width:520px"></div></div>
+    <div class="legend"><span><i class="sw" style="background:var(--s1)"></i>swinging</span><span><i class="sw" style="background:var(--s2)"></i>looking</span></div></div>
+  <div class="sec">Our pitchers</div>
+  <div class="card"><h2><span class="opt">D</span>Throwing strikes</h2>
+    <div class="cap">Share of batters who got a first-pitch strike, and share of all pitches that were strikes. Pitchers with at least 6 batters faced.</div>
+    <div id="discD" style="margin-top:12px"></div>
+    <div class="legend"><span><i class="sw" style="background:var(--s1)"></i>first-pitch strike %</span><span><i class="sw" style="background:var(--s3)"></i>strike % of all pitches</span></div></div>
+  <div class="card"><h2><span class="opt">E</span>Why the first pitch matters</h2>
+    <div class="cap">How often the hitter reached base (hit, walk, hit batter, error or fielder's choice) depending on the first pitch our pitchers threw.</div>
+    <div id="discE" style="margin-top:12px"></div></div>
+</section>
+</main>
+<div id="tip" role="status"></div>
+
+<script>
+const DATA={"games":[{"date":"2026-08-30","opp":"Sox 11U","result":"L","rs":5,"ra":10},{"date":"2026-09-13","opp":"OutKast BB Club 10U","result":"W","rs":8,"ra":5},{"date":"2026-09-20","opp":"Carlsbad Crew-Stanford 11U","result":"L","rs":3,"ra":5},{"date":"2026-09-27","opp":"San Marcos Impact 11U","result":"W","rs":9,"ra":3},{"date":"2026-10-04","opp":"San Diego Hawks 11U (OG)","result":"L","rs":4,"ra":11},{"date":"2026-10-18","opp":"OutKast BB Club 10U","result":"T","rs":4,"ra":4},{"date":"2026-10-25","opp":"Owls 11U","result":"L","rs":4,"ra":6},{"date":"2026-10-25b","opp":"High Standards 11U","result":"L","rs":6,"ra":12},{"date":"2026-11-07","opp":"AZBC 2034 DF 11U","result":"L","rs":2,"ra":12},{"date":"2026-11-07b","opp":"Dynasty Baseball 11U Moody","result":"L","rs":1,"ra":10}],"players":[{"name":"G Nebo","num":"1","pk":null,"pergame":[{"date":"2026-08-30","pos":"P","order":4,"AB":2,"R":1,"H":1,"RBI":0,"BB":1,"SO":0,"TB":1,"SB":2,"HBP":0},{"date":"2026-09-13","pos":"LF","order":5,"AB":2,"R":2,"H":2,"RBI":2,"BB":0,"SO":0,"TB":2,"SB":2,"HBP":0},{"date":"2026-09-20","pos":"LF","order":5,"AB":3,"R":1,"H":1,"RBI":0,"BB":0,"SO":0,"TB":1,"SB":1,"HBP":0},{"date":"2026-09-27","pos":"LF","order":5,"AB":1,"R":2,"H":1,"RBI":0,"BB":2,"SO":0,"TB":1,"SB":2,"HBP":0},{"date":"2026-10-04","pos":"P","order":3,"AB":2,"R":1,"H":1,"RBI":0,"BB":0,"SO":0,"TB":2,"SB":1,"HBP":0},{"date":"2026-10-18","pos":"P","order":3,"AB":2,"R":1,"H":0,"RBI":0,"BB":1,"SO":1,"TB":0,"SB":2,"HBP":0},{"date":"2026-10-25","pos":"P","order":4,"AB":2,"R":0,"H":0,"RBI":0,"BB":1,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-25b","pos":"CF","order":4,"AB":3,"R":0,"H":2,"RBI":1,"BB":0,"SO":0,"TB":3,"SB":0,"HBP":0},{"date":"2026-11-07","pos":"LF","order":3,"AB":1,"R":1,"H":0,"RBI":0,"BB":1,"SO":0,"TB":0,"SB":2,"HBP":0},{"date":"2026-11-07b","pos":"LF","order":3,"AB":1,"R":0,"H":0,"RBI":0,"BB":1,"SO":1,"TB":0,"SB":0,"HBP":0}]},{"name":"J Grissinger","num":"44","pk":null,"pergame":[{"date":"2026-08-30","pos":"CF","order":1,"AB":2,"R":1,"H":0,"RBI":1,"BB":1,"SO":0,"TB":0,"SB":2,"HBP":0},{"date":"2026-09-13","pos":"RF","order":1,"AB":0,"R":1,"H":0,"RBI":0,"BB":2,"SO":0,"TB":0,"SB":3,"HBP":0},{"date":"2026-09-20","pos":"RF","order":1,"AB":2,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-27","pos":"RF","order":13,"AB":0,"R":1,"H":0,"RBI":0,"BB":2,"SO":0,"TB":0,"SB":3,"HBP":0},{"date":"2026-10-04","pos":"RF","order":10,"AB":2,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-18","pos":"RF","order":1,"AB":1,"R":0,"H":0,"RBI":0,"BB":2,"SO":1,"TB":0,"SB":1,"HBP":0},{"date":"2026-10-25","pos":"RF","order":1,"AB":3,"R":1,"H":1,"RBI":0,"BB":0,"SO":1,"TB":1,"SB":0,"HBP":0},{"date":"2026-11-07","pos":"RF","order":1,"AB":2,"R":0,"H":0,"RBI":0,"BB":0,"SO":2,"TB":0,"SB":0,"HBP":0}]},{"name":"C Davis","num":"23","pk":null,"pergame":[{"date":"2026-08-30","pos":"SS","order":5,"AB":3,"R":1,"H":2,"RBI":1,"BB":0,"SO":0,"TB":2,"SB":2,"HBP":0},{"date":"2026-09-13","pos":"CF","order":7,"AB":1,"R":1,"H":1,"RBI":1,"BB":1,"SO":0,"TB":2,"SB":1,"HBP":0},{"date":"2026-09-20","pos":"P","order":7,"AB":1,"R":0,"H":0,"RBI":0,"BB":1,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-27","pos":"SS","order":6,"AB":2,"R":2,"H":2,"RBI":0,"BB":0,"SO":0,"TB":2,"SB":0,"HBP":0},{"date":"2026-10-04","pos":"SS","order":4,"AB":2,"R":0,"H":1,"RBI":0,"BB":0,"SO":0,"TB":1,"SB":0,"HBP":0},{"date":"2026-10-18","pos":"P","order":4,"AB":2,"R":0,"H":0,"RBI":0,"BB":1,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-25","pos":"P","order":3,"AB":2,"R":0,"H":0,"RBI":0,"BB":1,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-25b","pos":"C","order":2,"AB":3,"R":1,"H":1,"RBI":2,"BB":0,"SO":0,"TB":1,"SB":0,"HBP":0},{"date":"2026-11-07b","pos":"SS","order":2,"AB":2,"R":1,"H":2,"RBI":0,"BB":0,"SO":0,"TB":4,"SB":1,"HBP":0}]},{"name":"R Johnson","num":"27","pk":null,"pergame":[{"date":"2026-08-30","pos":"1B","order":6,"AB":2,"R":0,"H":1,"RBI":0,"BB":1,"SO":1,"TB":1,"SB":0,"HBP":0},{"date":"2026-09-13","pos":"SS","order":9,"AB":2,"R":1,"H":2,"RBI":1,"BB":0,"SO":0,"TB":2,"SB":2,"HBP":0},{"date":"2026-09-20","pos":"1B","order":9,"AB":2,"R":0,"H":0,"RBI":1,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-27","pos":"3B","order":8,"AB":3,"R":1,"H":2,"RBI":0,"BB":0,"SO":0,"TB":2,"SB":0,"HBP":0},{"date":"2026-10-04","pos":"1B","order":5,"AB":2,"R":1,"H":2,"RBI":0,"BB":0,"SO":0,"TB":2,"SB":2,"HBP":0},{"date":"2026-10-25","pos":"1B","order":2,"AB":2,"R":0,"H":2,"RBI":1,"BB":1,"SO":0,"TB":2,"SB":0,"HBP":0},{"date":"2026-10-25b","pos":"3B","order":1,"AB":2,"R":1,"H":0,"RBI":1,"BB":1,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-11-07b","pos":"1B","order":5,"AB":2,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0}]},{"name":"B Osterberg","num":"15","pk":null,"pergame":[{"date":"2026-08-30","pos":"RF","order":2,"AB":2,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-13","pos":"2B","order":3,"AB":0,"R":2,"H":0,"RBI":0,"BB":2,"SO":0,"TB":0,"SB":2,"HBP":0},{"date":"2026-09-20","pos":"2B","order":3,"AB":1,"R":0,"H":0,"RBI":0,"BB":1,"SO":1,"TB":0,"SB":2,"HBP":0},{"date":"2026-09-27","pos":"2B","order":3,"AB":2,"R":1,"H":1,"RBI":0,"BB":0,"SO":1,"TB":1,"SB":1,"HBP":0},{"date":"2026-10-04","pos":"2B","order":1,"AB":3,"R":0,"H":1,"RBI":0,"BB":0,"SO":1,"TB":1,"SB":0,"HBP":0},{"date":"2026-10-18","pos":"2B","order":2,"AB":2,"R":0,"H":0,"RBI":0,"BB":0,"SO":2,"TB":0,"SB":2,"HBP":1},{"date":"2026-10-25b","pos":"RF","order":6,"AB":2,"R":0,"H":0,"RBI":0,"BB":1,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-11-07b","pos":"2B","order":9,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0}]},{"name":"A Stanford","num":"7","pk":null,"pergame":[{"date":"2026-08-30","pos":"LF","order":8,"AB":2,"R":0,"H":1,"RBI":1,"BB":0,"SO":0,"TB":1,"SB":0,"HBP":0},{"date":"2026-09-13","pos":"RF","order":14,"AB":1,"R":1,"H":0,"RBI":0,"BB":1,"SO":0,"TB":0,"SB":2,"HBP":0},{"date":"2026-09-20","pos":"CF","order":14,"AB":2,"R":0,"H":2,"RBI":1,"BB":0,"SO":0,"TB":2,"SB":2,"HBP":0},{"date":"2026-09-27","pos":"CF","order":1,"AB":3,"R":0,"H":1,"RBI":0,"BB":0,"SO":0,"TB":1,"SB":0,"HBP":0},{"date":"2026-10-04","pos":"P","order":2,"AB":2,"R":0,"H":0,"RBI":0,"BB":1,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-18","pos":"CF","order":5,"AB":3,"R":0,"H":1,"RBI":0,"BB":0,"SO":0,"TB":1,"SB":0,"HBP":0},{"date":"2026-10-25","pos":"P","order":5,"AB":1,"R":0,"H":0,"RBI":1,"BB":2,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-25b","pos":"CF","order":3,"AB":2,"R":0,"H":1,"RBI":0,"BB":1,"SO":0,"TB":1,"SB":1,"HBP":0},{"date":"2026-11-07b","pos":"CF","order":7,"AB":2,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0}]},{"name":"N Fujishiro","num":"18","pk":null,"pergame":[{"date":"2026-08-30","pos":"SS","order":11,"AB":3,"R":0,"H":1,"RBI":0,"BB":0,"SO":2,"TB":1,"SB":1,"HBP":0},{"date":"2026-09-13","pos":"P","order":6,"AB":1,"R":0,"H":1,"RBI":0,"BB":0,"SO":0,"TB":1,"SB":2,"HBP":0},{"date":"2026-09-20","pos":"SS","order":13,"AB":2,"R":0,"H":1,"RBI":0,"BB":0,"SO":0,"TB":1,"SB":0,"HBP":0},{"date":"2026-09-27","pos":"P","order":2,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-04","pos":"SS","order":8,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-18","pos":"P","order":11,"AB":1,"R":0,"H":0,"RBI":0,"BB":1,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-25","pos":"SS","order":8,"AB":2,"R":0,"H":1,"RBI":0,"BB":0,"SO":1,"TB":1,"SB":0,"HBP":0},{"date":"2026-10-25b","pos":"P","order":7,"AB":2,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0}]},{"name":"F Lane","num":"9","pk":null,"pergame":[{"date":"2026-08-30","pos":"3B","order":7,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-13","pos":"3B","order":10,"AB":2,"R":0,"H":2,"RBI":2,"BB":0,"SO":0,"TB":2,"SB":1,"HBP":0},{"date":"2026-09-20","pos":"3B","order":10,"AB":1,"R":1,"H":0,"RBI":0,"BB":1,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-04","pos":"3B","order":7,"AB":0,"R":1,"H":0,"RBI":0,"BB":1,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-18","pos":"3B","order":8,"AB":3,"R":0,"H":1,"RBI":1,"BB":0,"SO":1,"TB":1,"SB":0,"HBP":0},{"date":"2026-10-25","pos":"3B","order":6,"AB":3,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-25b","pos":"P","order":5,"AB":2,"R":1,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":1},{"date":"2026-11-07","pos":"3B","order":5,"AB":1,"R":0,"H":1,"RBI":2,"BB":0,"SO":0,"TB":1,"SB":0,"HBP":1},{"date":"2026-11-07b","pos":"3B","order":8,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0}]},{"name":"A Kasak","num":"3","pk":null,"pergame":[{"date":"2026-08-30","pos":"1B","order":10,"AB":1,"R":0,"H":0,"RBI":1,"BB":1,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-20","pos":"1B","order":11,"AB":2,"R":0,"H":1,"RBI":1,"BB":0,"SO":0,"TB":2,"SB":0,"HBP":0},{"date":"2026-09-27","pos":"1B","order":11,"AB":1,"R":0,"H":0,"RBI":0,"BB":1,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-04","pos":"CF","order":8,"AB":0,"R":0,"H":0,"RBI":1,"BB":1,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-18","pos":"1B","order":12,"AB":2,"R":0,"H":2,"RBI":1,"BB":0,"SO":0,"TB":3,"SB":0,"HBP":0},{"date":"2026-10-25","pos":"1B","order":7,"AB":2,"R":1,"H":1,"RBI":0,"BB":0,"SO":1,"TB":1,"SB":0,"HBP":0}]},{"name":"L Mercuriali","num":"14","pk":null,"pergame":[{"date":"2026-08-30","pos":"C","order":12,"AB":0,"R":1,"H":0,"RBI":0,"BB":1,"SO":0,"TB":0,"SB":1,"HBP":0},{"date":"2026-09-13","pos":"C","order":13,"AB":2,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-20","pos":"C","order":6,"AB":0,"R":0,"H":0,"RBI":0,"BB":1,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-27","pos":"C","order":4,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-04","pos":"C","order":7,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-18","pos":"—","order":7,"AB":1,"R":1,"H":1,"RBI":0,"BB":1,"SO":0,"TB":1,"SB":3,"HBP":0},{"date":"2026-11-07b","pos":"C","order":10,"AB":0,"R":0,"H":0,"RBI":0,"BB":1,"SO":0,"TB":0,"SB":1,"HBP":0}]},{"name":"H Nichols","num":"66","pk":null,"pergame":[{"date":"2026-08-30","pos":"2B","order":14,"AB":2,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-13","pos":"2B","order":2,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-20","pos":"C","order":8,"AB":1,"R":0,"H":1,"RBI":0,"BB":0,"SO":0,"TB":1,"SB":0,"HBP":0},{"date":"2026-10-04","pos":"2B","order":11,"AB":2,"R":0,"H":1,"RBI":0,"BB":0,"SO":0,"TB":1,"SB":0,"HBP":0},{"date":"2026-10-18","pos":"2B","order":9,"AB":2,"R":1,"H":0,"RBI":1,"BB":0,"SO":0,"TB":0,"SB":1,"HBP":0},{"date":"2026-10-25b","pos":"2B","order":11,"AB":1,"R":1,"H":0,"RBI":0,"BB":1,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-11-07","pos":"—","order":11,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0}]},{"name":"N Koletsos","num":"11","pk":null,"pergame":[{"date":"2026-08-30","pos":"2B","order":3,"AB":0,"R":1,"H":0,"RBI":0,"BB":1,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-13","pos":"2B","order":4,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-20","pos":"2B","order":2,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-27","pos":"2B","order":7,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-04","pos":"—","order":11,"AB":1,"R":0,"H":1,"RBI":0,"BB":0,"SO":0,"TB":1,"SB":0,"HBP":0},{"date":"2026-10-18","pos":"2B","order":10,"AB":1,"R":0,"H":0,"RBI":0,"BB":1,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-25","pos":"2B","order":10,"AB":2,"R":0,"H":0,"RBI":1,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-11-07","pos":"2B","order":7,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":1}]},{"name":"G Chionis","num":"6","pk":null,"pergame":[{"date":"2026-08-30","pos":"RF","order":9,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-13","pos":"1B","order":11,"AB":1,"R":0,"H":0,"RBI":0,"BB":1,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-27","pos":"RF","order":9,"AB":0,"R":1,"H":0,"RBI":1,"BB":1,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-04","pos":"RF","order":6,"AB":0,"R":1,"H":0,"RBI":0,"BB":1,"SO":0,"TB":0,"SB":1,"HBP":0},{"date":"2026-10-18","pos":"RF","order":6,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-25","pos":"RF","order":11,"AB":2,"R":1,"H":1,"RBI":1,"BB":0,"SO":1,"TB":1,"SB":0,"HBP":0},{"date":"2026-10-25b","pos":"RF","order":8,"AB":2,"R":0,"H":0,"RBI":1,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-11-07","pos":"1B","order":6,"AB":1,"R":0,"H":0,"RBI":0,"BB":1,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-11-07b","pos":"—","order":11,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0}]},{"name":"B Currier","num":"13","pk":null,"pergame":[{"date":"2026-09-13","pos":"LF","order":12,"AB":2,"R":0,"H":1,"RBI":0,"BB":0,"SO":0,"TB":1,"SB":2,"HBP":0},{"date":"2026-09-20","pos":"LF","order":4,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-27","pos":"LF","order":12,"AB":2,"R":0,"H":0,"RBI":1,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-04","pos":"—","order":6,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":1,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-18","pos":"LF","order":6,"AB":2,"R":0,"H":1,"RBI":1,"BB":0,"SO":1,"TB":1,"SB":1,"HBP":0},{"date":"2026-10-25b","pos":"C","order":10,"AB":1,"R":1,"H":0,"RBI":0,"BB":1,"SO":0,"TB":0,"SB":1,"HBP":0},{"date":"2026-11-07","pos":"C","order":9,"AB":1,"R":0,"H":1,"RBI":0,"BB":0,"SO":0,"TB":1,"SB":1,"HBP":0}]},{"name":"C Ponsford","num":"22","pk":null,"pergame":[{"date":"2026-08-30","pos":"LF","order":13,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-13","pos":"LF","order":8,"AB":0,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-09-20","pos":"CF","order":12,"AB":1,"R":1,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":1,"HBP":0},{"date":"2026-09-27","pos":"C","order":10,"AB":2,"R":1,"H":1,"RBI":1,"BB":0,"SO":1,"TB":1,"SB":1,"HBP":0},{"date":"2026-10-04","pos":"C","order":9,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-10-18","pos":"C","order":7,"AB":0,"R":1,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":1,"HBP":1},{"date":"2026-10-25","pos":"C","order":9,"AB":1,"R":1,"H":1,"RBI":0,"BB":1,"SO":0,"TB":1,"SB":0,"HBP":0},{"date":"2026-10-25b","pos":"C","order":9,"AB":1,"R":1,"H":0,"RBI":0,"BB":1,"SO":1,"TB":0,"SB":1,"HBP":0}]},{"name":"R Lovati","num":"3","pk":"3b","pergame":[{"date":"2026-11-07","pos":"CF","order":2,"AB":2,"R":1,"H":1,"RBI":0,"BB":0,"SO":0,"TB":1,"SB":1,"HBP":0},{"date":"2026-11-07b","pos":"P","order":1,"AB":2,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0}]},{"name":"G Balogh","num":"33","pk":null,"pergame":[{"date":"2026-11-07","pos":"P","order":4,"AB":2,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0},{"date":"2026-11-07b","pos":"RF","order":4,"AB":0,"R":0,"H":0,"RBI":0,"BB":2,"SO":0,"TB":0,"SB":0,"HBP":0}]},{"name":"J Sanford","num":"29","pk":null,"pergame":[{"date":"2026-11-07","pos":"—","order":8,"AB":2,"R":0,"H":0,"RBI":0,"BB":0,"SO":2,"TB":0,"SB":0,"HBP":0},{"date":"2026-11-07b","pos":"—","order":6,"AB":2,"R":0,"H":1,"RBI":1,"BB":0,"SO":0,"TB":1,"SB":0,"HBP":0}]},{"name":"J Macias","num":"87","pk":null,"pergame":[{"date":"2026-11-07","pos":"SS","order":10,"AB":1,"R":0,"H":0,"RBI":0,"BB":0,"SO":0,"TB":0,"SB":0,"HBP":0}]}],"pitchers":[{"name":"C Davis","num":"23","pk":null,"pergame":[{"date":"2026-08-30","pc":42,"st":26,"bf":9},{"date":"2026-09-13","pc":23,"st":10,"bf":5},{"date":"2026-09-20","pc":43,"st":27,"bf":13},{"date":"2026-09-27","pc":12,"st":8,"bf":3},{"date":"2026-10-04","pc":35,"st":23,"bf":9},{"date":"2026-10-18","pc":43,"st":28,"bf":13},{"date":"2026-10-25","pc":21,"st":15,"bf":10}]},{"name":"N Fujishiro","num":"18","pk":null,"pergame":[{"date":"2026-09-13","pc":69,"st":33,"bf":21},{"date":"2026-09-27","pc":44,"st":28,"bf":14},{"date":"2026-10-18","pc":41,"st":21,"bf":12},{"date":"2026-10-25b","pc":55,"st":37,"bf":14}]},{"name":"G Nebo","num":"1","pk":null,"pergame":[{"date":"2026-08-30","pc":72,"st":35,"bf":18},{"date":"2026-09-27","pc":14,"st":9,"bf":3},{"date":"2026-10-04","pc":31,"st":22,"bf":8},{"date":"2026-10-18","pc":30,"st":14,"bf":7},{"date":"2026-10-25","pc":25,"st":11,"bf":7},{"date":"2026-11-07","pc":55,"st":34,"bf":17}]},{"name":"A Stanford","num":"7","pk":null,"pergame":[{"date":"2026-08-30","pc":6,"st":4,"bf":3},{"date":"2026-09-13","pc":11,"st":10,"bf":6},{"date":"2026-09-20","pc":20,"st":12,"bf":5},{"date":"2026-10-04","pc":23,"st":15,"bf":8},{"date":"2026-10-25","pc":53,"st":36,"bf":14},{"date":"2026-11-07b","pc":29,"st":18,"bf":9}]},{"name":"F Lane","num":"9","pk":null,"pergame":[{"date":"2026-08-30","pc":24,"st":10,"bf":6},{"date":"2026-09-20","pc":14,"st":9,"bf":4},{"date":"2026-10-04","pc":41,"st":23,"bf":12},{"date":"2026-10-25b","pc":26,"st":16,"bf":7},{"date":"2026-11-07b","pc":37,"st":22,"bf":9}]},{"name":"A Kasak","num":"3","pk":null,"pergame":[{"date":"2026-09-27","pc":25,"st":12,"bf":6}]},{"name":"J Grissinger","num":"44","pk":null,"pergame":[{"date":"2026-10-25b","pc":40,"st":26,"bf":13}]},{"name":"G Balogh","num":"33","pk":null,"pergame":[{"date":"2026-11-07","pc":27,"st":20,"bf":9}]},{"name":"R Lovati","num":"3","pk":"3b","pergame":[{"date":"2026-11-07b","pc":26,"st":16,"bf":6}]}],"sg":[{"date":"2026-09-27","thirds":[{"pa":9,"k":2,"bb":1,"h":1,"roe":2,"outsInPlay":2,"onBase":4},{"pa":11,"k":5,"bb":0,"h":1,"roe":0,"outsInPlay":4,"onBase":1},{"pa":6,"k":1,"bb":2,"h":2,"roe":0,"outsInPlay":1,"onBase":4}],"oppSB":3,"usSB":7,"usCS":3,"oppOn":2,"oppEmpty":2,"usOn":4,"usEmpty":4},{"date":"2026-10-04","thirds":[{"pa":12,"k":2,"bb":3,"h":4,"roe":1,"outsInPlay":2,"onBase":8},{"pa":17,"k":3,"bb":2,"h":5,"roe":1,"outsInPlay":6,"onBase":8},{"pa":8,"k":2,"bb":0,"h":3,"roe":0,"outsInPlay":3,"onBase":3}],"oppSB":2,"usSB":4,"usCS":5,"oppOn":4,"oppEmpty":1,"usOn":2,"usEmpty":5},{"date":"2026-10-18","thirds":[{"pa":12,"k":2,"bb":3,"h":3,"roe":2,"outsInPlay":2,"onBase":8},{"pa":11,"k":4,"bb":2,"h":1,"roe":0,"outsInPlay":4,"onBase":3},{"pa":9,"k":1,"bb":1,"h":4,"roe":0,"outsInPlay":3,"onBase":5}],"oppSB":3,"usSB":11,"usCS":5,"oppOn":5,"oppEmpty":3,"usOn":4,"usEmpty":2},{"date":"2026-10-25","thirds":[{"pa":10,"k":5,"bb":0,"h":2,"roe":0,"outsInPlay":3,"onBase":3},{"pa":12,"k":0,"bb":1,"h":4,"roe":0,"outsInPlay":6,"onBase":6},{"pa":9,"k":0,"bb":1,"h":2,"roe":1,"outsInPlay":4,"onBase":5}],"oppSB":4,"usSB":0,"usCS":4,"oppOn":5,"oppEmpty":3,"usOn":4,"usEmpty":3},{"date":"2026-10-25b","thirds":[{"pa":12,"k":3,"bb":0,"h":7,"roe":0,"outsInPlay":2,"onBase":7},{"pa":14,"k":4,"bb":2,"h":4,"roe":1,"outsInPlay":3,"onBase":7},{"pa":8,"k":3,"bb":0,"h":2,"roe":0,"outsInPlay":3,"onBase":2}],"oppSB":7,"usSB":3,"usCS":1,"oppOn":8,"oppEmpty":5,"usOn":3,"usEmpty":1},{"date":"2026-11-07","thirds":[{"pa":9,"k":0,"bb":0,"h":7,"roe":0,"outsInPlay":2,"onBase":7},{"pa":9,"k":3,"bb":1,"h":3,"roe":1,"outsInPlay":1,"onBase":6},{"pa":8,"k":0,"bb":0,"h":3,"roe":0,"outsInPlay":4,"onBase":4}],"oppSB":2,"usSB":4,"usCS":1,"oppOn":9,"oppEmpty":4,"usOn":1,"usEmpty":2},{"date":"2026-11-07b","thirds":[{"pa":8,"k":1,"bb":0,"h":3,"roe":1,"outsInPlay":2,"onBase":5},{"pa":8,"k":1,"bb":2,"h":1,"roe":1,"outsInPlay":3,"onBase":4},{"pa":8,"k":1,"bb":1,"h":3,"roe":1,"outsInPlay":1,"onBase":6}],"oppSB":1,"usSB":2,"usCS":0,"oppOn":7,"oppEmpty":0,"usOn":1,"usEmpty":2}],"pl":[{"date":"2026-09-27","bat":[["7","SbbSS","L"],["15","SSS","1B"],["1","bbSbSb","BB"],["23","S","1B"],["27","S","1B"],["6","SSbbSb","HBP"],["22","bSSS","KL"],["3","bSbSbb","BB"],["13","bSbSbS","G"],["7","bSS","1B"],["15","bbbSSS","K"],["1","bSSbSS","1B"],["23","bb","inc"],["44","bSbbb","BB"],["23","bSSbbS","1B"],["27","SS","1B"],["6","Sbbbb","BB"],["22","bS","1B"],["3","SSS","K"],["13","bSSS","G"],["44","bbSSbSb","BB"],["18","SSS","F"],["14","bSSS","K"],["7","bbbSSS","L"],["11","SbSbS","G"],["1","bbbb","BB"],["23","bbb","HBP"],["27","bSSS","F"]],"pit":[["18","bSSS","K"],["18","S","E"],["18","bbbSb","BB"],["18","SSSS","SF"],["18","SbSS","G"],["18","bbS","1B"],["18","SSS","KL"],["18","bSbS","G"],["18","bS","1B"],["18","bSbbSSS","1B"],["18","SS","F"],["18","bS","G"],["18","S","1B"],["18","bS","G"],["1","SbbSS","K"],["1","bbSSS","K"],["1","bSSS","KL"],["3","bbSSS","E"],["3","S","F"],["3","SSSbbS","K"],["3","bSbbb","BB"],["3","bSSS","K"],["3","bbbb","BB"],["23","SSbS","L"],["23","bSbbSS","KL"],["23","SS","F"]]},{"date":"2026-10-18","bat":[["44","bSbSbb","BB"],["15","SbSbSbb","HBP"],["1","bSSbbSS","KL"],["23","SSS","K"],["7","S","1B"],["6","SSbS","KL"],["22","b","HBP"],["9","SbbbSSSS","1B"],["66","bS","inc"],["44","SSbbbS","KL"],["15","SSS","KL"],["66","S","E"],["11","bbbSb","BB"],["18","SbSS","K"],["1","Sbbbb","BB"],["23","bSSbbb","BB"],["7","bS","IF"],["13","bbbS","1B"],["14","bSb","inc"],["14","S","1B"],["9","bSbSbS","KL"],["66","S","G"],["11","bSS","G"],["44","bSbbb","BB"],["15","bSSbSbS","K"],["1","SbbS","L"],["23","S","G"],["18","bSbbb","BB"],["7","bS","G"],["13","SSbbS","K"],["14","bbSbSb","BB"],["9","bbS","G"]],"pit":[["23","bbSS","E"],["23","bS","1B"],["23","Sbbbb","BB"],["23","SSbSSS","K"],["23","","inc"],["23","SSS","K"],["23","SbS","1B"],["23","bbS","1B"],["23","SS","G"],["23","bbSSS","K"],["23","SbSbSS","2B"],["23","S","F"],["23","S","1B"],["23","S","F"],["1","bbbb","BB"],["1","SSSS","K"],["1","SbbSS","K"],["1","bSbbSb","BB"],["1","SbbS","1B"],["1","bSbSbb","BB"],["1","S","1B"],["18","S","E"],["18","bS","G"],["18","SSbbbS","KL"],["18","S","G"],["18","SSbS","1B"],["18","bSbS","G"],["18","bbS","G"],["18","bbbb","BB"],["18","bbSSS","KL"],["18","S","G"],["18","bbbSSSSb","BB"],["18","SS","G"]]},{"date":"2026-10-25","bat":[["44","S","E"],["27","bSS","1B"],["23","bbbSb","BB"],["1","bSbSS","KL"],["7","bbbb","BB"],["9","bS","FC"],["3","SbbbSS","K"],["18","S","1B"],["22","SbbSS","1B"],["11","bSS","G"],["44","SbSS","K"],["27","bbbb","BB"],["23","bbSbSSS","KL"],["6","bSSbS","KL"],["1","bbbb","BB"],["7","bbbSb","BB"],["9","S","G"],["3","bSSbb","inc"],["44","SS","1B"],["27","SbbbS","1B"],["23","bbS","F"],["3","SbSS","1B"],["18","SSS","KL"],["22","bbbb","BB"],["11","SbS","G"],["6","S","1B"],["1","bSS","G"],["7","SbSbbS","K"],["9","SbbbSS","KL"]],"pit":[["7","S","F"],["7","SSS","KL"],["7","SSS","K"],["7","SSS","1B"],["7","SSbbbSb","BB"],["7","S","1B"],["7","bbSb","HBP"],["7","bSSSS","F"],["7","bSSbSSbSS","L"],["7","SbbSS","KL"],["7","SS","1B"],["7","bbSbS","G"],["7","SbS","1B"],["7","SS","E"],["1","bbbSSS","1B"],["1","SbS","1B"],["1","bbSS","G"],["1","bS","F"],["1","bbS","2B"],["1","Sb","HBP"],["1","bbbSb","BB"],["23","SSbS","K"],["23","SS","G"],["23","bS","1B"],["23","bS","G"],["23","S","F"],["23","bS","G"],["23","S","G"],["23","bSSbS","KL"],["23","S","G"],["23","S","L"]]},{"date":"2026-10-25b","bat":[["27","bbS","F"],["23","bS","G"],["7","bbbSSb","BB"],["1","S","G"],["9","Sb","HBP"],["15","Sbbbb","BB"],["18","S","G"],["6","bbSS","F"],["22","SSS","KL"],["27","S","G"],["13","S","G"],["66","SSSbS","F"],["23","bS","F"],["7","bS","1B"],["1","SS","1B"],["9","bSSbS","K"],["15","S","G"],["18","bSSS","K"],["6","S","G"],["27","bSbbSSb","BB"],["23","S","1B"],["7","S","G"],["1","SbbSS","2B"],["9","bS","G"],["15","SSbS","K"],["22","bbSSbb","BB"],["13","Sbbbb","BB"],["66","bbbb","BB"]],"pit":[["44","SS","1B"],["44","SbSbbS","F"],["44","SbbS","2B"],["44","bS","E"],["44","SbbbS","G"],["44","SS","1B"],["44","bS","F"],["44","bS","1B"],["44","SSbbSS","1B"],["44","S","G"],["44","SS","2B"],["44","SSbS","F"],["44","SS","F"],["9","SbS","1B"],["9","bbS","G"],["9","SS","1B"],["9","Sbbbb","BB"],["9","SSS","1B"],["9","SbSSbbSSS","KL"],["9","S","G"],["18","SSS","1B"],["18","SSbbSS","KL"],["18","bSSS","KL"],["18","Sbbbb","BB"],["18","SS","1B"],["18","SbbSS","K"],["18","bSSS","K"],["18","SSbbbS","K"],["18","SbSS","K"],["18","SbbSbS","KL"],["18","S","1B"],["18","SS","2B"],["18","SSS","K"],["18","SSbS","K"]]},{"date":"2026-11-07","bat":[["44","SSS","K"],["3b","S","G"],["1","SS","E"],["33","bSbbS","G"],["9","SbSbb","HBP"],["6","bbSbb","BB"],["11","bbbSSS","K"],["29","bbbSSS","KL"],["13","S","1B"],["87","bSS","F"],["66","SbSbS","K"],["44","bSbSSbS","KL"],["3b","SS","1B"],["1","bSbbb","BB"],["33","bbbSSS","L"],["9","S","1B"],["6","bSSbbS","F"],["11","bbSb","HBP"],["29","SSS","K"]],"pit":[["33","S","1B"],["33","S","F"],["33","SSS","1B"],["33","SbSS","K"],["33","bbSSSbSS","2B"],["33","SSbS","K"],["33","bS","1B"],["33","SbS","1B"],["33","S","G"],["1","S","G"],["1","bS","3B"],["1","S","1B"],["1","S","F"],["1","bbSS","1B"],["1","SbSbS","E"],["1","S","1B"],["1","bSSS","F"],["1","SbSbS","KL"],["1","bSSb","HBP"],["1","SbSS","F"],["1","S","1B"],["1","S","inc"],["1","bSSS","G"],["1","S","1B"],["1","bbSbS","1B"],["1","SSbbSS","3B"],["1","bbbSb","BB"]]},{"date":"2026-11-07b","bat":[["3b","S","G"],["23","SSSSS","3B"],["1","SSS","KL"],["33","bbbSb","BB"],["27","bSSSS","KL"],["29","SSS","G"],["7","S","G"],["9","SbSbS","G"],["15","bSSSS","K"],["14","bSbSbb","BB"],["6","bbSSS","KL"],["3b","S","G"],["23","S","1B"],["1","bbbSb","BB"],["33","bbbb","BB"],["27","SSS","DP"],["29","bSS","1B"],["7","SbSS","F"]],"pit":[["3b","bSSbS","E"],["3b","b","HBP"],["3b","bSS","1B"],["3b","SbS","2B"],["3b","bSSSbSbSb","BB"],["3b","SbSSS","F"],["9","SbbSbb","BB"],["9","bSS","1B"],["9","SSbbS","KL"],["9","SSSbbS","1B"],["9","bS","1B"],["9","SbSS","KL"],["9","S","G"],["9","SbbSS","F"],["9","bSbSS","G"],["7","bSS","E"],["7","SbbSS","K"],["7","SSbS","DP"],["7","SS","F"],["7","bbSSbSb","BB"],["7","bb","HBP"],["7","SbS","E"],["7","SS","1B"],["7","S","1B"]]}]};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const LAB={'2026-08-30':'Aug 30','2026-09-13':'Sep 13','2026-09-20':'Sep 20','2026-09-27':'Sep 27','2026-10-04':'Oct 4','2026-10-18':'Oct 18','2026-10-25':'Oct 25 (1)','2026-10-25b':'Oct 25 (2)','2026-11-07':'Nov 7 (1)','2026-11-07b':'Nov 7 (2)'};
+const G=DATA.games, SBset=new Set(DATA.sg.map(g=>g.date)), PLset=new Set(DATA.pl.map(g=>g.date));
+const sel=new Set(G.map(g=>g.date));
+let tab='play', selPos='P', hdesc=true;
+const last=n=>n.split(' ').slice(1).join(' ');
+const f3=v=>v.toFixed(3).replace(/^0\./,'.'), f1=v=>v.toFixed(1), pct=v=>Math.round(v)+'%';
+const lab=d=>LAB[d]||d;
+
+/* ---------- tooltip ---------- */
+const tip=$('#tip');
+document.addEventListener('pointermove',e=>{
+  const t=e.target.closest&&e.target.closest('[data-tip]');
+  if(!t){tip.style.display='none';return}
+  tip.innerHTML=t.getAttribute('data-tip'); tip.style.display='block';
+  const w=tip.offsetWidth,h=tip.offsetHeight; let x=e.clientX+14,y=e.clientY+14;
+  if(x+w>innerWidth-8)x=e.clientX-w-14; if(y+h>innerHeight-8)y=e.clientY-h-14;
+  tip.style.left=Math.max(6,x)+'px'; tip.style.top=Math.max(6,y)+'px';
+});
+document.addEventListener('pointerleave',()=>{tip.style.display='none'});
+
+/* ---------- chart helpers ---------- */
+function ticks(lo,hi,n=5){const r=hi-lo||1,raw=r/n,p=Math.pow(10,Math.floor(Math.log10(raw))),m=raw/p,st=(m<1.5?1:m<3?2:m<7?5:10)*p;const a=[];for(let v=Math.ceil(lo/st-1e-9)*st;v<=hi+1e-9;v+=st)a.push(+v.toFixed(6));return a}
+function scatter(el,o){
+  const W=640,H=400,M={l:54,r:18,t:16,b:46},iw=W-M.l-M.r,ih=H-M.t-M.b;
+  const X=v=>M.l+(v-o.xmin)/(o.xmax-o.xmin)*iw, Y=v=>M.t+ih-(v-o.ymin)/(o.ymax-o.ymin)*ih;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.aria)}">`;
+  ticks(o.ymin,o.ymax).forEach(v=>{s+=`<line x1="${M.l}" x2="${W-M.r}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--line2)"/><text x="${M.l-8}" y="${Y(v)+4}" text-anchor="end" class="t3" font-size="11">${o.yfmt(v)}</text>`});
+  ticks(o.xmin,o.xmax).forEach(v=>{s+=`<line y1="${M.t}" y2="${M.t+ih}" x1="${X(v)}" x2="${X(v)}" style="stroke:var(--line2)"/><text x="${X(v)}" y="${M.t+ih+16}" text-anchor="middle" class="t3" font-size="11">${o.xfmt(v)}</text>`});
+  s+=`<line x1="${M.l}" x2="${W-M.r}" y1="${M.t+ih}" y2="${M.t+ih}" style="stroke:var(--ink3)"/><line x1="${M.l}" x2="${M.l}" y1="${M.t}" y2="${M.t+ih}" style="stroke:var(--ink3)"/>`;
+  s+=`<text x="${M.l+iw/2}" y="${H-8}" text-anchor="middle" class="t2" font-size="12">${esc(o.xlabel)}</text><text transform="translate(14 ${M.t+ih/2}) rotate(-90)" text-anchor="middle" class="t2" font-size="12">${esc(o.ylabel)}</text>`;
+  if(o.hx!=null)s+=`<line x1="${X(o.hx)}" x2="${X(o.hx)}" y1="${M.t}" y2="${M.t+ih}" stroke-dasharray="4 4" style="stroke:var(--ink3)"/>`;
+  if(o.hy!=null)s+=`<line x1="${M.l}" x2="${W-M.r}" y1="${Y(o.hy)}" y2="${Y(o.hy)}" stroke-dasharray="4 4" style="stroke:var(--ink3)"/>`;
+  (o.quad||[]).forEach(q=>{s+=`<text x="${q.x==='l'?M.l+8:W-M.r-8}" y="${q.y==='t'?M.t+16:M.t+ih-8}" text-anchor="${q.x==='l'?'start':'end'}" class="t3" font-size="10.5" font-style="italic">${esc(q.t)}</text>`});
+  const boxes=[];const fits=b=>b.x0>=M.l&&b.x1<=W-M.r+10&&b.y0>=M.t&&b.y1<=M.t+ih+2&&!boxes.some(c=>b.x0<c.x1&&b.x1>c.x0&&b.y0<c.y1&&b.y1>c.y0);
+  const pts=o.pts.map(p=>({...p,px:X(p.x),py:Y(p.y)}));
+  pts.forEach(p=>{const w=p.label.length*5.8+2,h=11;boxes.push({x0:p.px-p.r,x1:p.px+p.r,y0:p.py-p.r,y1:p.py+p.r})});
+  let lbl='';
+  pts.slice().sort((a,b)=>b.r-a.r).forEach(p=>{const w=p.label.length*5.8+2,h=11,c=[[p.px+p.r+3,p.py-h/2,'start'],[p.px-p.r-3-w,p.py-h/2,'end'],[p.px-w/2,p.py-p.r-h-1,'middle'],[p.px-w/2,p.py+p.r+2,'middle']];
+    for(const [x,y,a] of c){const b={x0:x,x1:x+w,y0:y,y1:y+h};if(fits(b)){boxes.push(b);lbl+=`<text x="${a==='start'?x:a==='end'?x+w:x+w/2}" y="${y+9}" text-anchor="${a}" class="t1" font-size="10.5">${esc(p.label)}</text>`;break}}});
+  pts.forEach(p=>{s+=`<circle cx="${p.px}" cy="${p.py}" r="${p.r}" data-tip="${esc(p.tip)}" style="fill:${p.color};stroke:var(--surface);stroke-width:2"/>`});
+  s+=lbl+'</svg>'; el.innerHTML=s;
+}
+const empty=(el,msg)=>{el.innerHTML=`<div class="note" style="margin:0">${msg}</div>`};
+
+/* ---------- game chips ---------- */
+function drawChips(){
+  $('#chips').innerHTML=G.map(g=>`<button class="chip${sel.has(g.date)?' on':''}" type="button" data-d="${g.date}" aria-pressed="${sel.has(g.date)}" title="${esc(g.opp)} · ${g.result} ${g.rs}-${g.ra}"><b>${lab(g.date)}</b><i class="r ${g.result}">${g.result}</i>${SBset.has(g.date)?'<u></u>':''}</button>`).join('');
+}
+$('#chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;const d=b.dataset.d;sel.has(d)?sel.delete(d):sel.add(d);drawChips();render()});
+$$('.pre').forEach(b=>b.addEventListener('click',()=>{sel.clear();const p=b.dataset.p;G.forEach((g,i)=>{if(p==='all'||(p==='last4'&&i>=G.length-4)||(p==='sb'&&SBset.has(g.date)))sel.add(g.date)});drawChips();render()}));
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;tab=b.dataset.t;$$('.tab').forEach(x=>x.setAttribute('aria-selected',x===b));$$('.panel').forEach(p=>p.classList.toggle('on',p.id==='p-'+tab));render()});
+
+/* ---------- PLAYING TIME ---------- */
+const POS=['P','C','1B','2B','3B','SS','LF','CF','RF'];
+const XY={CF:[360,76],LF:[125,142],RF:[595,142],SS:[250,246],'2B':[470,246],'3B':[128,362],'1B':[592,362],P:[360,352],C:[360,496]};
+function posData(){
+  const at={};POS.forEach(p=>at[p]=new Map());const bench=new Map(),played=new Map();
+  const inc=(m,k)=>m.set(k,(m.get(k)||0)+1);
+  DATA.players.forEach(p=>{const pit=DATA.pitchers.find(q=>q.name===p.name);
+    p.pergame.forEach(x=>{if(!sel.has(x.date))return;inc(played,p.name);
+      const pitched=pit&&pit.pergame.some(e=>e.date===x.date);
+      if(POS.includes(x.pos)&&x.pos!=='P')inc(at[x.pos],p.name);else if(!POS.includes(x.pos))inc(bench,p.name);
+      if(x.pos==='P'||pitched)inc(at.P,p.name)})});
+  return{at,bench,played};
+}
+function drawPlay(){
+  const {at,bench,played}=posData();const focus=$('#focus').value;
+  const names=[...played.keys()].sort((a,b)=>a.localeCompare(b));
+  const cur=$('#focus').value;$('#focus').innerHTML='<option value="">Everyone</option>'+names.map(n=>`<option${n===cur?' selected':''}>${esc(n)}</option>`).join('');
+  $('#play-n').textContent=`${sel.size} of ${G.length} games · ${played.size} kids`;
+  let s=`<rect x="0" y="0" width="720" height="570" rx="14" style="fill:var(--surface2)"/>`;
+  s+=`<path d="M40,150 Q360,-70 680,150" fill="none" style="stroke:var(--line)" stroke-width="2" stroke-dasharray="6 5"/>`;
+  s+=`<path d="M360,500 L30,170 M360,500 L690,170" style="stroke:var(--line)" stroke-width="1.5"/>`;
+  s+=`<polygon points="360,500 505,356 360,212 215,356" style="fill:var(--surface);stroke:var(--line)" stroke-width="1.5"/>`;
+  [[360,500],[505,356],[360,212],[215,356]].forEach(([x,y])=>{s+=`<rect x="${x-6}" y="${y-6}" width="12" height="12" transform="rotate(45 ${x} ${y})" style="fill:var(--ink3)"/>`});
+  POS.forEach(pos=>{
+    const [cx,cy]=XY[pos],w=172,h=92,x=cx-w/2,y=cy-h/2;
+    let ent=[...at[pos].entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+    const tot=ent.reduce((a,e)=>a+e[1],0),max=ent.length?ent[0][1]:1;
+    let inner='';let fillOp=0;
+    if(focus){const c=at[pos].get(focus)||0,pg=played.get(focus)||1;fillOp=c/pg;
+      inner=`<text x="${x+10}" y="${y+52}" class="t1" font-size="22" font-weight="700" font-family="Oswald,sans-serif">${c}<tspan class="t3" font-size="12" font-weight="400" font-family="Roboto,sans-serif"> of ${pg} games</tspan></text><text x="${x+10}" y="${y+74}" class="t2" font-size="11.5">${c?Math.round(fillOp*100)+'% of his games':'never started here'}</text>`}
+    else{ent.slice(0,3).forEach((e,i)=>{const ry=y+38+i*18,bw=Math.max(3,e[1]/max*44);
+        inner+=`<text x="${x+10}" y="${ry}" class="t1" font-size="12">${esc(e[0].length>14?e[0][0]+' '+last(e[0]).slice(0,11):e[0])}</text><rect x="${x+w-84}" y="${ry-9}" width="${bw}" height="9" rx="2" style="fill:var(--s1)"/><text x="${x+w-84+bw+4}" y="${ry}" class="t2" font-size="11" class="tnum">${e[1]}</text>`});
+      if(!ent.length)inner=`<text x="${x+10}" y="${y+58}" class="t3" font-size="12">no starts in these games</text>`;
+      else if(ent.length>3)inner+=`<text x="${x+w-10}" y="${y+h-5}" text-anchor="end" class="t3" font-size="10.5">+${ent.length-3} more</text>`}
+    s+=`<g class="pcard${selPos===pos?' sel':''}" data-pos="${pos}" tabindex="0" role="button" aria-label="${pos}: ${ent.length} kids"><rect class="bg" x="${x}" y="${y}" width="${w}" height="${h}" rx="9"/>${focus?`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="9" style="fill:var(--s1);opacity:${(fillOp*.55).toFixed(2)}"/>`:''}<text x="${x+10}" y="${y+21}" class="t1" font-size="15" font-weight="700" font-family="Oswald,sans-serif">${pos}</text><text x="${x+w-10}" y="${y+20}" text-anchor="end" class="t3" font-size="11">${ent.length} ${ent.length===1?'kid':'kids'}</text>${inner}</g>`;
+  });
+  $('#diamond').innerHTML=s;
+  /* detail */
+  const ent=[...at[selPos].entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])),max=ent.length?ent[0][1]:1;
+  const b=[...bench.entries()].sort((a,b)=>b[1]-a[1]);
+  $('#detail').innerHTML=`<h3 style="font-size:15px;text-transform:uppercase;letter-spacing:.05em;margin-top:14px">${selPos}: everyone who started there</h3>`+
+    (ent.length?`<div class="dlist">${ent.map(e=>`<div class="dli"><span>${esc(e[0])}</span><div class="trk"><div class="fl" style="width:${e[1]/max*100}%;background:var(--s1)"></div></div><b class="tnum">${e[1]}</b></div>`).join('')}</div>`:'<div class="cap">Nobody started here in the selected games.</div>')+
+    `<h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.05em;margin-top:14px;color:var(--ink3)">Started on the bench</h3><div class="cap" style="margin-top:4px">${b.length?b.map(e=>`${esc(e[0])} ×${e[1]}`).join(' · '):'none'}</div>`;
+  /* grid */
+  const cols=[...POS,'Bench'];const maxc=Math.max(1,...names.flatMap(n=>cols.map(c=>c==='Bench'?(bench.get(n)||0):(at[c].get(n)||0))));
+  const order=names.slice().sort((a,b)=>(played.get(b)-played.get(a))||a.localeCompare(b));
+  $('#posgrid').innerHTML=`<table class="grid-tbl"><thead><tr><th style="text-align:left">Kid</th><th>GP</th>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>`+order.map(n=>`<tr><td class="n">${esc(n)}</td><td class="tnum" style="color:var(--ink3)">${played.get(n)}</td>${cols.map(c=>{const v=c==='Bench'?(bench.get(n)||0):(at[c].get(n)||0);return `<td><span class="cell" style="${v?`background:color-mix(in srgb,var(--s1) ${Math.round(18+v/maxc*62)}%,var(--surface));color:var(--ink)`:'color:var(--ink3)'}" data-tip="${esc(n)} · ${c}: ${v} ${v===1?'game':'games'}">${v||'·'}</span></td>`}).join('')}</tr>`).join('')+`</tbody></table>`;
+}
+$('#diamond').addEventListener('click',e=>{const g=e.target.closest('.pcard');if(g){selPos=g.dataset.pos;drawPlay()}});
+$('#diamond').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const g=e.target.closest('.pcard');if(g){e.preventDefault();selPos=g.dataset.pos;drawPlay();$(`.pcard[data-pos="${selPos}"]`).focus()}}});
+$('#focus').addEventListener('change',drawPlay);
+
+/* ---------- HITTING ---------- */
+function hitRows(){
+  const minPA=+$('#hmin').value;
+  return DATA.players.map(p=>{const gs=p.pergame.filter(x=>sel.has(x.date));if(!gs.length)return null;
+    const s=k=>gs.reduce((a,x)=>a+x[k],0),AB=s('AB'),H=s('H'),BB=s('BB'),HBP=s('HBP'),TB=s('TB'),SO=s('SO'),PA=AB+BB+HBP;if(PA<minPA)return null;
+    const obp=(H+BB+HBP)/PA,slg=AB?TB/AB:0;return{name:p.name,g:gs.length,PA,AB,H,BB,SO,SB:s('SB'),R:s('R'),RBI:s('RBI'),avg:AB?H/AB:0,obp,slg,ops:obp+slg,k:SO/PA*100,bb:BB/PA*100}}).filter(Boolean);
+}
+const htip=r=>`<b>${esc(r.name)}</b><br>${r.g} games · ${r.PA} PA<br>${r.H}-for-${r.AB} · ${r.BB} BB · ${r.SO} K · ${r.SB} SB<br>${f3(r.avg)}/${f3(r.obp)}/${f3(r.slg)} · OPS ${f3(r.ops)}`;
+function drawHit(){
+  $('#hminv').textContent=$('#hmin').value;
+  const key=$('#hsort').value;let rows=hitRows();
+  rows.sort((a,b)=>key==='name'?a.name.localeCompare(b.name):(hdesc?b[key]-a[key]:a[key]-b[key]));
+  if(key==='name')$('#hdir').textContent=hdesc?'A to Z':'Z to A';else $('#hdir').textContent=hdesc?'High to low':'Low to high';
+  if(key==='name'&&!hdesc)rows.reverse();
+  if(!rows.length){['hitA','hitB','hitC'].forEach(i=>empty($('#'+i),'No kids meet the minimum plate appearances in the selected games. Lower the minimum or add games.'));return}
+  /* A */
+  const mp=Math.max(...rows.map(r=>r.PA)),mo=Math.max(...rows.map(r=>r.ops));
+  $('#hitA').innerHTML=`<div class="hhead"><span></span><span>Plate appearances</span><span>OPS</span></div>`+rows.map(r=>`<div class="hrow" data-tip="${esc(htip(r))}"><span class="nm">${esc(r.name)}</span><div class="trk"><div class="fl" style="width:${r.PA/mp*100}%;background:var(--s1)"></div><span>${r.PA}</span></div><div class="trk"><div class="fl" style="width:${r.ops/mo*100}%;background:var(--s3)"></div><span>${f3(r.ops)}</span></div></div>`).join('');
+  /* B */
+  const xk=$('#hx').value,yk=$('#hy').value,XN={PA:'Plate appearances',k:'Strikeout rate (K%)',bb:'Walk rate (BB%)',SB:'Stolen bases'},YN={ops:'OPS',obp:'OBP',slg:'SLG',avg:'AVG'};
+  const xs=rows.map(r=>r[xk]),ys=rows.map(r=>r[yk]);const xmax=Math.max(...xs)*1.08||1,ymax=Math.max(...ys)*1.1||1;
+  const mean=a=>a.reduce((x,y)=>x+y,0)/a.length,xf=xk==='PA'||xk==='SB'?v=>Math.round(v):v=>Math.round(v)+'%';
+  scatter($('#hitB'),{aria:'Scatter of '+YN[yk]+' against '+XN[xk],xmin:0,xmax,ymin:0,ymax,xfmt:xf,yfmt:f3,xlabel:XN[xk],ylabel:YN[yk],hx:mean(xs),hy:mean(ys),
+    pts:rows.map(r=>({x:r[xk],y:r[yk],label:last(r.name),r:4+Math.sqrt(r.H)*1.5,color:'var(--s1)',tip:htip(r)})),quad:[]});
+  /* C */
+  const RH=26,H=rows.length*RH+44,L=118,Rr=130,W=640,iw=W-L-Rr,xm=Math.max(1,...rows.map(r=>r.slg,r=>r.obp));
+  const X=v=>L+v/xm*iw;let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="AVG, OBP and SLG for each hitter">`;
+  ticks(0,xm,5).forEach(v=>{s+=`<line x1="${X(v)}" x2="${X(v)}" y1="22" y2="${H-6}" style="stroke:var(--line2)"/><text x="${X(v)}" y="14" text-anchor="middle" class="t3" font-size="11">${f3(v)}</text>`});
+  rows.forEach((r,i)=>{const y=32+i*RH+RH/2-4,vs=[r.avg,r.obp,r.slg],lo=Math.min(...vs),hi=Math.max(...vs);
+    s+=`<g data-tip="${esc(htip(r))}"><rect x="0" y="${y-RH/2+2}" width="${W}" height="${RH-2}" fill="transparent"/><text x="${L-10}" y="${y+4}" text-anchor="end" class="t1" font-size="12">${esc(r.name)}</text><line x1="${X(lo)}" x2="${X(hi)}" y1="${y}" y2="${y}" style="stroke:var(--ink3)" stroke-width="3" stroke-linecap="round"/>`+
+    [[r.avg,'var(--s1)'],[r.obp,'var(--s2)'],[r.slg,'var(--s3)']].map(([v,c])=>`<circle cx="${X(v)}" cy="${y}" r="5.5" style="fill:${c};stroke:var(--surface);stroke-width:1.5"/>`).join('')+
+    `<text x="${W-Rr+14}" y="${y+4}" class="t2 tnum" font-size="11.5">OPS ${f3(r.ops)} · ${r.PA} PA</text></g>`});
+  $('#hitC').innerHTML=s+`</svg><div class="legend"><span><i class="sw" style="background:var(--s1)"></i>AVG</span><span><i class="sw" style="background:var(--s2)"></i>OBP</span><span><i class="sw" style="background:var(--s3)"></i>SLG</span></div>`;
+}
+['hsort','hx','hy'].forEach(i=>$('#'+i).addEventListener('change',drawHit));
+$('#hmin').addEventListener('input',drawHit);
+$('#hdir').addEventListener('click',()=>{hdesc=!hdesc;drawHit()});
+
+/* ---------- SITUATIONAL ---------- */
+const SEG=[['k','Strikeout','var(--s1)'],['out','Out in play','var(--s3)'],['bb','Walk or hit batter','var(--s4)'],['roe','Reached on error','var(--s2)'],['h','Hit','var(--s8)']];
+const TH=['Top of the order','Middle','Bottom'];
+function sitGames(){return DATA.sg.filter(g=>sel.has(g.date))}
+function drawSit(){
+  const gs=sitGames();
+  ['sitA','sitB','runA','runB'].forEach(i=>{if(!gs.length)empty($('#'+i),'None of the selected games has a scorebook. Turn on a game marked with a dot.')});
+  if(!gs.length)return;
+  const th=[0,1,2].map(i=>{const t={pa:0,k:0,out:0,bb:0,roe:0,h:0,on:0};gs.forEach(g=>{const x=g.thirds[i];t.pa+=x.pa;t.k+=x.k;t.out+=x.outsInPlay;t.h+=x.h;t.roe+=x.roe;t.bb+=Math.max(0,x.pa-x.k-x.outsInPlay-x.h-x.roe);t.on+=x.onBase});return t});
+  $('#sitA').innerHTML=th.map((t,i)=>`<div class="srow"><div class="l"><b>${TH[i]}</b><span class="tnum">${t.pa} PA · on base ${t.on} (${pct(t.on/t.pa*100)})</span></div><div class="stk" role="img" aria-label="${TH[i]} outcome mix">${SEG.map(([k,n,c])=>t[k]?`<div style="width:${t[k]/t.pa*100}%;background:${c}" data-tip="<b>${TH[i]}</b><br>${n}: ${t[k]} of ${t.pa} (${pct(t[k]/t.pa*100)})">${t[k]/t.pa>.07?t[k]:''}</div>`:'').join('')}</div></div>`).join('')+
+    `<div class="legend">${SEG.map(([k,n,c])=>`<span><i class="sw" style="background:${c}"></i>${n}</span>`).join('')}</div><div class="note">Walk or hit batter is worked out as the plate appearances not counted in any other group. Top is lineup slots 1-3, middle the next four (or three in a 9-batter lineup), bottom the rest.</div>`;
+  /* heat B */
+  const cell=(on,pa)=>{const p=pa?on/pa:0;return `<div style="background:color-mix(in srgb,var(--s8) ${Math.round(8+p*72)}%,var(--surface));color:var(--ink)" data-tip="${on} of ${pa} reached base (${pct(p*100)})">${on}/${pa}<br><b>${pct(p*100)}</b></div>`};
+  $('#sitB').innerHTML=`<div class="heat" style="grid-template-columns:90px repeat(3,1fr)"><div></div>${TH.map(t=>`<div class="hd">${t}</div>`).join('')}`+
+    gs.map(g=>`<div class="rl">${lab(g.date)}</div>${g.thirds.map(t=>cell(t.onBase,t.pa)).join('')}`).join('')+
+    `<div class="rl" style="font-weight:700;color:var(--ink)">All</div>${th.map(t=>cell(t.on,t.pa)).join('')}</div>`;
+  /* run A grouped */
+  const W=640,H=300,M={l:38,r:10,t:14,b:46},iw=W-M.l-M.r,ih=H-M.t-M.b,ser=[['usSB','Our steals','var(--s1)'],['oppSB','Their steals','var(--s2)'],['usCS','Our caught or picked off','var(--s8)']];
+  const ymax=Math.max(4,...gs.flatMap(g=>ser.map(s=>g[s[0]])));const Y=v=>M.t+ih-v/ymax*ih,gw=iw/gs.length,bw=Math.min(26,gw/4);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Steals by game">`;
+  ticks(0,ymax,4).forEach(v=>{s+=`<line x1="${M.l}" x2="${W-M.r}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--line2)"/><text x="${M.l-8}" y="${Y(v)+4}" text-anchor="end" class="t3" font-size="11">${v}</text>`});
+  gs.forEach((g,i)=>{const cx=M.l+gw*i+gw/2;ser.forEach((q,j)=>{const x=cx+(j-1)*(bw+3)-bw/2,v=g[q[0]],h=v/ymax*ih;
+    s+=`<g data-tip="<b>${lab(g.date)}</b><br>${q[1]}: ${v}"><rect x="${x}" y="${Y(v)}" width="${bw}" height="${Math.max(h,v?2:0)}" rx="3" style="fill:${q[2]}"/><text x="${x+bw/2}" y="${Y(v)-4}" text-anchor="middle" class="t2 tnum" font-size="11">${v}</text></g>`});
+    s+=`<text x="${cx}" y="${H-M.b+18}" text-anchor="middle" class="t2" font-size="11.5">${lab(g.date)}</text>`});
+  s+=`<line x1="${M.l}" x2="${W-M.r}" y1="${M.t+ih}" y2="${M.t+ih}" style="stroke:var(--ink3)"/></svg>`;
+  $('#runA').innerHTML=s+`<div class="legend">${ser.map(q=>`<span><i class="sw" style="background:${q[2]}"></i>${q[1]}</span>`).join('')}</div>`;
+  /* run B */
+  const tot={usOn:0,usEmpty:0,oppOn:0,oppEmpty:0};gs.forEach(g=>Object.keys(tot).forEach(k=>tot[k]+=g[k]));
+  const mx=Math.max(1,...gs.flatMap(g=>[g.usOn+g.usEmpty,g.oppOn+g.oppEmpty]),tot.usOn+tot.usEmpty,tot.oppOn+tot.oppEmpty);
+  const bar=(on,em,who,name)=>{const t=on+em;return `<div style="display:grid;grid-template-columns:44px 1fr 70px;gap:8px;align-items:center;margin:3px 0"><span class="t2" style="font-size:12px;color:var(--ink2)">${who}</span><div class="stk" style="height:22px;width:${Math.max(t,0.001)/mx*100}%;min-width:${t?24:0}px" data-tip="<b>${name}</b><br>With runners on: ${on}<br>Bases empty: ${em}">${on?`<div style="flex:${on};background:var(--s1)">${on}</div>`:''}${em?`<div style="flex:${em};background:var(--ink3)">${em}</div>`:''}</div><span class="tnum" style="font-size:11.5px;color:var(--ink3)">${t?pct(on/t*100)+' on':'no hits'}</span></div>`};
+  $('#runB').innerHTML=`<div style="font:600 12px var(--f-disp);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:4px">All selected games</div>`+bar(tot.usOn,tot.usEmpty,'Us','Us, all games')+bar(tot.oppOn,tot.oppEmpty,'Them','Them, all games')+
+    gs.map(g=>`<div style="font:600 12px var(--f-disp);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:14px 0 4px">${lab(g.date)}</div>`+bar(g.usOn,g.usEmpty,'Us',lab(g.date)+', us')+bar(g.oppOn,g.oppEmpty,'Them',lab(g.date)+', them')).join('')+
+    `<div class="legend"><span><i class="sw" style="background:var(--s1)"></i>hit with runners on</span><span><i class="sw" style="background:var(--ink3)"></i>hit with bases empty</span></div>`;
+}
+
+/* ---------- PLATE DISCIPLINE ---------- */
+const IN_PLAY=new Set(['1B','2B','3B','HR','G','F','L','SF','E','FC','DP','SAC']),REACHED=new Set(['BB','HBP','1B','2B','3B','HR','E','FC']);
+function an(seq,r){let b=0,s=0,r2=false;const last=seq.length-1,ender=(r==='K'||r==='KL'||IN_PLAY.has(r));for(let i=0;i<seq.length;i++){if(s>=2)r2=true;if(seq[i]==='b')b++;else if(i===last&&ender){}else if(s<2)s++}return r2}
+const keyMap=new Map(DATA.players.map(p=>[p.pk||p.num,p.name])),pkeyMap=new Map(DATA.pitchers.map(p=>[p.pk||p.num,p.name]));
+function discData(){
+  const gs=DATA.pl.filter(g=>sel.has(g.date));const A=new Map();let tp=0,tpa=0;
+  gs.forEach(g=>g.bat.forEach(([n,seq,r])=>{if(r==='inc')return;const a=A.get(n)||{n,PA:0,pit:0,fps:0,Ks:0,Kl:0,r2:0,sv:0};a.PA++;a.pit+=seq.length;if(seq[0]==='S')a.fps++;if(r==='K')a.Ks++;if(r==='KL')a.Kl++;if(an(seq,r)){a.r2++;if(r!=='K'&&r!=='KL')a.sv++}A.set(n,a);tp+=seq.length;tpa++}));
+  const rows=[...A.values()].map(a=>({...a,name:keyMap.get(a.n)||'#'+a.n,ppa:a.pit/a.PA,fps:a.fps/a.PA*100,K:a.Ks+a.Kl,surv:a.r2?a.sv/a.r2*100:null}));
+  const P=new Map();gs.forEach(g=>g.pit.forEach(([p,seq,r])=>{const a=P.get(p)||{p,pit:0,str:0,BF:0,fps:0,fS:{pa:0,r:0},fB:{pa:0,r:0}};a.pit+=seq.length;a.str+=[...seq].filter(c=>c==='S').length;if(r==='inc'){P.set(p,a);return}a.BF++;const o=seq[0]==='S'?a.fS:a.fB;if(seq[0]==='S')a.fps++;o.pa++;if(REACHED.has(r))o.r++;P.set(p,a)}));
+  return{rows,team:tpa?tp/tpa:0,tpa,pit:[...P.values()].map(a=>({...a,name:pkeyMap.get(a.p)||'#'+a.p})),n:gs.length};
+}
+const dtip=r=>`<b>${esc(r.name)}</b><br>${r.PA} PA · ${f1(r.ppa)} pitches per PA<br>First pitch a strike: ${pct(r.fps)}<br>Strikeouts: ${r.K} (${r.Kl} looking)<br>Two-strike PAs: ${r.r2}${r.surv==null?'':' · survived '+pct(r.surv)}`;
+function drawDisc(){
+  $('#dminv').textContent=$('#dmin').value;
+  const d=discData(),min=+$('#dmin').value,ids=['discA','discB','discC','discD','discE'];
+  const avail=DATA.pl.filter(g=>sel.has(g.date)).length;
+  $('#dnote').innerHTML=avail?`Using ${avail} scorebook ${avail===1?'game':'games'} (${d.tpa} finished plate appearances). Team average ${f1(d.team)} pitches per PA.`:'None of the selected games has a pitch grid. Turn on Sep 27, Oct 18, Oct 25 (1 or 2) or Nov 7 (1 or 2).';
+  if(!avail){ids.forEach(i=>empty($('#'+i),'No pitch data for the selected games.'));return}
+  let rows=d.rows.filter(r=>r.PA>=min);
+  const sk=$('#dsort').value;rows.sort((a,b)=>(b[sk]??-1)-(a[sk]??-1));
+  if(!rows.length){['discA','discB','discC'].forEach(i=>empty($('#'+i),'Nobody has enough plate appearances. Lower the minimum.'))}
+  else{
+  /* A lollipop */
+  const RH=26,W=640,L=118,R=20,H=rows.length*RH+40,xmin=1,xmax=Math.max(6,Math.ceil(Math.max(...rows.map(r=>r.ppa))+.3)),X=v=>L+(v-xmin)/(xmax-xmin)*(W-L-R);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Pitches per plate appearance by hitter">`;
+  ticks(xmin,xmax,5).forEach(v=>{s+=`<line x1="${X(v)}" x2="${X(v)}" y1="22" y2="${H-6}" style="stroke:var(--line2)"/><text x="${X(v)}" y="14" text-anchor="middle" class="t3" font-size="11">${v}</text>`});
+  s+=`<line x1="${X(d.team)}" x2="${X(d.team)}" y1="22" y2="${H-6}" stroke-dasharray="4 4" style="stroke:var(--ink2)"/>`;
+  rows.forEach((r,i)=>{const y=32+i*RH+RH/2-2,diff=r.ppa-d.team,c=diff>=.5?'var(--s3)':diff<=-.5?'var(--s4)':'var(--s1)',rad=4+Math.sqrt(r.PA)*1.1;
+    s+=`<g data-tip="${esc(dtip(r))}"><rect x="0" y="${y-RH/2+1}" width="${W}" height="${RH-1}" fill="transparent"/><text x="${L-10}" y="${y+4}" text-anchor="end" class="t1" font-size="12">${esc(r.name)}</text><line x1="${X(d.team)}" x2="${X(r.ppa)}" y1="${y}" y2="${y}" style="stroke:${c}" stroke-width="3"/><circle cx="${X(r.ppa)}" cy="${y}" r="${rad}" style="fill:${c};stroke:var(--surface);stroke-width:1.5"/><text x="${X(r.ppa)+(diff>=0?rad+5:-rad-5)}" y="${y+4}" text-anchor="${diff>=0?'start':'end'}" class="t2 tnum" font-size="11.5">${f1(r.ppa)}</text></g>`});
+  $('#discA').innerHTML=s+`<text x="${X(d.team)+4}" y="${H-1}" class="t3" font-size="10.5">team ${f1(d.team)}</text></svg>`;
+  /* B quadrant */
+  const mean=a=>a.reduce((x,y)=>x+y,0)/a.length,ymaxv=Math.max(5,Math.ceil(Math.max(...rows.map(r=>r.ppa))+.3));
+  scatter($('#discB'),{aria:'First-pitch strike rate against pitches per plate appearance',xmin:0,xmax:100,ymin:1,ymax:ymaxv,xfmt:v=>Math.round(v)+'%',yfmt:v=>v.toFixed(0),xlabel:'First pitch was a strike (%)',ylabel:'Pitches per plate appearance',hx:mean(rows.map(r=>r.fps)),hy:d.team,
+    pts:rows.map(r=>({x:r.fps,y:r.ppa,label:last(r.name),r:4+Math.sqrt(r.PA)*1.1,color:r.ppa-d.team>=.5?'var(--s3)':r.ppa-d.team<=-.5?'var(--s4)':'var(--s1)',tip:dtip(r)})),
+    quad:[{x:'l',y:'t',t:'Takes the first pitch, grinds'},{x:'r',y:'t',t:'Swings early, still grinds'},{x:'l',y:'b',t:'Takes the first pitch, ends quick'},{x:'r',y:'b',t:'Swings early, ends quick'}]});
+  /* C stacked K */
+  const kr=rows.slice().sort((a,b)=>b.K-a.K||b.Kl-a.Kl),mk=Math.max(1,...kr.map(r=>r.K)),RH2=26,W2=640,L2=118,H2=kr.length*RH2+10,X2=v=>L2+v/(mk+1)*(W2-L2-130);
+  let t=`<svg viewBox="0 0 ${W2} ${H2}" role="img" aria-label="Strikeouts swinging and looking by hitter">`;
+  kr.forEach((r,i)=>{const y=6+i*RH2+RH2/2-2;t+=`<g data-tip="${esc(dtip(r))}"><rect x="0" y="${y-RH2/2+1}" width="${W2}" height="${RH2-1}" fill="transparent"/><text x="${L2-10}" y="${y+4}" text-anchor="end" class="t1" font-size="12">${esc(r.name)}</text>`+
+    (r.Ks?`<rect x="${L2}" y="${y-8}" width="${X2(r.Ks)-L2-1}" height="16" rx="3" style="fill:var(--s1)"/>`:'')+(r.Kl?`<rect x="${L2+(X2(r.Ks)-L2)}" y="${y-8}" width="${X2(r.Kl)-L2-1}" height="16" rx="3" style="fill:var(--s2)"/>`:'')+
+    `<text x="${X2(r.K)+6}" y="${y+4}" class="t2 tnum" font-size="11.5">${r.K} in ${r.PA} PA (${pct(r.K/r.PA*100)})</text></g>`});
+  $('#discC').innerHTML=t+'</svg>';
+  }
+  /* D pitchers */
+  const pr=d.pit.filter(p=>p.BF>=6).sort((a,b)=>b.fps/b.BF-a.fps/a.BF);
+  $('#discD').innerHTML=pr.length?`<div class="hhead"><span></span><span>First-pitch strike %</span><span>Strike % of pitches</span></div>`+pr.map(p=>{const f=p.fps/p.BF*100,sp=p.str/p.pit*100;return `<div class="hrow" data-tip="<b>${esc(p.name)}</b><br>${p.BF} batters · ${p.pit} pitches<br>First-pitch strikes ${p.fps} of ${p.BF}<br>Strikes ${p.str} of ${p.pit}"><span class="nm">${esc(p.name)}</span><div class="trk"><div class="fl" style="width:${f}%;background:var(--s1)"></div><span>${pct(f)} · ${p.BF} BF</span></div><div class="trk"><div class="fl" style="width:${sp}%;background:var(--s3)"></div><span>${pct(sp)}</span></div></div>`}).join(''):'<div class="cap">No pitcher has faced 6 batters in the selected games.</div>';
+  /* E first pitch */
+  const S={pa:0,r:0},Bq={pa:0,r:0};d.pit.forEach(p=>{S.pa+=p.fS.pa;S.r+=p.fS.r;Bq.pa+=p.fB.pa;Bq.r+=p.fB.r});
+  const row=(lbl,o,c)=>`<div style="display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;margin:8px 0"><div><b style="font:600 13px var(--f-disp);letter-spacing:.04em;text-transform:uppercase">${lbl}</b><br><span class="tnum" style="font-size:11.5px;color:var(--ink3)">${o.pa} batters</span></div><div class="trk" style="height:28px" data-tip="${o.r} of ${o.pa} reached base"><div class="fl" style="width:${o.pa?o.r/o.pa*100:0}%;background:${c}"></div><span style="line-height:28px;font-size:12.5px">${o.pa?pct(o.r/o.pa*100)+' reached base ('+o.r+')':'none'}</span></div></div>`;
+  $('#discE').innerHTML=row('First pitch strike',S,'var(--s1)')+row('First pitch ball',Bq,'var(--s8)');
+}
+
+/* ---------- render ---------- */
+function render(){ if(tab==='play')drawPlay(); else if(tab==='hit')drawHit(); else if(tab==='sit')drawSit(); else drawDisc() }
+$('#dmin').addEventListener('input',drawDisc);$('#dsort').addEventListener('change',drawDisc);
+drawChips();render();
+</script>
+
+</body></html>

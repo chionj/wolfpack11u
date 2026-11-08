@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{margin:0}body{background:#F1EEE8}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Wolfpack 11U Report</title>
+<meta name="description" content="Playing time, pitching, hitting, baserunning and plate-discipline analysis for NC Wolfpack 11U across ten games.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+:root{
+  --ground:#F1EEE8; --surface:#FFFFFF; --surface-2:#F7F5F1;
+  --ink:#15171B; --ink-2:#4C5158; --ink-3:#868C94;
+  --line:#E2DED6; --line-2:#EDEAE3;
+  --brand:#C8102E; --brand-soft:#F6D8dc;
+  --pos:#2E7D5B; --pos-soft:#D6EBE0;
+  --reps:#3B6EA5; --reps-soft:#DBE7F2;
+  --warn:#C77B1E; --warn-soft:#F5E4CC;
+  --shadow:0 1px 2px rgba(20,20,25,.05),0 4px 16px rgba(20,20,25,.05);
+  --radius:12px;
+  --f-disp:'Oswald',system-ui,sans-serif;
+  --f-body:'Roboto',system-ui,-apple-system,sans-serif;
+}
+:root:not([data-theme="light"]) { }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#111318; --surface:#191C22; --surface-2:#1F232A;
+    --ink:#EDEEF0; --ink-2:#AEB4BD; --ink-3:#7A828C;
+    --line:#2A2F38; --line-2:#232830;
+    --brand:#FF5A73; --brand-soft:#3A1820;
+    --pos:#5FC79B; --pos-soft:#123227;
+    --reps:#78A9DE; --reps-soft:#132436;
+    --warn:#E3A24A; --warn-soft:#33260F;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#111318; --surface:#191C22; --surface-2:#1F232A;
+  --ink:#EDEEF0; --ink-2:#AEB4BD; --ink-3:#7A828C;
+  --line:#2A2F38; --line-2:#232830;
+  --brand:#FF5A73; --brand-soft:#3A1820;
+  --pos:#5FC79B; --pos-soft:#123227;
+  --reps:#78A9DE; --reps-soft:#132436;
+  --warn:#E3A24A; --warn-soft:#33260F;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--f-body);
+  font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px;padding-block:0}
+h1,h2,h3{margin:0;font-family:var(--f-disp);font-weight:600;letter-spacing:.01em;line-height:1.1}
+.tnum{font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--f-disp);text-transform:uppercase;letter-spacing:.14em;
+  font-size:11px;font-weight:600;color:var(--ink-3)}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);
+  border-bottom:1px solid var(--line)}
+.head-top{display:flex;align-items:center;gap:14px;padding:14px 0 12px}
+.crest{width:44px;height:44px;border-radius:11px;background:var(--brand);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-family:var(--f-disp);
+  font-weight:700;font-size:20px;flex:0 0 auto;box-shadow:var(--shadow)}
+.hgroup h1{font-size:23px;font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+.hgroup .sub{font-size:12.5px;color:var(--ink-2);margin-top:1px}
+.rec{margin-left:auto;text-align:right;flex:0 0 auto}
+.rec b{font-family:var(--f-disp);font-size:22px;font-weight:700}
+.rec span{display:block;font-size:10.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.1em}
+.controls{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center;padding-bottom:12px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;background:var(--surface-2);padding:4px;border-radius:10px}
+.tab{font-family:var(--f-disp);font-weight:500;font-size:13px;letter-spacing:.03em;
+  text-transform:uppercase;border:0;background:transparent;color:var(--ink-2);
+  padding:7px 12px;border-radius:7px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.psel{margin-left:auto;display:flex;align-items:center;gap:8px}
+.psel label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-family:var(--f-disp)}
+select{font-family:var(--f-body);font-size:13px;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:8px;padding:7px 10px;cursor:pointer;max-width:210px}
+
+main{padding:20px 0 60px}
+.panel{display:none} .panel.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:.4}to{opacity:1}}
+
+/* kpi tiles */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px 15px;box-shadow:var(--shadow)}
+.kpi .k{font-family:var(--f-disp);font-size:30px;font-weight:700;line-height:1}
+.kpi .l{font-size:11px;color:var(--ink-2);margin-top:6px}
+.kpi .l b{color:var(--ink)}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
+.card h2{font-size:16px;text-transform:uppercase;letter-spacing:.05em}
+.card .cap{font-size:12.5px;color:var(--ink-2);margin-top:3px}
+.card-head{margin-bottom:14px}
+
+.note{font-size:12px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line-2);
+  border-radius:9px;padding:10px 12px;margin-top:12px;line-height:1.55}
+.note b{color:var(--ink)}
+
+/* game cards */
+.games{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.game{background:var(--surface-2);border:1px solid var(--line-2);border-radius:10px;padding:13px}
+.game .gd{font-size:11px;color:var(--ink-3);font-family:var(--f-disp);letter-spacing:.06em;text-transform:uppercase}
+.game .gr{display:inline-block;font-family:var(--f-disp);font-weight:700;font-size:12px;
+  padding:1px 8px;border-radius:20px;margin:6px 0}
+.gr.w{background:var(--pos-soft);color:var(--pos)} .gr.l{background:var(--brand-soft);color:var(--brand)}
+.gr.t{background:var(--warn-soft);color:var(--warn)}
+.game .gs{font-family:var(--f-disp);font-size:26px;font-weight:700}
+.game .go{font-size:12px;color:var(--ink-2);margin-top:2px}
+.linescore{width:100%;border-collapse:collapse;margin-top:10px;font-size:11px}
+.linescore td,.linescore th{padding:2px 4px;text-align:center;color:var(--ink-2)}
+.linescore th{color:var(--ink-3);font-weight:500}
+.linescore .tm{text-align:left;font-family:var(--f-disp);font-weight:600;color:var(--ink)}
+.linescore .rr{font-weight:700;color:var(--ink);border-left:1px solid var(--line)}
+
+/* tables */
+.tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px}
+table.stat{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+table.stat th,table.stat td{padding:8px 9px;text-align:right;white-space:nowrap}
+table.stat th{font-family:var(--f-disp);font-weight:500;font-size:11px;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--ink-3);border-bottom:2px solid var(--line);cursor:pointer;user-select:none}
+table.stat th.name,table.stat td.name{text-align:left}
+table.stat th:hover{color:var(--ink)}
+table.stat th.sorted{color:var(--brand)}
+table.stat td{border-bottom:1px solid var(--line-2);color:var(--ink-2)}
+table.stat td.name{color:var(--ink);font-weight:500}
+table.stat td.big{color:var(--ink);font-weight:600}
+table.stat tbody tr:hover{background:var(--surface-2)}
+table.stat tbody tr.hl{background:var(--brand-soft)}
+table.stat tbody tr.hl td{color:var(--ink)}
+table.stat tfoot td{border-top:2px solid var(--line);font-weight:700;color:var(--ink);
+  font-family:var(--f-body);padding-top:9px}
+.jersey{display:inline-block;min-width:22px;font-size:10px;color:var(--ink-3);
+  font-family:var(--f-disp);margin-right:2px}
+.pos-tag{display:inline-block;font-size:9.5px;font-family:var(--f-disp);letter-spacing:.03em;
+  background:var(--surface-2);border:1px solid var(--line);color:var(--ink-2);
+  padding:1px 5px;border-radius:4px;margin-left:3px}
+
+/* bar chart */
+.chart{display:flex;flex-direction:column;gap:7px;margin-top:6px}
+.row{display:grid;grid-template-columns:112px 1fr 46px;align-items:center;gap:10px;font-size:12.5px}
+.row .rl{text-align:right;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row.hl .rl{color:var(--brand);font-weight:600}
+.track{position:relative;height:20px;background:var(--surface-2);border-radius:5px;overflow:hidden}
+.fill{position:absolute;left:0;top:0;bottom:0;border-radius:5px;min-width:2px;transition:width .3s}
+.fill.reps{background:var(--reps)} .fill.pos{background:var(--pos)}
+.fill.brand{background:var(--brand)} .fill.warn{background:var(--warn)}
+.row.hl .fill{outline:2px solid var(--ink);outline-offset:-2px}
+.row .rv{font-family:var(--f-disp);font-weight:600;color:var(--ink);text-align:left}
+.avgline{position:relative;height:0}
+.avgmark{position:absolute;top:-4px;width:0;border-left:2px dashed var(--ink-3);height:calc(100% + 8px)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:11.5px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+/* player card */
+#playercard{display:none}
+#playercard.on{display:block}
+.pc-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.pc-num{width:52px;height:52px;border-radius:12px;background:var(--brand);color:#fff;
+  font-family:var(--f-disp);font-weight:700;font-size:24px;display:flex;align-items:center;justify-content:center}
+.pc-name{font-family:var(--f-disp);font-size:22px;font-weight:700;text-transform:uppercase}
+.pc-sub{font-size:12px;color:var(--ink-2)}
+.pc-slash{margin-left:auto;display:flex;gap:16px;text-align:center}
+.pc-slash div .v{font-family:var(--f-disp);font-size:20px;font-weight:700}
+.pc-slash div .t{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+.splits{margin-top:14px}
+.clear-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink-2);
+  border-radius:8px;padding:6px 11px;font-size:12px;cursor:pointer;font-family:var(--f-body)}
+.callouts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+.callout{background:var(--surface-2);border:1px solid var(--line-2);border-radius:10px;padding:12px 13px}
+.callout .ct{font-family:var(--f-disp);text-transform:uppercase;letter-spacing:.06em;font-size:11px;color:var(--ink-3);margin-bottom:4px}
+.callout .cb{font-size:12.5px;color:var(--ink);line-height:1.5}
+.callout .cb b{color:var(--brand)}
+
+.foot{font-size:11.5px;color:var(--ink-3);text-align:center;padding:8px 0 4px;line-height:1.6}
+
+@media (max-width:760px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .games{grid-template-columns:1fr}
+  .callouts{grid-template-columns:1fr}
+  .psel{margin-left:0;width:100%}
+  .psel select{flex:1;max-width:none}
+  .row{grid-template-columns:96px 1fr 40px}
+  .pc-slash{margin-left:0;width:100%;justify-content:space-between}
+}
+</style>
+
+<header>
+  <div class="wrap">
+    <div class="head-top">
+      <div class="crest">NC</div>
+      <div class="hgroup">
+        <h1>NC Wolfpack 11U</h1>
+        <div class="sub">10-game report · Aug 30 – Nov 7, 2026 · GameChanger box scores + scorebooks</div>
+      </div>
+      <div class="rec"><b class="tnum">2–7–1</b><span>Record</span></div>
+    </div>
+    <div class="controls">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" data-panel="overview">Overview</button>
+        <button class="tab" role="tab" aria-selected="false" data-panel="playtime">Playing Time</button>
+        <button class="tab" role="tab" aria-selected="false" data-panel="pitching">Pitching</button>
+        <button class="tab" role="tab" aria-selected="false" data-panel="hitting">Hitting</button>
+        <button class="tab" role="tab" aria-selected="false" data-panel="situational">Situational</button>
+        <button class="tab" role="tab" aria-selected="false" data-panel="discipline">Plate Discipline</button>
+      </div>
+      <div class="psel">
+        <label for="pfilter">Highlight player</label>
+        <select id="pfilter"><option value="">— whole team —</option></select>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- PLAYER CARD (shows when a player is selected) -->
+  <div class="card" id="playercard"></div>
+
+  <!-- OVERVIEW -->
+  <section class="panel on" id="overview">
+    <div class="kpis" id="kpis"></div>
+    <div class="card">
+      <div class="card-head"><h2>The games</h2>
+        <div class="cap">Outscored 78–46 across the stretch; wins over OutKast BB Club and San Marcos Impact, losses to Sox, Carlsbad Crew-Stanford, the San Diego Hawks and, in an Oct 25 doubleheader, the Owls (6–4) and High Standards (12–6), a 4–4 tie in the Oct 18 rematch with OutKast, and, in a Nov 7 doubleheader, a 12–2 loss to AZBC 2034 (four innings, ended by the mercy rule) and a 10–1 loss to Dynasty Baseball Moody (also four innings).</div></div>
+      <div class="games" id="gamecards"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Team line, at a glance</h2>
+        <div class="cap">Continuous lineup every game (11–14 batters) — every roster kid hits, so on-base volume is high.</div></div>
+      <div id="teamline"></div>
+      <div class="note"><b>How to read this report.</b> These are four box scores plus seven full scorebooks (Sep 27, Oct 4, Oct 18, both Oct 25 games and both Nov 7 games), so the numbers cover
+        what happens at the plate and on the mound. "Playing time" here is measured by <b>plate appearances</b> and the
+        <b>fielding position</b> each kid started — box scores don't record defensive innings or bench time, so treat the
+        Playing Time tab as an <b>offensive-reps + role</b> picture, not a stopwatch. Ten games is a small sample;
+        read trends, not verdicts. Oct 18 ran seven innings and both Nov 7 games four (the first ended by the mercy rule, 12–2; the second, 10–1, also ended in the 4th); the other seven were six-inning games. The two Oct 25 games and both Nov 7 games have scorebooks but no box scores, so their RBI are worked out from the scorebooks and earned runs are not scored for them (except Davis's scoreless outing). Nov 7 also brought four kids who had not appeared before (R Lovati, G Balogh, J Sanford, J Macias), so each has one or two games so far (Lovati, Balogh and Sanford played both Nov 7 games; Macias only the first).</div>
+    </div>
+  </section>
+
+  <!-- PLAYING TIME -->
+  <section class="panel" id="playtime">
+    <div class="card">
+      <div class="card-head"><h2>Reps per game</h2>
+        <div class="cap">Plate appearances per game played. Dashed line = team average. Colored by games played (of 10).</div></div>
+      <div class="chart" id="pt-chart"></div>
+      <div class="legend">
+        <span><i class="dot" style="background:var(--reps)"></i> played every game</span>
+        <span><i class="dot" style="background:var(--warn)"></i> missed a game</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Playing-time table</h2>
+        <div class="cap">Tap any column header to sort. PA/G is the fairness metric (adjusts for games missed).</div></div>
+      <div class="tbl-scroll"><table class="stat" id="pt-table"></table></div>
+      <div class="callouts" id="pt-callouts"></div>
+      <div class="note"><b>Equity read.</b> Because the lineup bats continuously, offensive chances are fairly even —
+        the spread in PA/G comes mostly from <b>lineup slot</b> (top-of-order kids get an extra turn when the order rolls over)
+        and <b>games missed</b>. The bigger equity lever you can't see in a box score is <b>defensive innings</b>: note who
+        repeatedly starts at premium spots (P / SS / CF) versus who rotates through corner outfield.</div>
+    </div>
+  </section>
+
+  <!-- PITCHING -->
+  <section class="panel" id="pitching">
+    <div class="card">
+      <div class="card-head"><h2>Who's carrying the mound</h2>
+        <div class="cap">Only 9 kids have pitched across the 10 games. Bars = total pitches thrown.</div></div>
+      <div class="chart" id="pi-chart"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Pitching table</h2>
+        <div class="cap">Tap a header to sort. ERA shown per 6-inning game. Strike% = strikes ÷ pitches. Earned runs were not scored for Oct 4, or for the Oct 25 and Nov 7 outings other than Davis's, so those outings are excluded from ER and ERA; R includes them.</div></div>
+      <div class="tbl-scroll"><table class="stat" id="pi-table"></table></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Single-outing pitch counts vs. Pitch Smart</h2>
+        <div class="cap">Each bar is one outing. Reference lines are USA Baseball Pitch Smart rest thresholds for ages 11–12.</div></div>
+      <div class="chart" id="pi-pc"></div>
+      <div class="legend" id="pi-pc-leg"></div>
+      <div class="note"><b>Workload note (informational, not medical advice).</b> USA Baseball Pitch Smart caps ages 11–12 at
+        <b>85 pitches/day</b>, with rest tied to count: <b>66+ → 4 days</b>, 51–65 → 3 days, 36–50 → 2 days, 21–35 → 1 day.
+        No outing here topped 85, and games were ~1 week apart so rest thresholds were comfortably met. The two
+        highest single-day loads were <b>G Nebo (72)</b> and <b>N Fujishiro (69)</b> — both in the "4-day rest" band.
+        On Oct 4 the high was <b>F Lane (41)</b> and on Oct 18 <b>C Davis (43)</b>, both in the 2-day band; on Oct 25 it was <b>A Stanford (53)</b> in the first game and <b>N Fujishiro (55)</b> in the second, both in the 3-day band; on Nov 7 it was <b>G Nebo (55)</b> in the first game (3-day band) and <b>F Lane (37)</b> in the second (2-day band).
+        Leagues set their own limits; check yours.</div>
+    </div>
+  </section>
+
+  <!-- HITTING -->
+  <section class="panel" id="hitting">
+    <div class="card">
+      <div class="card-head"><h2>Chances vs. production</h2>
+        <div class="cap">How often each kid came up (PA) against what they did with it (OPS = on-base + slugging).</div></div>
+      <div class="chart" id="hi-chart"></div>
+      <div class="legend">
+        <span><i class="dot" style="background:var(--reps)"></i> plate appearances</span>
+        <span><i class="dot" style="background:var(--pos)"></i> OPS (scaled)</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Hitting table</h2>
+        <div class="cap">Tap a header to sort. AVG/OBP/SLG/OPS plus contact (K%) and patience (BB%).</div></div>
+      <div class="tbl-scroll"><table class="stat" id="hi-table"></table></div>
+      <div class="callouts" id="hi-callouts"></div>
+      <div class="note"><b>Reading it.</b> With a continuous lineup and a lot of walks, <b>OBP</b> and <b>OPS</b> tell you more
+        than batting average about who moves the offense. Watch <b>K%</b> for contact and <b>BB%</b> for plate discipline.
+        Small samples: one hit swings a rate a lot, so pair the rate columns with the raw H / BB / SO counts.</div>
+    </div>
+  </section>
+
+  <!-- SITUATIONAL -->
+  <section class="panel" id="situational">
+    <div class="card">
+      <div class="card-head"><h2>The story</h2>
+        <div class="cap">A plain-language read of what the scorebook shows. Pick a game:</div>
+        <div style="margin-top:8px"><select id="sitgame" aria-label="Scorebook game"></select></div></div>
+      <div id="sit-summary"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Pitching by lineup slot</h2>
+        <div class="cap">From the full scorebook, not just the box score — available for Sep 27, Oct 4, Oct 18, both Oct 25 games and both Nov 7 games. Upload a game's scorebook PDF (not just the box score) to add more games here.</div></div>
+      <div id="sit-thirds"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>By pitcher</h2>
+        <div class="cap">Innings thrown and what happened against each third of the order.</div></div>
+      <div class="callouts" id="sit-pitchers"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Baserunning &amp; situational hitting</h2>
+        <div class="cap">Stolen bases, caught stealing, and which hits came with runners on base — us vs. them.</div></div>
+      <div id="sit-baserunning"></div>
+    </div>
+  </section>
+
+  <!-- PLATE DISCIPLINE (scorebook pitch grids) -->
+  <section class="panel" id="discipline">
+    <div class="card">
+      <div class="card-head"><h2>What the pitch data says</h2>
+        <div class="cap" id="dc-asof"></div></div>
+      <div id="dc-summary"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Going deep in the count</h2>
+        <div class="cap">Pitches seen per plate appearance, for hitters with at least 2 finished PAs. Dashed line = team average.</div></div>
+      <div class="chart" id="dc-chart"></div>
+      <div class="legend">
+        <span><i class="dot" style="background:var(--pos)"></i> deeper than team (+0.5 or more)</span>
+        <span><i class="dot" style="background:var(--reps)"></i> near team average</span>
+        <span><i class="dot" style="background:var(--warn)"></i> quicker than team (-0.5 or more)</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Plate-discipline table</h2>
+        <div class="cap">Tap a header to sort; hover a header for its definition. Built only from scorebook games, so the sample is small.</div></div>
+      <div class="tbl-scroll"><table class="stat" id="dc-table"></table></div>
+      <div class="callouts" id="dc-callouts"></div>
+      <div class="note"><b>How to read this.</b> <b>P/PA</b> counts every pitch in finished plate appearances. <b>FPS%</b> is how often the first pitch was a strike
+        (swing, take, foul or in play all count the same). <b>2K</b> is plate appearances that reached a two-strike count and <b>Surv%</b> is how many of those did not end in a strikeout.
+        <b>Fl2</b> is fouls with two strikes (a hitter fighting a pitch off). <b>K-S</b> and <b>K-L</b> are swinging and looking strikeouts.
+        <b>Looking</b> here means a called third strike only: the scorebook marks every strike the same way (called, swinging or foul), so strikes one and two cannot be split.</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Pitchers: throwing strikes</h2>
+        <div class="cap">The same pitch grids from the mound side. FPS% = first-pitch strike rate; 3-ball = batters who got to three balls.</div></div>
+      <div class="tbl-scroll"><table class="stat" id="dp-table"></table></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Why the first pitch matters</h2>
+        <div class="cap">How plate appearances finished depending on whether the first pitch was a ball or a strike. "Reached" = walk, hit-by-pitch, hit, error or fielder's choice.</div></div>
+      <div class="tbl-scroll"><table class="stat" id="dl-table" style="min-width:420px"></table></div>
+      <div class="note" id="dc-source"></div>
+    </div>
+  </section>
+
+  <div class="foot">Built from GameChanger box scores (Aug 30, Sep 13, Sep 20, Sep 27 2026) and full scorebooks for Sep 27, Oct 4, Oct 18, both Oct 25 games and both Nov 7 games.
+    All totals reconciled against printed game totals except the two Oct 25 games and the two Nov 7 games, which have no box scores. Playing time reflects offensive reps &amp; starting positions only.</div>
+</main>
+
+<script>
+const DATA = {"games": [{"date": "2026-08-30", "opp": "Sox 11U", "result": "L", "rs": 5, "ra": 10, "ncwl_line": [2, 0, 1, 1, 0, 1], "opp_line": [1, 0, 2, 0, 2, 5]}, {"date": "2026-09-13", "opp": "OutKast BB Club 10U", "result": "W", "rs": 8, "ra": 5, "ncwl_line": [4, 0, 4, 0, 0, "X"], "opp_line": [2, 0, 1, 0, 0, 2]}, {"date": "2026-09-20", "opp": "Carlsbad Crew-Stanford 11U", "result": "L", "rs": 3, "ra": 5, "ncwl_line": [0, 1, 0, 1, 1, 0], "opp_line": [0, 0, 2, 2, 1, "X"]}, {"date": "2026-09-27", "opp": "San Marcos Impact 11U", "result": "W", "rs": 9, "ra": 3, "ncwl_line": [3, 1, 4, 0, 1, "X"], "opp_line": [1, 1, 0, 0, 1, 0]}, {"date": "2026-10-04", "opp": "San Diego Hawks 11U (OG)", "result": "L", "rs": 4, "ra": 11, "ncwl_line": [0, 3, 0, 1, 0, 0], "opp_line": [3, 4, 2, 1, 0, 1]}, {"date": "2026-10-18", "opp": "OutKast BB Club 10U", "result": "T", "rs": 4, "ra": 4, "ncwl_line": [0, 1, 1, 1, 1, 0, 0], "opp_line": [1, 0, 1, 1, 0, 1, 0]}, {"date": "2026-10-25", "opp": "Owls 11U", "result": "L", "rs": 4, "ra": 6, "ncwl_line": [1, 0, 0, 0, 3, 0], "opp_line": [2, 2, 2, 0, 0, 0]}, {"date": "2026-10-25b", "opp": "High Standards 11U", "result": "L", "rs": 6, "ra": 12, "ncwl_line": [0, 1, 0, 0, 0, 5], "opp_line": [3, 2, 3, 2, 0, 2]}, {"date": "2026-11-07", "opp": "AZBC 2034 DF 11U", "result": "L", "rs": 2, "ra": 12, "ncwl_line": [0, 0, 0, 2], "opp_line": [5, 3, 1, 3]}, {"date": "2026-11-07b", "opp": "Dynasty Baseball 11U Moody", "result": "L", "rs": 1, "ra": 10, "ncwl_line": [0, 0, 0, 1], "opp_line": [7, 0, 0, 3]}], "players": [{"name": "G Nebo", "num": "1", "games": 10, "PA": 26, "AB": 19, "H": 8, "R": 9, "RBI": 3, "BB": 7, "SO": 3, "TB": 10, "SB": 12, "2B": 1, "avg": 0.421, "obp": 0.577, "slg": 0.526, "ops": 1.103, "kpct": 11.5, "bbpct": 26.9, "orders": [4, 5, 5, 5, 3, 3, 4, 4, 3, 3], "orderAvg": 3.9, "positions": ["P", "LF", "CF"], "pergame": [{"date": "2026-08-30", "pos": "P", "order": 4, "AB": 2, "R": 1, "H": 1, "RBI": 0, "BB": 1, "SO": 0, "TB": 1, "SB": 2, "HBP": 0}, {"date": "2026-09-13", "pos": "LF", "order": 5, "AB": 2, "R": 2, "H": 2, "RBI": 2, "BB": 0, "SO": 0, "TB": 2, "SB": 2, "HBP": 0}, {"date": "2026-09-20", "pos": "LF", "order": 5, "AB": 3, "R": 1, "H": 1, "RBI": 0, "BB": 0, "SO": 0, "TB": 1, "SB": 1, "HBP": 0}, {"date": "2026-09-27", "pos": "LF", "order": 5, "AB": 1, "R": 2, "H": 1, "RBI": 0, "BB": 2, "SO": 0, "TB": 1, "SB": 2, "HBP": 0}, {"date": "2026-10-04", "pos": "P", "order": 3, "AB": 2, "R": 1, "H": 1, "RBI": 0, "BB": 0, "SO": 0, "TB": 2, "SB": 1, "HBP": 0}, {"date": "2026-10-18", "pos": "P", "order": 3, "AB": 2, "R": 1, "H": 0, "RBI": 0, "BB": 1, "SO": 1, "TB": 0, "SB": 2, "HBP": 0}, {"date": "2026-10-25", "pos": "P", "order": 4, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-25b", "pos": "CF", "order": 4, "AB": 3, "R": 0, "H": 2, "RBI": 1, "BB": 0, "SO": 0, "TB": 3, "SB": 0, "HBP": 0}, {"date": "2026-11-07", "pos": "LF", "order": 3, "AB": 1, "R": 1, "H": 0, "RBI": 0, "BB": 1, "SO": 0, "TB": 0, "SB": 2, "HBP": 0}, {"date": "2026-11-07b", "pos": "LF", "order": 3, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}], "HBP": 0}, {"name": "J Grissinger", "num": "44", "games": 8, "PA": 19, "AB": 12, "H": 1, "R": 4, "RBI": 1, "BB": 7, "SO": 5, "TB": 1, "SB": 9, "2B": 0, "avg": 0.083, "obp": 0.421, "slg": 0.083, "ops": 0.504, "kpct": 26.3, "bbpct": 36.8, "orders": [1, 1, 1, 13, 10, 1, 1, 1], "orderAvg": 3.6, "positions": ["CF", "RF"], "pergame": [{"date": "2026-08-30", "pos": "CF", "order": 1, "AB": 2, "R": 1, "H": 0, "RBI": 1, "BB": 1, "SO": 0, "TB": 0, "SB": 2, "HBP": 0}, {"date": "2026-09-13", "pos": "RF", "order": 1, "AB": 0, "R": 1, "H": 0, "RBI": 0, "BB": 2, "SO": 0, "TB": 0, "SB": 3, "HBP": 0}, {"date": "2026-09-20", "pos": "RF", "order": 1, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-27", "pos": "RF", "order": 13, "AB": 0, "R": 1, "H": 0, "RBI": 0, "BB": 2, "SO": 0, "TB": 0, "SB": 3, "HBP": 0}, {"date": "2026-10-04", "pos": "RF", "order": 10, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-18", "pos": "RF", "order": 1, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 2, "SO": 1, "TB": 0, "SB": 1, "HBP": 0}, {"date": "2026-10-25", "pos": "RF", "order": 1, "AB": 3, "R": 1, "H": 1, "RBI": 0, "BB": 0, "SO": 1, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-11-07", "pos": "RF", "order": 1, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 2, "TB": 0, "SB": 0, "HBP": 0}], "HBP": 0}, {"name": "C Davis", "num": "23", "games": 9, "PA": 22, "AB": 18, "H": 9, "R": 6, "RBI": 4, "BB": 4, "SO": 3, "TB": 12, "SB": 4, "2B": 1, "avg": 0.5, "obp": 0.591, "slg": 0.667, "ops": 1.258, "kpct": 13.6, "bbpct": 18.2, "orders": [5, 7, 7, 6, 4, 4, 3, 2, 2], "orderAvg": 4.4, "positions": ["SS", "CF", "P", "C"], "pergame": [{"date": "2026-08-30", "pos": "SS", "order": 5, "AB": 3, "R": 1, "H": 2, "RBI": 1, "BB": 0, "SO": 0, "TB": 2, "SB": 2, "HBP": 0}, {"date": "2026-09-13", "pos": "CF", "order": 7, "AB": 1, "R": 1, "H": 1, "RBI": 1, "BB": 1, "SO": 0, "TB": 2, "SB": 1, "HBP": 0}, {"date": "2026-09-20", "pos": "P", "order": 7, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-27", "pos": "SS", "order": 6, "AB": 2, "R": 2, "H": 2, "RBI": 0, "BB": 0, "SO": 0, "TB": 2, "SB": 0, "HBP": 0}, {"date": "2026-10-04", "pos": "SS", "order": 4, "AB": 2, "R": 0, "H": 1, "RBI": 0, "BB": 0, "SO": 0, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-10-18", "pos": "P", "order": 4, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-25", "pos": "P", "order": 3, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-25b", "pos": "C", "order": 2, "AB": 3, "R": 1, "H": 1, "RBI": 2, "BB": 0, "SO": 0, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-11-07b", "pos": "SS", "order": 2, "AB": 2, "R": 1, "H": 2, "RBI": 0, "BB": 0, "SO": 0, "TB": 4, "SB": 1, "HBP": 0}], "HBP": 0}, {"name": "R Johnson", "num": "27", "games": 8, "PA": 20, "AB": 17, "H": 9, "R": 4, "RBI": 4, "BB": 3, "SO": 2, "TB": 9, "SB": 4, "2B": 0, "avg": 0.529, "obp": 0.6, "slg": 0.529, "ops": 1.129, "kpct": 10.0, "bbpct": 15.0, "orders": [6, 9, 9, 8, 5, 2, 1, 5], "orderAvg": 5.6, "positions": ["1B", "SS", "3B"], "pergame": [{"date": "2026-08-30", "pos": "1B", "order": 6, "AB": 2, "R": 0, "H": 1, "RBI": 0, "BB": 1, "SO": 1, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-09-13", "pos": "SS", "order": 9, "AB": 2, "R": 1, "H": 2, "RBI": 1, "BB": 0, "SO": 0, "TB": 2, "SB": 2, "HBP": 0}, {"date": "2026-09-20", "pos": "1B", "order": 9, "AB": 2, "R": 0, "H": 0, "RBI": 1, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-27", "pos": "3B", "order": 8, "AB": 3, "R": 1, "H": 2, "RBI": 0, "BB": 0, "SO": 0, "TB": 2, "SB": 0, "HBP": 0}, {"date": "2026-10-04", "pos": "1B", "order": 5, "AB": 2, "R": 1, "H": 2, "RBI": 0, "BB": 0, "SO": 0, "TB": 2, "SB": 2, "HBP": 0}, {"date": "2026-10-25", "pos": "1B", "order": 2, "AB": 2, "R": 0, "H": 2, "RBI": 1, "BB": 1, "SO": 0, "TB": 2, "SB": 0, "HBP": 0}, {"date": "2026-10-25b", "pos": "3B", "order": 1, "AB": 2, "R": 1, "H": 0, "RBI": 1, "BB": 1, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-11-07b", "pos": "1B", "order": 5, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}], "HBP": 0}, {"name": "B Osterberg", "num": "15", "games": 8, "PA": 18, "AB": 13, "H": 2, "R": 3, "RBI": 0, "BB": 4, "SO": 7, "TB": 2, "SB": 7, "2B": 0, "avg": 0.154, "obp": 0.389, "slg": 0.154, "ops": 0.543, "kpct": 38.9, "bbpct": 22.2, "orders": [2, 3, 3, 3, 1, 2, 6, 9], "orderAvg": 3.6, "positions": ["RF", "2B"], "pergame": [{"date": "2026-08-30", "pos": "RF", "order": 2, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-13", "pos": "2B", "order": 3, "AB": 0, "R": 2, "H": 0, "RBI": 0, "BB": 2, "SO": 0, "TB": 0, "SB": 2, "HBP": 0}, {"date": "2026-09-20", "pos": "2B", "order": 3, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 1, "TB": 0, "SB": 2, "HBP": 0}, {"date": "2026-09-27", "pos": "2B", "order": 3, "AB": 2, "R": 1, "H": 1, "RBI": 0, "BB": 0, "SO": 1, "TB": 1, "SB": 1, "HBP": 0}, {"date": "2026-10-04", "pos": "2B", "order": 1, "AB": 3, "R": 0, "H": 1, "RBI": 0, "BB": 0, "SO": 1, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-10-18", "pos": "2B", "order": 2, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 2, "TB": 0, "SB": 2, "HBP": 1}, {"date": "2026-10-25b", "pos": "RF", "order": 6, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-11-07b", "pos": "2B", "order": 9, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}], "HBP": 1}, {"name": "A Stanford", "num": "7", "games": 9, "PA": 23, "AB": 18, "H": 6, "R": 1, "RBI": 3, "BB": 5, "SO": 1, "TB": 6, "SB": 5, "2B": 0, "avg": 0.333, "obp": 0.478, "slg": 0.333, "ops": 0.812, "kpct": 4.3, "bbpct": 21.7, "orders": [8, 14, 14, 1, 2, 5, 5, 3, 7], "orderAvg": 6.6, "positions": ["LF", "RF", "CF", "P"], "pergame": [{"date": "2026-08-30", "pos": "LF", "order": 8, "AB": 2, "R": 0, "H": 1, "RBI": 1, "BB": 0, "SO": 0, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-09-13", "pos": "RF", "order": 14, "AB": 1, "R": 1, "H": 0, "RBI": 0, "BB": 1, "SO": 0, "TB": 0, "SB": 2, "HBP": 0}, {"date": "2026-09-20", "pos": "CF", "order": 14, "AB": 2, "R": 0, "H": 2, "RBI": 1, "BB": 0, "SO": 0, "TB": 2, "SB": 2, "HBP": 0}, {"date": "2026-09-27", "pos": "CF", "order": 1, "AB": 3, "R": 0, "H": 1, "RBI": 0, "BB": 0, "SO": 0, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-10-04", "pos": "P", "order": 2, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-18", "pos": "CF", "order": 5, "AB": 3, "R": 0, "H": 1, "RBI": 0, "BB": 0, "SO": 0, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-10-25", "pos": "P", "order": 5, "AB": 1, "R": 0, "H": 0, "RBI": 1, "BB": 2, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-25b", "pos": "CF", "order": 3, "AB": 2, "R": 0, "H": 1, "RBI": 0, "BB": 1, "SO": 0, "TB": 1, "SB": 1, "HBP": 0}, {"date": "2026-11-07b", "pos": "CF", "order": 7, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}], "HBP": 0}, {"name": "N Fujishiro", "num": "18", "games": 8, "PA": 14, "AB": 13, "H": 4, "R": 0, "RBI": 0, "BB": 1, "SO": 5, "TB": 4, "SB": 3, "2B": 0, "avg": 0.308, "obp": 0.357, "slg": 0.308, "ops": 0.665, "kpct": 35.7, "bbpct": 7.1, "orders": [11, 6, 13, 2, 8, 11, 8, 7], "orderAvg": 8.2, "positions": ["SS", "P"], "pergame": [{"date": "2026-08-30", "pos": "SS", "order": 11, "AB": 3, "R": 0, "H": 1, "RBI": 0, "BB": 0, "SO": 2, "TB": 1, "SB": 1, "HBP": 0}, {"date": "2026-09-13", "pos": "P", "order": 6, "AB": 1, "R": 0, "H": 1, "RBI": 0, "BB": 0, "SO": 0, "TB": 1, "SB": 2, "HBP": 0}, {"date": "2026-09-20", "pos": "SS", "order": 13, "AB": 2, "R": 0, "H": 1, "RBI": 0, "BB": 0, "SO": 0, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-09-27", "pos": "P", "order": 2, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-04", "pos": "SS", "order": 8, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-18", "pos": "P", "order": 11, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-25", "pos": "SS", "order": 8, "AB": 2, "R": 0, "H": 1, "RBI": 0, "BB": 0, "SO": 1, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-10-25b", "pos": "P", "order": 7, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}], "HBP": 0}, {"name": "F Lane", "num": "9", "games": 9, "PA": 18, "AB": 14, "H": 4, "R": 3, "RBI": 5, "BB": 2, "SO": 5, "TB": 4, "SB": 1, "2B": 0, "avg": 0.286, "obp": 0.444, "slg": 0.286, "ops": 0.73, "kpct": 27.8, "bbpct": 11.1, "orders": [7, 10, 10, 7, 8, 6, 5, 5, 8], "orderAvg": 7.3, "positions": ["3B", "P"], "pergame": [{"date": "2026-08-30", "pos": "3B", "order": 7, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-13", "pos": "3B", "order": 10, "AB": 2, "R": 0, "H": 2, "RBI": 2, "BB": 0, "SO": 0, "TB": 2, "SB": 1, "HBP": 0}, {"date": "2026-09-20", "pos": "3B", "order": 10, "AB": 1, "R": 1, "H": 0, "RBI": 0, "BB": 1, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-04", "pos": "3B", "order": 7, "AB": 0, "R": 1, "H": 0, "RBI": 0, "BB": 1, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-18", "pos": "3B", "order": 8, "AB": 3, "R": 0, "H": 1, "RBI": 1, "BB": 0, "SO": 1, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-10-25", "pos": "3B", "order": 6, "AB": 3, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-25b", "pos": "P", "order": 5, "AB": 2, "R": 1, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 1}, {"date": "2026-11-07", "pos": "3B", "order": 5, "AB": 1, "R": 0, "H": 1, "RBI": 2, "BB": 0, "SO": 0, "TB": 1, "SB": 0, "HBP": 1}, {"date": "2026-11-07b", "pos": "3B", "order": 8, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}], "HBP": 2}, {"name": "A Kasak", "num": "3", "games": 6, "PA": 11, "AB": 8, "H": 4, "R": 1, "RBI": 4, "BB": 3, "SO": 3, "TB": 6, "SB": 0, "2B": 2, "avg": 0.5, "obp": 0.636, "slg": 0.75, "ops": 1.386, "kpct": 27.3, "bbpct": 27.3, "orders": [10, 11, 11, 8, 12, 7], "orderAvg": 9.8, "positions": ["1B", "CF", "RF"], "pergame": [{"date": "2026-08-30", "pos": "1B", "order": 10, "AB": 1, "R": 0, "H": 0, "RBI": 1, "BB": 1, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-20", "pos": "1B", "order": 11, "AB": 2, "R": 0, "H": 1, "RBI": 1, "BB": 0, "SO": 0, "TB": 2, "SB": 0, "HBP": 0}, {"date": "2026-09-27", "pos": "1B", "order": 11, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-04", "pos": "CF", "order": 8, "AB": 0, "R": 0, "H": 0, "RBI": 1, "BB": 1, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-18", "pos": "1B", "order": 12, "AB": 2, "R": 0, "H": 2, "RBI": 1, "BB": 0, "SO": 0, "TB": 3, "SB": 0, "HBP": 0}, {"date": "2026-10-25", "pos": "1B", "order": 7, "AB": 2, "R": 1, "H": 1, "RBI": 0, "BB": 0, "SO": 1, "TB": 1, "SB": 0, "HBP": 0}], "HBP": 0}, {"name": "L Mercuriali", "num": "14", "games": 7, "PA": 9, "AB": 5, "H": 1, "R": 2, "RBI": 0, "BB": 4, "SO": 3, "TB": 1, "SB": 5, "2B": 0, "avg": 0.2, "obp": 0.556, "slg": 0.2, "ops": 0.756, "kpct": 33.3, "bbpct": 44.4, "orders": [12, 13, 6, 4, 7, 7, 10], "orderAvg": 8.4, "positions": ["C"], "pergame": [{"date": "2026-08-30", "pos": "C", "order": 12, "AB": 0, "R": 1, "H": 0, "RBI": 0, "BB": 1, "SO": 0, "TB": 0, "SB": 1, "HBP": 0}, {"date": "2026-09-13", "pos": "C", "order": 13, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-20", "pos": "C", "order": 6, "AB": 0, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-27", "pos": "C", "order": 4, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-04", "pos": "C", "order": 7, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-18", "pos": "—", "order": 7, "AB": 1, "R": 1, "H": 1, "RBI": 0, "BB": 1, "SO": 0, "TB": 1, "SB": 3, "HBP": 0}, {"date": "2026-11-07b", "pos": "C", "order": 10, "AB": 0, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 0, "TB": 0, "SB": 1, "HBP": 0}], "HBP": 0}, {"name": "H Nichols", "num": "66", "games": 7, "PA": 11, "AB": 10, "H": 2, "R": 2, "RBI": 1, "BB": 1, "SO": 2, "TB": 2, "SB": 1, "2B": 0, "avg": 0.2, "obp": 0.273, "slg": 0.2, "ops": 0.473, "kpct": 18.2, "bbpct": 9.1, "orders": [14, 2, 8, 11, 9, 11, 11], "orderAvg": 9.4, "positions": ["2B", "C"], "pergame": [{"date": "2026-08-30", "pos": "2B", "order": 14, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-13", "pos": "2B", "order": 2, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-20", "pos": "C", "order": 8, "AB": 1, "R": 0, "H": 1, "RBI": 0, "BB": 0, "SO": 0, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-10-04", "pos": "2B", "order": 11, "AB": 2, "R": 0, "H": 1, "RBI": 0, "BB": 0, "SO": 0, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-10-18", "pos": "2B", "order": 9, "AB": 2, "R": 1, "H": 0, "RBI": 1, "BB": 0, "SO": 0, "TB": 0, "SB": 1, "HBP": 0}, {"date": "2026-10-25b", "pos": "2B", "order": 11, "AB": 1, "R": 1, "H": 0, "RBI": 0, "BB": 1, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-11-07", "pos": "—", "order": 11, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}], "HBP": 0}, {"name": "N Koletsos", "num": "11", "games": 8, "PA": 11, "AB": 8, "H": 1, "R": 1, "RBI": 1, "BB": 2, "SO": 3, "TB": 1, "SB": 0, "2B": 0, "avg": 0.125, "obp": 0.364, "slg": 0.125, "ops": 0.489, "kpct": 27.3, "bbpct": 18.2, "orders": [3, 4, 2, 7, 11, 10, 10, 7], "orderAvg": 6.8, "positions": ["2B"], "pergame": [{"date": "2026-08-30", "pos": "2B", "order": 3, "AB": 0, "R": 1, "H": 0, "RBI": 0, "BB": 1, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-13", "pos": "2B", "order": 4, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-20", "pos": "2B", "order": 2, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-27", "pos": "2B", "order": 7, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-04", "pos": "—", "order": 11, "AB": 1, "R": 0, "H": 1, "RBI": 0, "BB": 0, "SO": 0, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-10-18", "pos": "2B", "order": 10, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-25", "pos": "2B", "order": 10, "AB": 2, "R": 0, "H": 0, "RBI": 1, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-11-07", "pos": "2B", "order": 7, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 1}], "HBP": 1}, {"name": "G Chionis", "num": "6", "games": 9, "PA": 13, "AB": 9, "H": 1, "R": 3, "RBI": 3, "BB": 4, "SO": 5, "TB": 1, "SB": 1, "2B": 0, "avg": 0.111, "obp": 0.385, "slg": 0.111, "ops": 0.496, "kpct": 38.5, "bbpct": 30.8, "orders": [9, 11, 9, 6, 6, 11, 8, 6, 11], "orderAvg": 8.6, "positions": ["RF", "1B"], "pergame": [{"date": "2026-08-30", "pos": "RF", "order": 9, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-13", "pos": "1B", "order": 11, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-27", "pos": "RF", "order": 9, "AB": 0, "R": 1, "H": 0, "RBI": 1, "BB": 1, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-04", "pos": "RF", "order": 6, "AB": 0, "R": 1, "H": 0, "RBI": 0, "BB": 1, "SO": 0, "TB": 0, "SB": 1, "HBP": 0}, {"date": "2026-10-18", "pos": "RF", "order": 6, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-25", "pos": "RF", "order": 11, "AB": 2, "R": 1, "H": 1, "RBI": 1, "BB": 0, "SO": 1, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-10-25b", "pos": "RF", "order": 8, "AB": 2, "R": 0, "H": 0, "RBI": 1, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-11-07", "pos": "1B", "order": 6, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 1, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-11-07b", "pos": "—", "order": 11, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}], "HBP": 0}, {"name": "B Currier", "num": "13", "games": 7, "PA": 11, "AB": 10, "H": 3, "R": 1, "RBI": 2, "BB": 1, "SO": 2, "TB": 3, "SB": 5, "2B": 0, "avg": 0.3, "obp": 0.364, "slg": 0.3, "ops": 0.664, "kpct": 18.2, "bbpct": 9.1, "orders": [12, 4, 12, 6, 6, 10, 9], "orderAvg": 8.4, "positions": ["LF", "C"], "pergame": [{"date": "2026-09-13", "pos": "LF", "order": 12, "AB": 2, "R": 0, "H": 1, "RBI": 0, "BB": 0, "SO": 0, "TB": 1, "SB": 2, "HBP": 0}, {"date": "2026-09-20", "pos": "LF", "order": 4, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-27", "pos": "LF", "order": 12, "AB": 2, "R": 0, "H": 0, "RBI": 1, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-04", "pos": "—", "order": 6, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 1, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-18", "pos": "LF", "order": 6, "AB": 2, "R": 0, "H": 1, "RBI": 1, "BB": 0, "SO": 1, "TB": 1, "SB": 1, "HBP": 0}, {"date": "2026-10-25b", "pos": "C", "order": 10, "AB": 1, "R": 1, "H": 0, "RBI": 0, "BB": 1, "SO": 0, "TB": 0, "SB": 1, "HBP": 0}, {"date": "2026-11-07", "pos": "C", "order": 9, "AB": 1, "R": 0, "H": 1, "RBI": 0, "BB": 0, "SO": 0, "TB": 1, "SB": 1, "HBP": 0}], "HBP": 0}, {"name": "C Ponsford", "num": "22", "games": 8, "PA": 10, "AB": 7, "H": 2, "R": 5, "RBI": 1, "BB": 2, "SO": 2, "TB": 2, "SB": 4, "2B": 0, "avg": 0.286, "obp": 0.5, "slg": 0.286, "ops": 0.786, "kpct": 20, "bbpct": 20, "orders": [13, 8, 12, 10, 9, 7, 9, 9], "orderAvg": 9.6, "positions": ["LF", "CF", "C"], "pergame": [{"date": "2026-08-30", "pos": "LF", "order": 13, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-13", "pos": "LF", "order": 8, "AB": 0, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-09-20", "pos": "CF", "order": 12, "AB": 1, "R": 1, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 1, "HBP": 0}, {"date": "2026-09-27", "pos": "C", "order": 10, "AB": 2, "R": 1, "H": 1, "RBI": 1, "BB": 0, "SO": 1, "TB": 1, "SB": 1, "HBP": 0}, {"date": "2026-10-04", "pos": "C", "order": 9, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-10-18", "pos": "C", "order": 7, "AB": 0, "R": 1, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 1, "HBP": 1}, {"date": "2026-10-25", "pos": "C", "order": 9, "AB": 1, "R": 1, "H": 1, "RBI": 0, "BB": 1, "SO": 0, "TB": 1, "SB": 0, "HBP": 0}, {"date": "2026-10-25b", "pos": "C", "order": 9, "AB": 1, "R": 1, "H": 0, "RBI": 0, "BB": 1, "SO": 1, "TB": 0, "SB": 1, "HBP": 0}], "HBP": 1}, {"name": "R Lovati", "num": "3", "games": 2, "pergame": [{"date": "2026-11-07", "pos": "CF", "order": 2, "AB": 2, "R": 1, "H": 1, "RBI": 0, "BB": 0, "SO": 0, "TB": 1, "SB": 1, "HBP": 0}, {"date": "2026-11-07b", "pos": "P", "order": 1, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}], "positions": ["CF", "P"], "2B": 0, "pk": "3b", "AB": 4, "H": 1, "R": 1, "RBI": 0, "BB": 0, "SO": 0, "TB": 1, "SB": 1, "HBP": 0, "PA": 4, "avg": 0.25, "obp": 0.25, "slg": 0.25, "ops": 0.5, "kpct": 0.0, "bbpct": 0.0, "orders": [2, 1], "orderAvg": 1.5}, {"name": "G Balogh", "num": "33", "games": 2, "pergame": [{"date": "2026-11-07", "pos": "P", "order": 4, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-11-07b", "pos": "RF", "order": 4, "AB": 0, "R": 0, "H": 0, "RBI": 0, "BB": 2, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}], "positions": ["P", "LF", "RF"], "2B": 0, "AB": 2, "H": 0, "R": 0, "RBI": 0, "BB": 2, "SO": 0, "TB": 0, "SB": 0, "HBP": 0, "PA": 4, "avg": 0.0, "obp": 0.5, "slg": 0.0, "ops": 0.5, "kpct": 0.0, "bbpct": 50.0, "orders": [4, 4], "orderAvg": 4.0}, {"name": "J Sanford", "num": "29", "games": 2, "pergame": [{"date": "2026-11-07", "pos": "—", "order": 8, "AB": 2, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 2, "TB": 0, "SB": 0, "HBP": 0}, {"date": "2026-11-07b", "pos": "—", "order": 6, "AB": 2, "R": 0, "H": 1, "RBI": 1, "BB": 0, "SO": 0, "TB": 1, "SB": 0, "HBP": 0}], "positions": ["LF"], "2B": 0, "AB": 4, "H": 1, "R": 0, "RBI": 1, "BB": 0, "SO": 2, "TB": 1, "SB": 0, "HBP": 0, "PA": 4, "avg": 0.25, "obp": 0.25, "slg": 0.25, "ops": 0.5, "kpct": 50.0, "bbpct": 0.0, "orders": [8, 6], "orderAvg": 7.0}, {"name": "J Macias", "num": "87", "games": 1, "pergame": [{"date": "2026-11-07", "pos": "SS", "order": 10, "AB": 1, "R": 0, "H": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0}], "positions": ["SS"], "2B": 0, "AB": 1, "H": 0, "R": 0, "RBI": 0, "BB": 0, "SO": 0, "TB": 0, "SB": 0, "HBP": 0, "PA": 1, "avg": 0.0, "obp": 0.0, "slg": 0.0, "ops": 0.0, "kpct": 0.0, "bbpct": 0.0, "orders": [10], "orderAvg": 10.0}], "pitchers": [{"name": "C Davis", "num": "23", "apps": 7, "ip": "14.1", "ipNum": 14.33, "outs": 43, "pitches": 219, "strikes": 137, "stpct": 63, "BF": 62, "H": 17, "R": 10, "ER": 9, "BB": 5, "SO": 14, "era": 4.38, "whip": 1.53, "pergame": [{"date": "2026-08-30", "ip": 1.1, "H": 4, "R": 5, "ER": 5, "BB": 1, "SO": 2, "pc": 42, "st": 26, "bf": 9}, {"date": "2026-09-13", "ip": 1, "H": 0, "R": 0, "ER": 0, "BB": 2, "SO": 1, "pc": 23, "st": 10, "bf": 5}, {"date": "2026-09-20", "ip": 3, "H": 5, "R": 2, "ER": 2, "BB": 0, "SO": 2, "pc": 43, "st": 27, "bf": 13}, {"date": "2026-09-27", "ip": 1, "H": 0, "R": 0, "ER": 0, "BB": 0, "SO": 1, "pc": 12, "st": 8, "bf": 3}, {"date": "2026-10-04", "ip": 2, "H": 2, "R": 1, "ER": null, "BB": 1, "SO": 3, "pc": 35, "st": 23, "bf": 9}, {"date": "2026-10-18", "ip": 3, "H": 5, "R": 2, "ER": 2, "BB": 1, "SO": 3, "pc": 43, "st": 28, "bf": 13}, {"date": "2026-10-25", "ip": 3, "H": 1, "R": 0, "ER": 0, "BB": 0, "SO": 2, "pc": 21, "st": 15, "bf": 10}]}, {"name": "N Fujishiro", "num": "18", "apps": 4, "ip": "12.2", "ipNum": 12.67, "outs": 38, "pitches": 209, "strikes": 119, "stpct": 57, "BF": 61, "H": 15, "R": 10, "ER": 5, "BB": 8, "SO": 16, "era": 3.1, "whip": 1.82, "pergame": [{"date": "2026-09-13", "ip": 3.2, "H": 6, "R": 3, "ER": 3, "BB": 4, "SO": 3, "pc": 69, "st": 33, "bf": 21}, {"date": "2026-09-27", "ip": 3, "H": 4, "R": 2, "ER": 1, "BB": 1, "SO": 2, "pc": 44, "st": 28, "bf": 14}, {"date": "2026-10-18", "ip": 3, "H": 1, "R": 1, "ER": 1, "BB": 2, "SO": 2, "pc": 41, "st": 21, "bf": 12}, {"date": "2026-10-25b", "ip": 3, "H": 4, "R": 4, "ER": null, "BB": 1, "SO": 9, "pc": 55, "st": 37, "bf": 14}]}, {"name": "G Nebo", "num": "1", "apps": 6, "ip": "9.1", "ipNum": 9.33, "outs": 28, "pitches": 227, "strikes": 125, "stpct": 55, "BF": 60, "H": 23, "R": 16, "ER": 4, "BB": 10, "SO": 9, "era": 4.8, "whip": 3.54, "pergame": [{"date": "2026-08-30", "ip": 3, "H": 6, "R": 3, "ER": 3, "BB": 4, "SO": 2, "pc": 72, "st": 35, "bf": 18}, {"date": "2026-09-27", "ip": 1, "H": 0, "R": 0, "ER": 0, "BB": 0, "SO": 3, "pc": 14, "st": 9, "bf": 3}, {"date": "2026-10-04", "ip": 1, "H": 4, "R": 3, "ER": null, "BB": 1, "SO": 1, "pc": 31, "st": 22, "bf": 8}, {"date": "2026-10-18", "ip": 1, "H": 2, "R": 1, "ER": 1, "BB": 3, "SO": 2, "pc": 30, "st": 14, "bf": 7}, {"date": "2026-10-25", "ip": 1, "H": 3, "R": 2, "ER": null, "BB": 1, "SO": 0, "pc": 25, "st": 11, "bf": 7}, {"date": "2026-11-07", "ip": 2.1, "H": 8, "R": 7, "ER": null, "BB": 1, "SO": 1, "pc": 55, "st": 34, "bf": 17}]}, {"name": "A Stanford", "num": "7", "apps": 6, "ip": "7.1", "ipNum": 7.33, "outs": 22, "pitches": 142, "strikes": 95, "stpct": 67, "BF": 45, "H": 14, "R": 16, "ER": 5, "BB": 3, "SO": 8, "era": 10.0, "whip": 2.32, "pergame": [{"date": "2026-08-30", "ip": 0.2, "H": 1, "R": 1, "ER": 1, "BB": 0, "SO": 0, "pc": 6, "st": 4, "bf": 3}, {"date": "2026-09-13", "ip": 1.1, "H": 2, "R": 2, "ER": 2, "BB": 0, "SO": 1, "pc": 11, "st": 10, "bf": 6}, {"date": "2026-09-20", "ip": 1, "H": 2, "R": 2, "ER": 2, "BB": 0, "SO": 2, "pc": 20, "st": 12, "bf": 5}, {"date": "2026-10-04", "ip": 1, "H": 3, "R": 4, "ER": null, "BB": 1, "SO": 1, "pc": 23, "st": 15, "bf": 8}, {"date": "2026-10-25", "ip": 2, "H": 4, "R": 4, "ER": null, "BB": 1, "SO": 3, "pc": 53, "st": 36, "bf": 14}, {"date": "2026-11-07b", "ip": 1.1, "H": 2, "R": 3, "ER": null, "BB": 1, "SO": 1, "pc": 29, "st": 18, "bf": 9}]}, {"name": "F Lane", "num": "9", "apps": 5, "ip": "6.2", "ipNum": 6.67, "outs": 20, "pitches": 142, "strikes": 80, "stpct": 56, "BF": 38, "H": 13, "R": 10, "ER": 1, "BB": 6, "SO": 5, "era": 3.0, "whip": 2.85, "pergame": [{"date": "2026-08-30", "ip": 1, "H": 1, "R": 1, "ER": 0, "BB": 2, "SO": 0, "pc": 24, "st": 10, "bf": 6}, {"date": "2026-09-20", "ip": 1, "H": 3, "R": 1, "ER": 1, "BB": 0, "SO": 0, "pc": 14, "st": 9, "bf": 4}, {"date": "2026-10-04", "ip": 2, "H": 3, "R": 3, "ER": null, "BB": 2, "SO": 2, "pc": 41, "st": 23, "bf": 12}, {"date": "2026-10-25b", "ip": 1, "H": 3, "R": 3, "ER": null, "BB": 1, "SO": 1, "pc": 26, "st": 16, "bf": 7}, {"date": "2026-11-07b", "ip": 1.2, "H": 3, "R": 2, "ER": null, "BB": 1, "SO": 2, "pc": 37, "st": 22, "bf": 9}]}, {"name": "A Kasak", "num": "3", "apps": 1, "pergame": [{"date": "2026-09-27", "ip": 1, "H": 0, "R": 1, "ER": 0, "BB": 2, "SO": 2, "pc": 25, "st": 12, "bf": 6}], "outs": 3, "ip": "1.0", "ipNum": 1, "pitches": 25, "strikes": 12, "stpct": 48, "BF": 6, "H": 0, "R": 1, "ER": 0, "BB": 2, "SO": 2, "era": 0, "whip": 2}, {"name": "J Grissinger", "num": "44", "apps": 1, "pergame": [{"date": "2026-10-25b", "ip": 2, "H": 6, "R": 5, "ER": null, "BB": 0, "SO": 0, "pc": 40, "st": 26, "bf": 13}], "outs": 6, "ip": "2.0", "ipNum": 2, "pitches": 40, "strikes": 26, "BF": 13, "H": 6, "R": 5, "BB": 0, "SO": 0, "ER": 0, "stpct": 65, "era": null, "whip": 3}, {"name": "G Balogh", "num": "33", "pergame": [{"date": "2026-11-07", "ip": 1.0, "H": 5, "R": 5, "ER": null, "BB": 0, "SO": 2, "pc": 27, "st": 20, "bf": 9}], "apps": 1, "outs": 3, "ip": "1.0", "ipNum": 1.0, "pitches": 27, "strikes": 20, "stpct": 74, "BF": 9, "H": 5, "R": 5, "BB": 0, "SO": 2, "ER": 0, "era": null, "whip": 5.0}, {"name": "R Lovati", "num": "3", "pk": "3b", "pergame": [{"date": "2026-11-07b", "ip": 0.1, "H": 2, "R": 5, "ER": null, "BB": 1, "SO": 0, "pc": 26, "st": 16, "bf": 6}], "apps": 1, "outs": 1, "ip": "0.1", "ipNum": 0.33, "pitches": 26, "strikes": 16, "stpct": 62, "BF": 6, "H": 2, "R": 5, "BB": 1, "SO": 0, "ER": 0, "era": null, "whip": 9.0}], "teamBat": {"PA": 249, "AB": 192, "H": 59, "R": 46, "RBI": 33, "BB": 52, "SO": 53, "TB": 66, "SB": 62, "HBP": 5, "avg": 0.307, "obp": 0.466, "slg": 0.344, "ops": 0.81}, "meta": {"record": "2-7-1", "rs": 46, "ra": 78, "nPlayers": 19, "nPitchers": 9}, "scorebookGames": [{"date": "2026-09-27", "opp": {"sb": [{"name": "Liam G.", "count": 2, "inning": 1}, {"name": "Declan K.", "count": 1, "inning": "1-3"}], "hitsWithRunnersOn": [{"name": "Brooks N.", "inning": 2, "note": "1B with Hank G. aboard"}, {"name": "James M.", "inning": 2, "note": "1B with runners on"}], "hitsBasesEmpty": [{"name": "Hank G.", "inning": 2, "note": "leadoff single"}, {"name": "Declan K.", "inning": 3, "note": "two-out single"}], "note": "Their only real rally was the 2nd — a leadoff single, then two more singles with a runner on. Elsewhere, production came via walks, an error and stolen bases, not back-to-back hitting."}, "thirds": [{"label": "Top (1-3)", "who": "L. B, L. G, D. K", "pa": 9, "k": 2, "bb": 1, "h": 1, "roe": 2, "outsInPlay": 2, "onBase": 4, "note": "Half the outs were on balls in play; 2 of the 4 times on base came via error, not the bat."}, {"label": "Middle (4-7)", "who": "G. S, W. G, H. G, A. E", "pa": 11, "k": 5, "bb": 0, "h": 1, "roe": 0, "outsInPlay": 4, "sac": 1, "onBase": 1, "note": "Dominant stretch — 5 K, only 1 hit allowed, zero walks."}, {"label": "Bottom (8-10)", "who": "O. F, B. N, J. M", "pa": 6, "k": 1, "bb": 2, "h": 2, "roe": 0, "outsInPlay": 1, "onBase": 4, "note": "The soft spot — 4 of 6 reached base; the two walks fed the inning that scored their run."}], "byPitcher": [{"name": "N. Fujishiro", "num": "18", "innings": "1-3", "bf": 14, "line": "vs Top: 2 outs, 1 BB, 1 1B, 1 ROE (6 PA)  ·  vs Middle: 3 outs, 1 SF, 1 1B (5 PA)  ·  vs Bottom: 1 out, 2 1B (3 PA)", "note": "Steady overall; the two bottom-of-order singles in the 2nd were the only stretch he got hit around."}, {"name": "G. Nebo", "num": "1", "innings": "4", "bf": 3, "line": "vs Middle: 3 K (3 PA)", "note": "Struck out the side — all three middle-order hitters."}, {"name": "A. Kasak", "num": "3", "innings": "5", "bf": 6, "line": "vs Top: 1 K, 1 ROE, 1 out (3 PA)  ·  vs Bottom: 2 BB, 1 out (3 PA)", "note": "The rough inning — 2 walks to the bottom of the order; his lone run allowed traces to this stretch."}, {"name": "C. Davis", "num": "23", "innings": "6", "bf": 3, "line": "vs Middle: 1 K, 2 outs in play (3 PA)", "note": "Clean 1-2-3 inning."}], "us": {"sb": [{"name": "B. Osterberg", "count": 1, "inning": 1}, {"name": "C. Ponsford", "count": 1, "inning": 3}, {"name": "G. Nebo", "count": 2, "inning": 5}, {"name": "J. Grissinger", "count": 3, "inning": "2-3"}], "cs": [{"name": "A. Stanford", "inning": 2}, {"name": "G. Nebo", "inning": 2}, {"name": "C. Davis", "inning": 5}], "hitsWithRunnersOn": [{"name": "C. Davis", "inning": 1, "note": "1B with 2 aboard, part of a 4-batters-on-base rally"}, {"name": "R. Johnson", "inning": 1, "note": "1B with runners on"}, {"name": "R. Johnson", "inning": 3, "note": "1B with a runner on"}, {"name": "C. Ponsford", "inning": 3, "note": "1B — the game's only clean RBI single"}], "hitsBasesEmpty": [{"name": "B. Osterberg", "inning": 1}, {"name": "A. Stanford", "inning": 2}, {"name": "G. Nebo", "inning": 2}, {"name": "C. Davis", "inning": 3}], "rbi": 3, "runs": 9, "note": "Only 3 of 9 runs were driven in by a hit (Chionis, Ponsford, Currier) — the rest scored on walks, an error, an HBP and aggressive baserunning (steals plus a run of passed balls/wild pitches)."}, "summary": ["Wolfpack pitching handled the middle of San Marcos's order with authority — 5 K, 1 hit, and zero walks across three different pitchers (Fujishiro, Nebo, Davis). The bottom of the order did the most damage, reaching base on 4 of 6 trips, including the two walks in the 5th that set up San Marcos's only run. The top of the order landed in between: 2 K and a walk, but half of their four times on base came via error rather than the bat.", "At the plate, Wolfpack's 9 runs came almost entirely from aggressive baserunning rather than clutch hitting — only 3 of the 9 runs were actually driven in by a hit (Chionis, Ponsford, Currier each had 1 RBI). The rest scored on walks, an error, a hit-by-pitch, and 7 stolen bases (Grissinger 3, Nebo 2, Osterberg 1, Ponsford 1) mixed with a run of passed balls and wild pitches.", "San Marcos's offense was quieter and more conventional by comparison — their only real rally came in the 2nd inning, when a leadoff single from Hank G. was followed by back-to-back singles from Brooks N. and James M. with him on base. Everywhere else, their production came from walks, an error, and 3 stolen bases (Liam G. 2, Declan K. 1) rather than stringing hits together."], "label": "Sep 27 vs San Marcos Impact"}, {"date": "2026-10-04", "label": "Oct 4 vs San Diego Hawks", "opp": {"sb": [{"name": "A.G", "count": 1, "inning": 3}, {"name": "S.M", "count": 1, "inning": 6}], "hitsWithRunnersOn": [{"name": "Z.K", "inning": 1, "note": "1B with D.D aboard"}, {"name": "C.P", "inning": 1, "note": "2B with runners on"}, {"name": "C.P", "inning": 2, "note": "3-run HR after an error kept the inning going"}, {"name": "Z.K", "inning": 3, "note": "2B with two aboard, scored both"}], "hitsBasesEmpty": [{"name": "D.D", "inning": 1, "note": "leadoff single"}], "note": "Their damage came in two bursts: 7 runs in the first two innings on extra-base hits (C.P's 2B and 3-run HR) plus an error, then 2 more in the 3rd on two walks and Z.K's double. Runners also took free bases all game: 3 passed balls, 2 wild pitches, and a few defensive-indifference advances, and both their steal attempts succeeded. Only the key hits are listed here."}, "thirds": [{"label": "Top (1-3)", "who": "D.D, Z.K, L.G (#50 subbed in)", "pa": 12, "k": 2, "bb": 3, "h": 4, "roe": 1, "outsInPlay": 2, "onBase": 8, "note": "Reached 8 of 12 times. Four hits and three walks, and the only Ks came from Davis in the 5th."}, {"label": "Middle (4-7)", "who": "C.P, S.M, G.K, A.H", "pa": 17, "k": 3, "bb": 2, "h": 5, "roe": 1, "outsInPlay": 6, "onBase": 8, "note": "All the extra-base power: C.P's double and HR and G.K's triple. Nebo and Stanford gave up 4 of the 5 hits."}, {"label": "Bottom (8-10)", "who": "X.D, A.G, #50", "pa": 8, "k": 2, "bb": 0, "h": 3, "roe": 0, "outsInPlay": 3, "onBase": 3, "note": "The easiest stretch: no walks, 2 Ks, and X.D went 0-for-4."}], "byPitcher": [{"name": "G. Nebo", "num": "1", "innings": "1", "bf": 8, "line": "vs Top: 2 1B, 1 out (3 PA)  ·  vs Middle: 2B, 1B, FC, BB (4 PA)  ·  vs Bottom: 1 K (1 PA)", "note": "31 pitches; the middle of the order did the damage in a 3-run 1st."}, {"name": "A. Stanford", "num": "7", "innings": "2", "bf": 8, "line": "vs Top: 1B, FC, ROE (3 PA)  ·  vs Middle: HR, K, BB, out (4 PA)  ·  vs Bottom: 1B (1 PA)", "note": "An error extended the inning before C.P's 3-run homer; 4 runs on 23 pitches."}, {"name": "F. Lane", "num": "9", "innings": "3-4", "bf": 12, "line": "vs Top: 2 BB, 2B (3 PA)  ·  vs Middle: 2 outs, K, 3B, ROE (5 PA)  ·  vs Bottom: K, 1B, 2 outs (4 PA)", "note": "Back-to-back walks to open the 3rd set up Z.K's 2-run double; 41 pitches over two innings."}, {"name": "C. Davis", "num": "23", "innings": "5-6", "bf": 9, "line": "vs Top: 2 K, BB (3 PA)  ·  vs Middle: K, 1B, 2 outs (4 PA)  ·  vs Bottom: 2B, out (2 PA)", "note": "Best outing of the day: 1 run in two innings and 3 Ks."}], "us": {"sb": [{"name": "R. Johnson", "count": 2, "inning": 2}, {"name": "G. Chionis", "count": 1, "inning": 2}, {"name": "G. Nebo", "count": 1, "inning": 4}], "cs": [{"name": "C. Ponsford", "inning": 2}, {"name": "A. Stanford (picked off)", "inning": 4}, {"name": "C. Davis", "inning": 4}, {"name": "N. Koletsos", "inning": 6}, {"name": "B. Osterberg (picked off)", "inning": 6}], "hitsWithRunnersOn": [{"name": "G. Nebo", "inning": 4, "note": "2B with Stanford aboard (Stanford was then picked off)"}, {"name": "C. Davis", "inning": 4, "note": "1B; whether Nebo was still aboard is unclear from the sheet"}], "hitsBasesEmpty": [{"name": "R. Johnson", "inning": 2}, {"name": "R. Johnson", "inning": 4}, {"name": "H. Nichols", "inning": 5}, {"name": "N. Koletsos", "inning": 6}, {"name": "B. Osterberg", "inning": 6}], "rbi": 1, "runs": 4, "note": "5 of 18 outs (28%) came on the bases: 3 caught stealing and 2 pickoffs, and steals went 4 for 7. Running won the 3-run 2nd (Johnson stole 2nd and 3rd, Chionis stole 2nd, and both scored without another hit) and Nebo's steal and WP run in the 4th. But it also ended the 2nd (Ponsford CS at 2-1 against a pitcher who had just walked three), cost a runner in scoring position at 0 outs in the 4th (Stanford picked off), erased Davis before Johnson's single, and gave away two outs in the 6th."}, "summary": ["The Hawks won 11-4 by scoring 9 runs in the first three innings. The middle of their order (C.P, S.M, G.K, A.H) supplied all the extra-base power, including C.P's 3-run homer in the 2nd after an error kept the inning alive. Two walks to open the 3rd led to Z.K's 2-run double. After that the staff settled down: Davis allowed 1 run over the last two innings with 3 strikeouts.", "The Wolfpack's 3-run 2nd came from walks and steals on a single hit. Johnson singled and stole 2nd and 3rd; Chionis, Lane and Kasak walked; and two runs scored on Ponsford's fielder's choice plus an error. That inning shows the aggressive approach working against a pitcher who couldn't throw strikes.", "The same aggressiveness cost the most. Five outs came on the bases: Ponsford was caught stealing to end the 2nd, Stanford was picked off and Davis caught stealing in a 4th that had three hits and a walk but scored once, and Koletsos (CS) and Osterberg (picked off) gave away two of the three outs in the 6th. The Hawks were 2 for 2 stealing and were never put out on the bases."]}, {"date": "2026-10-18", "label": "Oct 18 vs OutKast BB Club (tie)", "opp": {"sb": [{"name": "N. A", "count": 1, "inning": 1}, {"name": "W. L", "count": 1, "inning": 1}, {"name": "O. E", "count": 1, "inning": 6}], "hitsWithRunnersOn": [{"name": "N. A", "inning": 1, "note": "1B with F. C aboard; came around to score on a passed ball"}, {"name": "W. L", "inning": 3, "note": "1B that scored F. C from second — their only hit that drove in a run"}, {"name": "O. E", "inning": 2, "note": "1B right behind N. H's single"}, {"name": "O. E", "inning": 4, "note": "1B in the 7-batter 4th; scored on a bases-loaded walk"}, {"name": "T. R", "inning": 4, "note": "1B with runners on"}], "hitsBasesEmpty": [{"name": "N. H", "inning": 2}, {"name": "F. C", "inning": 3, "note": "leadoff 2B"}, {"name": "O. E", "inning": 6, "note": "leadoff 1B, then stole second and scored on a groundout"}], "note": "Eight hits and six walks, but never more than one run in an inning — they scored in the 1st, 3rd, 4th and 6th and were shut out in the other three. Only one of their four runs was driven in by a hit. O. E was the problem: 3-for-3 with a steal and two runs scored out of the bottom third."}, "thirds": [{"label": "Top (1-3)", "who": "F. C, N. A, W. L", "pa": 12, "k": 2, "bb": 3, "h": 3, "roe": 2, "outsInPlay": 2, "onBase": 8, "note": "Reached 8 of 12 times, but two of those came on our errors. They also ran into three outs on the bases, which is why 8 baserunners produced only two runs."}, {"label": "Middle (4-6)", "who": "L. G, K. L, N. H", "pa": 11, "k": 4, "bb": 2, "h": 1, "roe": 0, "outsInPlay": 4, "onBase": 3, "note": "The staff's best stretch — 4 K and a single hit. K. L went 0-for-4 with three strikeouts."}, {"label": "Bottom (7-9)", "who": "O. E, C. M, T. R", "pa": 9, "k": 1, "bb": 1, "h": 4, "roe": 0, "outsInPlay": 3, "onBase": 5, "note": "The soft spot again: four of their eight hits, including O. E going 3-for-3, and the only third to out-hit its walk count."}], "byPitcher": [{"name": "C. Davis", "num": "23", "innings": "1-3", "bf": 13, "line": "vs Top: 3 H (2B + two 1B), 1 BB, 1 ROE, 1 out (6 PA)  ·  vs Middle: 2 K, 1 H, 1 out (4 PA)  ·  vs Bottom: 1 H, 1 K, 1 out (3 PA)", "note": "43 pitches at 65% strikes — easily the sharpest strike-throwing of the day. Both runs came through the top of the order."}, {"name": "G. Nebo", "num": "1", "innings": "4", "bf": 7, "line": "vs Top: 1 BB, 1 K (2 PA)  ·  vs Middle: 1 K, 1 BB (2 PA)  ·  vs Bottom: 2 1B, 1 BB (3 PA)", "note": "One inning, 30 pitches, 47% strikes. Three walks in seven batters turned a 1-2-3 start into a seven-batter inning; he still limited it to one run."}, {"name": "N. Fujishiro", "num": "18", "innings": "5-7", "bf": 12, "line": "vs Top: 1 ROE, 1 BB, 1 K, 1 out (4 PA)  ·  vs Middle: 1 K, 1 BB, 3 outs in play (5 PA)  ·  vs Bottom: 1 H, 2 outs (3 PA)", "note": "Three innings on 41 pitches, one hit. The only run against him scored on a groundout after a leadoff single and steal in the 6th."}], "us": {"sb": [{"name": "L. Mercuriali", "count": 3, "inning": "5-7"}, {"name": "B. Osterberg", "count": 2, "inning": 1}, {"name": "G. Nebo", "count": 2, "inning": 4}, {"name": "J. Grissinger", "count": 1, "inning": 1}, {"name": "C. Ponsford", "count": 1, "inning": 2}, {"name": "B. Currier", "count": 1, "inning": 4}, {"name": "H. Nichols", "count": 1, "inning": 3}], "cs": [{"name": "J. Grissinger", "inning": 1}, {"name": "A. Stanford (picked off)", "inning": 2}, {"name": "F. Lane (picked off)", "inning": 2}, {"name": "C. Davis (out at second)", "inning": 4}, {"name": "B. Currier", "inning": 4}], "hitsWithRunnersOn": [{"name": "F. Lane", "inning": 2, "note": "1B that scored Ponsford — then he was picked off for the third out"}, {"name": "A. Kasak", "inning": 3, "note": "2B with two aboard; scored Nichols and pushed Koletsos to third"}, {"name": "B. Currier", "inning": 4, "note": "1B that scored Nebo from third"}, {"name": "A. Kasak", "inning": 6, "note": "1B that moved Fujishiro to third — we stranded him there"}], "hitsBasesEmpty": [{"name": "A. Stanford", "inning": 2}, {"name": "L. Mercuriali", "inning": 5}], "rbi": 4, "runs": 4, "note": "Four runs on six hits, but the engine was on-base volume: 7 walks, 2 HBP and 11 steals against 23 at-bats. A. Kasak was the only multi-hit bat (2-for-2, double, 1 RBI). The cost was 5 of our 21 outs on the bases — Grissinger caught stealing in the 1st, Stanford and Lane both picked off in the 2nd (Lane's ended an inning right after his RBI single), Davis out at second in the 4th and Currier caught stealing to end that same inning with a runner having just scored."}, "summary": ["A 4-4 tie that neither side ever led by more than a run. Both teams scored exactly four, both in single-run innings, and neither offense strung together more than two hits in a frame. We out-walked them 7-6 and out-stole them 11-3; they out-hit us 8-6.", "The pitching split cleanly in three. Davis gave three innings on 43 pitches at 65% strikes — the best command any of the three showed — and the two runs against him both came through the top of OutKast's order. Nebo's single inning was the wobble: 30 pitches, 47% strikes, three walks in seven batters, though he held it to one run. Fujishiro then closed with three innings on 41 pitches and a single hit allowed, the run scoring on a groundout after a leadoff single and steal in the 6th.", "The pattern from Oct 4 repeated: aggressive baserunning created the offense and then took it away. All four runs traced to runners moving — Ponsford scored from third after a steal and a passed ball, Nebo stole twice and came home on Currier's single, Mercuriali stole second and third and scored on a groundout — but five of our 21 outs came on the bases. Two of those (Lane picked off right after his RBI single in the 2nd, Currier caught stealing in the 4th) ended innings in which we had just scored."]}, {"date": "2026-10-25", "label": "Oct 25 vs Owls 11U (loss)", "opp": {"sb": [{"name": "M. P", "count": 2, "inning": 1}, {"name": "N. D", "count": 1, "inning": 1}, {"name": "J. E", "count": 1, "inning": 2}], "hitsWithRunnersOn": [{"name": "N. D", "inning": 1, "note": "1B right after M. P reached on a dropped third strike and stole two bases"}, {"name": "S. S", "inning": 1, "note": "1B in the eight-batter 1st"}, {"name": "M. P", "inning": 2, "note": "1B with runners on; part of the 2nd-inning rally"}, {"name": "J. D", "inning": 3, "note": "2B with runners on"}, {"name": "D. H", "inning": 3, "note": "1B with runners on"}], "hitsBasesEmpty": [{"name": "J. E", "inning": 2, "note": "leadoff single"}, {"name": "C. J", "inning": 3, "note": "leadoff single"}, {"name": "N. D", "inning": 4, "note": "two-out single, left stranded"}], "note": "All six runs came in the first three innings (two in each) on eight hits, two walks, two hit batters, an error and three wild pitches, plus four steals. Over the last three innings they had 10 batters, one single and no runs."}, "thirds": [{"label": "Top (1-3)", "who": "D. H, C. G, M. P", "pa": 10, "k": 5, "bb": 0, "h": 2, "roe": 0, "outsInPlay": 3, "onBase": 3, "note": "Five strikeouts, three of them looking. C. G went down on strikes all three times, but M. P's dropped third strike in the 1st put the first run on the board."}, {"label": "Middle (4-7)", "who": "N. D, C. J, S. S, I. K", "pa": 12, "k": 0, "bb": 1, "h": 4, "roe": 0, "outsInPlay": 6, "onBase": 6, "note": "The hard-contact stretch: no strikeouts, four hits, a walk and a hit batter. Six of 12 reached, and two of their runs scored from this third."}, {"label": "Bottom (8-10)", "who": "J. D, J. E, G. G", "pa": 9, "k": 0, "bb": 1, "h": 2, "roe": 1, "outsInPlay": 4, "onBase": 5, "note": "Reached 5 of 9 (a double, a single, a walk, a hit batter and an error) and scored three of the six runs."}], "byPitcher": [{"name": "A. Stanford", "num": "7", "innings": "1-2", "bf": 14, "line": "vs Top: 3 K, 1 H, 2 outs in play (6 PA)  ·  vs Middle: 2 H, 1 BB, 1 HBP, 1 out (5 PA)  ·  vs Bottom: 1 H, 1 ROE, 1 out (3 PA)", "note": "53 pitches at 68% strikes and three strikeouts, but the first two innings cost four runs: eight batters in the 1st (a dropped third strike, two singles, a walk and a hit batter around two outs) and a six-batter 2nd with a single, an error and another single."}, {"name": "G. Nebo", "num": "1", "innings": "3", "bf": 7, "line": "vs Top: 1 H (1 PA)  ·  vs Middle: 1 H, 2 outs in play (3 PA)  ·  vs Bottom: 1 H (2B), 1 BB, 1 HBP (3 PA)", "note": "One inning, 25 pitches and only 11 strikes (44%). Three hits, a walk and a hit batter around two wild pitches produced two runs; the third out came on the bases."}, {"name": "C. Davis", "num": "23", "innings": "4-6", "bf": 10, "line": "vs Top: 2 K, 1 out in play (3 PA)  ·  vs Middle: 1 H, 3 outs in play (4 PA)  ·  vs Bottom: 3 outs in play (3 PA)", "note": "Three innings, 21 pitches at 71% strikes, one single and nothing scored. Ten batters faced, all but one retired."}], "us": {"sb": [], "cs": [{"name": "N. Fujishiro (picked off)", "inning": 2}, {"name": "C. Ponsford (picked off)", "inning": 2}, {"name": "G. Nebo", "inning": 4}, {"name": "A. Stanford", "inning": 4}], "hitsWithRunnersOn": [{"name": "R. Johnson", "inning": 1, "note": "1B that moved Grissinger to third; he scored on Stanford's bases-loaded walk"}, {"name": "G. Chionis", "inning": 5, "note": "1B that scored Ponsford from third"}, {"name": "J. Grissinger", "inning": 5, "note": "1B that moved Chionis to second"}, {"name": "R. Johnson", "inning": 5, "note": "1B that scored Chionis for the fourth run; Davis flew out to end the inning"}], "hitsBasesEmpty": [{"name": "N. Fujishiro", "inning": 2, "note": "leadoff single, then picked off second"}, {"name": "C. Ponsford", "inning": 2, "note": "single, then picked off for the second out"}, {"name": "A. Kasak", "inning": 5, "note": "leadoff single; scored on Koletsos's groundout"}], "rbi": 4, "runs": 4, "note": "Four runs on seven singles, six walks and eight strikeouts (five of them looking), with no extra-base hits and no stolen bases. Four of our 18 outs came on the bases: Fujishiro and Ponsford were both picked off in the 2nd, and Nebo and Stanford were caught stealing in the 4th, the second ending the inning with Kasak at bat. Scoring came in two bursts, one run on a bases-loaded walk in the 1st and three in the 5th on a groundout and two singles. RBI are worked out from the scorebook (no box score for this game)."}, "summary": ["A 6-4 loss decided in the first three innings: the Owls scored two in each of the 1st, 2nd and 3rd, then Davis shut them down. They got eight hits, but also a dropped third strike, two walks, two hit batters, an error and three wild pitches, and they stole four bases (M. P two in the 1st). In the last three innings the Owls sent 10 batters to the plate and got one single.", "Three pitchers, three different stories. Stanford threw the most strikes of the day (53 pitches, 68%, three strikeouts) but gave up four runs in two innings. Nebo's one inning was the wobble: 25 pitches, 44% strikes, three hits, a walk and a hit batter for two runs. Davis then threw three clean innings on 21 pitches at 71% strikes, one hit allowed.", "We came back from 6-1 down to 6-4 but never got the tying run to the plate. Seven singles, six walks and eight strikeouts, five of them looking. Four of our 18 outs came on the bases (two pickoffs in the 2nd, two caught stealing in the 4th) after we had stolen 11 bases on Oct 18; this time we stole none. The 5th-inning rally (a leadoff single, a walk, a groundout and two more singles) produced all three of the runs we scored after the 1st."]}, {"date": "2026-10-25b", "label": "Oct 25, game 2 vs High Standards 11U (loss)", "opp": {"sb": [{"name": "L. K", "count": 4, "inning": "1-4"}, {"name": "M. K", "count": 2, "inning": "2-4"}, {"name": "D. S", "count": 1, "inning": 2}], "hitsWithRunnersOn": [{"name": "T. H", "inning": 1, "note": "2B with M. K aboard"}, {"name": "C. L", "inning": 1, "note": "1B with L. K on base after the error"}, {"name": "S. B", "inning": 2, "note": "1B with M. K aboard"}, {"name": "D. S", "inning": 2, "note": "2B that helped finish the 2nd-inning rally"}, {"name": "C. L", "inning": 3, "note": "1B in the inning they scored again"}, {"name": "D. S", "inning": 3, "note": "1B with runners on"}, {"name": "C. L", "inning": 4, "note": "1B with L. K aboard"}, {"name": "T. H", "inning": 6, "note": "2B with S. B aboard"}], "hitsBasesEmpty": [{"name": "M. K", "inning": 1, "note": "leadoff single"}, {"name": "M. K", "inning": 2, "note": "leadoff single"}, {"name": "L. K", "inning": 3, "note": "leadoff single"}, {"name": "M. K", "inning": 4, "note": "leadoff single"}, {"name": "S. B", "inning": 6, "note": "single after a strikeout"}], "note": "Thirteen hits, seven steals, four wild pitches and a balk. M. K led off four different innings with a single and scored in three of them. They scored in the 1st (3), 2nd (2), 3rd (3 by the scorebook count), 4th (2) and 6th (2), and were only shut out in the 5th, when Fujishiro struck out the side."}, "thirds": [{"label": "Top (1-3)", "who": "M. K, S. B, T. H", "pa": 12, "k": 3, "bb": 0, "h": 7, "roe": 0, "outsInPlay": 2, "onBase": 7, "note": "The top three went 7-for-12 with no walks, three leadoff singles from M. K and two doubles from T. H. All seven hits were off Grissinger and Fujishiro; Lane never faced them."}, {"label": "Middle (4-7)", "who": "L. K, C. K, C. L, C. S", "pa": 14, "k": 4, "bb": 2, "h": 4, "roe": 1, "outsInPlay": 3, "onBase": 7, "note": "Seven of 14 reached, but this is also where Fujishiro did his work: four strikeouts. L. K reached on the error and walked, and stole four bases over the game."}, {"label": "Bottom (8-10)", "who": "D. S, B. S, A. O", "pa": 8, "k": 3, "bb": 0, "h": 2, "roe": 0, "outsInPlay": 3, "onBase": 2, "note": "The soft spot for us: 2 of 8 reached and three struck out. D. S's double in the 2nd was the only extra-base hit from this third."}], "byPitcher": [{"name": "J. Grissinger", "num": "44", "innings": "1-2", "bf": 13, "line": "vs Top: 4 H, 2 outs in play (6 PA)  ·  vs Middle: 1 H, 1 ROE, 2 outs in play (4 PA)  ·  vs Bottom: 1 H, 2 outs in play (3 PA)", "note": "Two innings, 40 pitches at 65% strikes, no strikeouts and no walks, but six hits and an error cost five runs: three in the 1st and two in the 2nd."}, {"name": "F. Lane", "num": "9", "innings": "3", "bf": 7, "line": "vs Middle: 2 H, 1 BB, 1 out in play (4 PA)  ·  vs Bottom: 1 H, 1 K, 1 out in play (3 PA)", "note": "One inning, 26 pitches, three hits, a walk and a strikeout. The scorebook has a run marked between the 7th and 9th, and it is charged here, so his three runs include that one."}, {"name": "N. Fujishiro", "num": "18", "innings": "4-6", "bf": 14, "line": "vs Top: 3 H, 3 K (6 PA)  ·  vs Middle: 1 BB, 1 H, 4 K (6 PA)  ·  vs Bottom: 2 K (2 PA)", "note": "Three innings on 55 pitches at 67% strikes with nine strikeouts (four looking) in 14 batters, including all three outs of the 5th on strikes. Four hits, two runs in the 4th and two in the 6th."}], "us": {"sb": [{"name": "A. Stanford", "count": 1, "inning": 4}, {"name": "C. Ponsford", "count": 1, "inning": 6}, {"name": "B. Currier", "count": 1, "inning": 6}], "cs": [{"name": "G. Nebo", "inning": 4}], "hitsWithRunnersOn": [{"name": "G. Nebo", "inning": 4, "note": "1B with Stanford on second; Nebo was then thrown out stealing"}, {"name": "C. Davis", "inning": 6, "note": "1B in the five-run 6th with runners aboard"}, {"name": "G. Nebo", "inning": 6, "note": "2B in the same inning; scored Davis"}], "hitsBasesEmpty": [{"name": "A. Stanford", "inning": 4, "note": "single with one out, then stole second"}], "rbi": 5, "runs": 6, "note": "Six runs on four hits, six walks and a hit batter. Five of the six scored in the 6th, which started with three straight walks to Ponsford, Currier and Nichols and also featured a balk and two errors. The other run came in the 2nd: Lane was hit by a pitch and scored from third on Chionis's fly ball. Four strikeouts, three steals and one runner caught stealing. RBI are worked out from the scorebook (no box score for this game)."}, "summary": ["A 12-6 loss after a slow start. High Standards scored three in the 1st and two in the 2nd, collected 13 hits and stole seven bases, and never trailed. Their top three hit 7-for-12, M. K led off four innings with singles, and L. K alone stole four bases.", "Fujishiro was the bright spot: three innings, nine strikeouts in 14 batters (four called), including the side in the 5th. Grissinger pitched the first two innings without a strikeout or walk but gave up six hits, an error and five runs. Lane's single inning gave up three hits, a walk and three runs by the scorebook's count.", "We got back in it only in the 6th, scoring five on three straight walks, a balk, two errors, a single and a double. Before that we had three hits and one run. Stanford, Ponsford and Currier stole a base each, and Nebo was thrown out in the 4th."]}, {"date": "2026-11-07", "label": "Nov 7 vs AZBC 2034 DF 11U (loss, 4 innings)", "summary": ["A 12-2 loss that ended early on the mercy rule in the 4th inning (AZBC had one out in their half), so it is entered as a four-inning game. AZBC scored five in the 1st, three in the 2nd, one in the 3rd and three in the 4th on 13 hits (two triples), a walk, a hit batter, an error and a dropped third strike, with wild pitches and passed balls moving runners up in the 1st, 2nd and 4th. They stole two bases and were caught once.", "Balogh started and gave up five runs in the 1st on five hits, with two strikeouts (one on a dropped third strike that put a runner on) and no walks, 27 pitches at 74% strikes. Nebo took over in the 2nd (Balogh moved from P to LF) and was still pitching when the game ended: 55 pitches at 62% strikes, eight hits, a walk, a hit batter and an error for seven runs. The top of their order did most of it: L. V, C. A and L. F were 7-for-9 and scored seven of the 12 runs.", "We scored both runs in the 4th. Lovati singled, stole second and went to third on defensive indifference, Nebo walked and stole second, and Lane's single scored both. Before that we had one hit (Currier's single in the 3rd) and Nebo's reach on an error in the 1st. We struck out six times in 19 plate appearances (two looking), had one runner caught stealing (Lane, after a hit by pitch in the 2nd) and stole four bases. RBI are worked out from the scorebook; there is no box score for this game."], "opp": {"sb": [{"name": "L. V", "count": 1, "inning": 1}, {"name": "L. F", "count": 1, "inning": 1}], "hitsWithRunnersOn": [{"name": "L. F", "inning": 1, "note": "1B with L. V on second"}, {"name": "T. M", "inning": 1, "note": "1B with runners on second and third"}, {"name": "C. J", "inning": 1, "note": "1B with T. M on second; it scored him"}, {"name": "L. V", "inning": 2, "note": "1B with Z. E on third after his triple"}, {"name": "L. F", "inning": 2, "note": "1B with L. V on second, two outs"}, {"name": "A. A", "inning": 2, "note": "1B with J. B aboard on the error"}, {"name": "B. C", "inning": 3, "note": "1B with C. J on second; scored him, then B. C was caught stealing for the third out"}, {"name": "C. A", "inning": 4, "note": "1B that scored L. V from third"}, {"name": "L. F", "inning": 4, "note": "3B that cleared L. V and C. A; he scored on a wild pitch"}], "hitsBasesEmpty": [{"name": "L. V", "inning": 1}, {"name": "A. A", "inning": 1}, {"name": "Z. E", "inning": 2}, {"name": "L. V", "inning": 4}], "note": "Thirteen hits, two steals (both in the 1st), one runner caught (B. C, 3rd) and wild pitches or passed balls that moved runners up in the 1st, 2nd and 4th. Nine of the 13 hits came with runners on. L. V and L. F reached every time they came up (three trips each, L. F with a triple) and each scored three runs. They scored in all four innings; the 3rd (one run) was the quietest."}, "thirds": [{"label": "Top (1-3)", "who": "L. V, C. A, L. F", "pa": 9, "k": 0, "bb": 0, "h": 7, "roe": 0, "outsInPlay": 2, "onBase": 7, "note": "Seven hits in nine trips with no strikeouts or walks. L. V and L. F reached all three times; C. A's two fly-ball outs were the only outs. This third scored seven of the 12 runs."}, {"label": "Middle (4-7)", "who": "J. B, A. A, B. E, T. M", "pa": 9, "k": 3, "bb": 1, "h": 3, "roe": 1, "outsInPlay": 1, "onBase": 6, "note": "Three strikeouts, but one was a dropped third strike that let B. E reach and score in the 1st. A. A's double and T. M's single in the 1st were the hits; J. B reached on an error and a walk. Six of nine got on."}, {"label": "Bottom (8-11)", "who": "C. J, G. F, B. C, Z. E", "pa": 8, "k": 0, "bb": 0, "h": 3, "roe": 0, "outsInPlay": 4, "onBase": 4, "note": "Four of eight reached (two singles, Z. E's triple that started the 2nd-inning rally, and a hit batter) and four were retired on balls in play; no strikeouts."}], "byPitcher": [{"name": "G. Balogh", "num": "33", "innings": "1", "bf": 9, "line": "vs Top: 2 H, 1 out in play (3 PA)  ·  vs Middle: 2 H, 2 K (4 PA)  ·  vs Bottom: 1 H, 1 out in play (2 PA)", "note": "One inning, 27 pitches at 74% strikes, five hits, two strikeouts (one on a dropped third strike) and no walks, five runs. Nebo took over for the 2nd, so the 1st is his."}, {"name": "G. Nebo", "num": "1", "innings": "2-4", "bf": 17, "line": "vs Top: 5 H, 1 out in play (6 PA)  ·  vs Middle: 1 H, 1 BB, 1 ROE, 1 K, 1 out in play (5 PA)  ·  vs Bottom: 2 H, 1 HBP, 3 outs in play (6 PA)", "note": "Seven outs (2.1 innings) on 55 pitches at 62% strikes, with eight hits, a walk, a hit batter and an error for seven runs. The top of the order hit him 5-for-6; his one strikeout was a called third strike on T. M in the 3rd."}], "us": {"sb": [{"name": "G. Nebo", "count": 2, "inning": "1, 4"}, {"name": "R. Lovati", "count": 1, "inning": 4}, {"name": "B. Currier", "count": 1, "inning": 3}], "cs": [{"name": "F. Lane", "inning": 2}], "hitsWithRunnersOn": [{"name": "F. Lane", "inning": 4, "note": "1B with Lovati on third and Nebo on second; both scored (2 RBI)"}], "hitsBasesEmpty": [{"name": "B. Currier", "inning": 3}, {"name": "R. Lovati", "inning": 4}], "rbi": 2, "runs": 2, "note": "Two runs on three hits, two walks, two hit batters and an error. All the scoring came in the 4th, on Lovati's leadoff single, two steals, a walk and Lane's single. Before that Nebo (error, 1st), Chionis (walk, 2nd) and Currier (single, 3rd) were all stranded, and Lane was caught stealing. Six strikeouts (Sanford twice, Grissinger twice, Koletsos, Nichols), two of them looking, and one runner caught stealing. Defensive indifference moved Lovati and Koletsos up a base. RBI are worked out from the scorebook (no box score)."}}, {"date": "2026-11-07b", "label": "Nov 7 (2) vs Dynasty Baseball 11U Moody (loss, 4 innings)", "summary": ["A 10-1 loss that ended in the 4th inning (Dynasty had one out in their half), so it is entered as a four-inning game; whether it was the mercy rule or something else is not marked. Dynasty batted around in the 1st and scored seven runs, then three more in the 4th, on only seven hits. The rest of their offense was three errors that put batters on, three walks, two hit batters, and wild pitches, passed balls and a balk that moved runners up. They stole one base. Every one of their hits came with runners on base.", "Lovati started and Lane took over partway through the 1st (I have the change after Lovati's sixth batter, which is my placement). Lovati: 26 pitches, two hits, a walk, a hit batter, an error and five runs. Lane: 37 pitches at 59% strikes over 1.2 innings, three hits, a walk and two strikeouts (both called), two runs, and a clean 2nd (two grounders and a fly ball). Stanford threw the 3rd and 4th: a clean 3rd (a strikeout and a double play after an error), then in the 4th a fly out, a walk, a hit batter, an error and two singles for three runs, 29 pitches at 62% strikes.", "We scored one run on three hits and four walks. Davis tripled in the 1st with one out and was stranded. The run came in the 4th: Davis singled, stole second and moved to third on a walk, a second walk loaded the bases, a 4-3 double play followed, and Sanford's two-out single scored Davis (RBI worked out from the scorebook, no box score). We struck out four times, three of them looking (Nebo and Johnson in the 1st, Chionis in the 3rd), and stole two bases with none caught."], "opp": {"sb": [{"name": "C. N", "count": 1, "inning": 1}], "hitsWithRunnersOn": [{"name": "D. U", "inning": 1, "note": "1B with runners on"}, {"name": "L. E", "inning": 1, "note": "2B with runners on"}, {"name": "C. N", "inning": 1, "note": "1B with runners on, after a walk to N. M"}, {"name": "J. H", "inning": 1, "note": "1B with runners on"}, {"name": "D. M", "inning": 1, "note": "1B with runners on"}, {"name": "P. F", "inning": 4, "note": "1B with runners on"}, {"name": "B. G", "inning": 4, "note": "1B with runners on"}], "hitsBasesEmpty": [], "note": "Seven hits, all with runners on base, plus a stolen base (C. N in the 1st) and a steady stream of free passes: three errors, three walks, two hit batters, and wild pitches, passed balls and a balk. Ten runs came in two innings (seven in the 1st, three in the 4th); the 2nd and 3rd were scoreless."}, "thirds": [{"label": "Top (1-3)", "who": "P. F, B. G, D. U", "pa": 8, "k": 1, "bb": 0, "h": 3, "roe": 1, "outsInPlay": 2, "onBase": 5, "note": "Five of eight reached (three singles, an error and a hit batter), one called strikeout and two outs on balls in play. P. F and B. G each hit a single in the 4th that kept that rally going."}, {"label": "Middle (4-7)", "who": "L. E, J. R, H. R, N. M", "pa": 8, "k": 1, "bb": 2, "h": 1, "roe": 1, "outsInPlay": 3, "onBase": 4, "note": "One hit (L. E's double in the 1st), two walks and an error; the one strikeout was H. R swinging in the 3rd. Three outs in play, including the 3rd-inning double play."}, {"label": "Bottom (8-11)", "who": "C. N, N. R, J. H, D. M", "pa": 8, "k": 1, "bb": 1, "h": 3, "roe": 1, "outsInPlay": 1, "onBase": 6, "note": "Six of eight reached (three singles, a walk, a hit batter and an error). C. N, J. H and D. M all singled in the 1st; N. R struck out looking in the 1st and walked in the 4th."}], "byPitcher": [{"name": "R. Lovati", "num": "3", "innings": "1", "bf": 6, "line": "vs Top: 1 H, 1 HBP, 1 ROE (3 PA)  ·  vs Middle: 1 H, 1 BB, 1 out in play (3 PA)", "note": "Six batters in the 1st (my placement of the change), 26 pitches at 62% strikes: two hits, a walk, a hit batter and an error, five runs, and no strikeouts. One out."}, {"name": "F. Lane", "num": "9", "innings": "1-2", "bf": 9, "line": "vs Top: 1 K, 2 outs in play (3 PA)  ·  vs Middle: 1 BB, 1 out in play (2 PA)  ·  vs Bottom: 3 H, 1 K (4 PA)", "note": "37 pitches at 59% strikes over 1.2 innings: three singles in the 1st, a walk, two called strikeouts and two runs, then a scoreless 2nd. His first-pitch strike rate was 75%."}, {"name": "A. Stanford", "num": "7", "innings": "3-4", "bf": 9, "line": "vs Top: 2 H (2 PA)  ·  vs Middle: 1 ROE, 1 K, 1 out in play (3 PA)  ·  vs Bottom: 1 BB, 1 HBP, 1 ROE, 1 out in play (4 PA)", "note": "29 pitches at 62% strikes over 1.1 innings: a clean 3rd (one error), then three runs in the 4th on two singles, a walk, a hit batter and an error before the game ended with one out."}], "us": {"sb": [{"name": "C. Davis", "count": 1, "inning": 4}, {"name": "L. Mercuriali", "count": 1, "inning": 3}], "cs": [], "hitsWithRunnersOn": [{"name": "J. Sanford", "inning": 4, "note": "1B with two outs, Davis on third and Nebo on second; scored Davis (1 RBI)"}], "hitsBasesEmpty": [{"name": "C. Davis", "inning": 1}, {"name": "C. Davis", "inning": 4}], "rbi": 1, "runs": 1, "note": "One run on three hits and four walks. Davis tripled in the 1st and was stranded; in the 4th he singled, stole second and scored on Sanford's two-out single after two walks and a 4-3 double play. Four strikeouts, three looking, two steals, none caught. Defensive indifference moved Balogh up a base in the 1st. RBI worked out from the scorebook (no box score)."}}], "pitchLog": {"minPA": 2, "summary": ["<b>Going deep.</b> G Balogh (5.0 pitches per plate appearance, four trips), A Kasak (4.8, four trips), J Grissinger (4.6 over ten) and B Osterberg (4.6 over nine) saw the most pitches across the six scorebook games. The team average is 3.8, level with where it was before the Nov 7 doubleheader.", "<b>Quickest to swing.</b> R Lovati (1.3, four plate appearances: four first- or second-pitch outs and hits), N Fujishiro (3.0 over seven), H Nichols (3.2 over five) and C Davis (3.3 over 14) ended their at-bats fastest. Check whether that is early-count aggression or quick outs before reading much into it.", "<b>Looking at strikes.</b> 17 of the team's 35 strikeouts were called third strikes. G Nebo and G Chionis have struck out looking every time they struck out (3 of 3 each), C Ponsford 2 of 2, and F Lane 2 of 3; J Grissinger did on 2 of 4. Our pitchers got 15 called third strikes out of 36 strikeouts, 6 of them by N Fujishiro, and all three of F Lane's strikeouts were called. The scorebook cannot show how many earlier strikes a hitter took, so this undercounts anyone who is passive early in the count.", "<b>Our pitchers and the first pitch.</b> Our staff started 107 of 173 hitters with a strike (62%). After a first-pitch strike the opponent reached base in 47 of 107 plate appearances (44%); after a first-pitch ball, in 38 of 66 (58%). First-pitch strike rates: G Balogh 78% (one inning), J Grissinger 77%, F Lane 75%, A Stanford 70%, C Davis 65%, N Fujishiro 60%, G Nebo 50% and R Lovati 33% (one inning, six batters). Six games, so treat these as a starting point."], "games": [{"date": "2026-09-27", "opp": "San Marcos Impact 11U", "bat": [{"n": "7", "inn": 1, "slot": 1, "seq": "SbbSS", "r": "L"}, {"n": "15", "inn": 1, "slot": 2, "seq": "SSS", "r": "1B"}, {"n": "1", "inn": 1, "slot": 3, "seq": "bbSbSb", "r": "BB"}, {"n": "23", "inn": 1, "slot": 4, "seq": "S", "r": "1B"}, {"n": "27", "inn": 1, "slot": 5, "seq": "S", "r": "1B"}, {"n": "6", "inn": 1, "slot": 6, "seq": "SSbbSb", "r": "HBP"}, {"n": "22", "inn": 1, "slot": 7, "seq": "bSSS", "r": "KL"}, {"n": "3", "inn": 1, "slot": 8, "seq": "bSbSbb", "r": "BB"}, {"n": "13", "inn": 1, "slot": 9, "seq": "bSbSbS", "r": "G"}, {"n": "7", "inn": 2, "slot": 1, "seq": "bSS", "r": "1B"}, {"n": "15", "inn": 2, "slot": 2, "seq": "bbbSSS", "r": "K"}, {"n": "1", "inn": 2, "slot": 3, "seq": "bSSbSS", "r": "1B"}, {"n": "23", "inn": 2, "slot": 4, "seq": "bb", "r": "inc"}, {"n": "44", "inn": 2, "slot": 10, "seq": "bSbbb", "r": "BB"}, {"n": "23", "inn": 3, "slot": 4, "seq": "bSSbbS", "r": "1B"}, {"n": "27", "inn": 3, "slot": 5, "seq": "SS", "r": "1B"}, {"n": "6", "inn": 3, "slot": 6, "seq": "Sbbbb", "r": "BB"}, {"n": "22", "inn": 3, "slot": 7, "seq": "bS", "r": "1B"}, {"n": "3", "inn": 3, "slot": 8, "seq": "SSS", "r": "K"}, {"n": "13", "inn": 3, "slot": 9, "seq": "bSSS", "r": "G"}, {"n": "44", "inn": 3, "slot": 10, "seq": "bbSSbSb", "r": "BB"}, {"n": "18", "inn": 4, "slot": 1, "seq": "SSS", "r": "F"}, {"n": "14", "inn": 4, "slot": 2, "seq": "bSSS", "r": "K"}, {"n": "7", "inn": 4, "slot": 3, "seq": "bbbSSS", "r": "L"}, {"n": "11", "inn": 5, "slot": 4, "seq": "SbSbS", "r": "G"}, {"n": "1", "inn": 5, "slot": 5, "seq": "bbbb", "r": "BB"}, {"n": "23", "inn": 5, "slot": 6, "seq": "bbb", "r": "HBP"}, {"n": "27", "inn": 5, "slot": 7, "seq": "bSSS", "r": "F"}], "pit": [{"p": "18", "inn": 1, "slot": 1, "seq": "bSSS", "r": "K"}, {"p": "18", "inn": 1, "slot": 2, "seq": "S", "r": "E"}, {"p": "18", "inn": 1, "slot": 3, "seq": "bbbSb", "r": "BB"}, {"p": "18", "inn": 1, "slot": 4, "seq": "SSSS", "r": "SF"}, {"p": "18", "inn": 1, "slot": 5, "seq": "SbSS", "r": "G"}, {"p": "18", "inn": 2, "slot": 6, "seq": "bbS", "r": "1B"}, {"p": "18", "inn": 2, "slot": 7, "seq": "SSS", "r": "KL"}, {"p": "18", "inn": 2, "slot": 8, "seq": "bSbS", "r": "G"}, {"p": "18", "inn": 2, "slot": 9, "seq": "bS", "r": "1B"}, {"p": "18", "inn": 2, "slot": 10, "seq": "bSbbSSS", "r": "1B"}, {"p": "18", "inn": 3, "slot": 1, "seq": "SS", "r": "F"}, {"p": "18", "inn": 3, "slot": 2, "seq": "bS", "r": "G"}, {"p": "18", "inn": 3, "slot": 3, "seq": "S", "r": "1B"}, {"p": "18", "inn": 3, "slot": 4, "seq": "bS", "r": "G"}, {"p": "1", "inn": 4, "slot": 5, "seq": "SbbSS", "r": "K"}, {"p": "1", "inn": 4, "slot": 6, "seq": "bbSSS", "r": "K"}, {"p": "1", "inn": 4, "slot": 7, "seq": "bSSS", "r": "KL"}, {"p": "3", "inn": 5, "slot": 1, "seq": "bbSSS", "r": "E"}, {"p": "3", "inn": 5, "slot": 2, "seq": "S", "r": "F"}, {"p": "3", "inn": 5, "slot": 3, "seq": "SSSbbS", "r": "K"}, {"p": "3", "inn": 5, "slot": 8, "seq": "bSbbb", "r": "BB"}, {"p": "3", "inn": 5, "slot": 9, "seq": "bSSS", "r": "K"}, {"p": "3", "inn": 5, "slot": 10, "seq": "bbbb", "r": "BB"}, {"p": "23", "inn": 6, "slot": 4, "seq": "SSbS", "r": "L"}, {"p": "23", "inn": 6, "slot": 5, "seq": "bSbbSS", "r": "KL"}, {"p": "23", "inn": 6, "slot": 6, "seq": "SS", "r": "F"}]}, {"date": "2026-10-18", "opp": "OutKast BB Club 10U", "bat": [{"n": "44", "inn": 1, "slot": 1, "seq": "bSbSbb", "r": "BB"}, {"n": "15", "inn": 1, "slot": 2, "seq": "SbSbSbb", "r": "HBP"}, {"n": "1", "inn": 1, "slot": 3, "seq": "bSSbbSS", "r": "KL"}, {"n": "23", "inn": 1, "slot": 4, "seq": "SSS", "r": "K"}, {"n": "7", "inn": 2, "slot": 5, "seq": "S", "r": "1B"}, {"n": "6", "inn": 2, "slot": 6, "seq": "SSbS", "r": "KL"}, {"n": "22", "inn": 2, "slot": 7, "seq": "b", "r": "HBP"}, {"n": "9", "inn": 2, "slot": 8, "seq": "SbbbSSSS", "r": "1B"}, {"n": "66", "inn": 2, "slot": 9, "seq": "bS", "r": "inc"}, {"n": "44", "inn": 3, "slot": 1, "seq": "SSbbbS", "r": "KL"}, {"n": "15", "inn": 3, "slot": 2, "seq": "SSS", "r": "KL"}, {"n": "66", "inn": 3, "slot": 9, "seq": "S", "r": "E"}, {"n": "11", "inn": 3, "slot": 10, "seq": "bbbSb", "r": "BB"}, {"n": "18", "inn": 3, "slot": 11, "seq": "SbSS", "r": "K"}, {"n": "1", "inn": 4, "slot": 3, "seq": "Sbbbb", "r": "BB"}, {"n": "23", "inn": 4, "slot": 4, "seq": "bSSbbb", "r": "BB"}, {"n": "7", "inn": 4, "slot": 5, "seq": "bS", "r": "IF"}, {"n": "13", "inn": 4, "slot": 6, "seq": "bbbS", "r": "1B"}, {"n": "14", "inn": 4, "slot": 7, "seq": "bSb", "r": "inc"}, {"n": "14", "inn": 5, "slot": 7, "seq": "S", "r": "1B"}, {"n": "9", "inn": 5, "slot": 8, "seq": "bSbSbS", "r": "KL"}, {"n": "66", "inn": 5, "slot": 9, "seq": "S", "r": "G"}, {"n": "11", "inn": 5, "slot": 10, "seq": "bSS", "r": "G"}, {"n": "44", "inn": 6, "slot": 1, "seq": "bSbbb", "r": "BB"}, {"n": "15", "inn": 6, "slot": 2, "seq": "bSSbSbS", "r": "K"}, {"n": "1", "inn": 6, "slot": 3, "seq": "SbbS", "r": "L"}, {"n": "23", "inn": 6, "slot": 4, "seq": "S", "r": "G"}, {"n": "18", "inn": 6, "slot": 11, "seq": "bSbbb", "r": "BB"}, {"n": "7", "inn": 7, "slot": 5, "seq": "bS", "r": "G"}, {"n": "13", "inn": 7, "slot": 6, "seq": "SSbbS", "r": "K"}, {"n": "14", "inn": 7, "slot": 7, "seq": "bbSbSb", "r": "BB"}, {"n": "9", "inn": 7, "slot": 8, "seq": "bbS", "r": "G"}], "pit": [{"p": "23", "inn": 1, "slot": 1, "seq": "bbSS", "r": "E"}, {"p": "23", "inn": 1, "slot": 2, "seq": "bS", "r": "1B"}, {"p": "23", "inn": 1, "slot": 3, "seq": "Sbbbb", "r": "BB"}, {"p": "23", "inn": 1, "slot": 4, "seq": "SSbSSS", "r": "K"}, {"p": "23", "inn": 1, "slot": 5, "seq": "", "r": "inc"}, {"p": "23", "inn": 2, "slot": 5, "seq": "SSS", "r": "K"}, {"p": "23", "inn": 2, "slot": 6, "seq": "SbS", "r": "1B"}, {"p": "23", "inn": 2, "slot": 7, "seq": "bbS", "r": "1B"}, {"p": "23", "inn": 2, "slot": 8, "seq": "SS", "r": "G"}, {"p": "23", "inn": 2, "slot": 9, "seq": "bbSSS", "r": "K"}, {"p": "23", "inn": 3, "slot": 1, "seq": "SbSbSS", "r": "2B"}, {"p": "23", "inn": 3, "slot": 2, "seq": "S", "r": "F"}, {"p": "23", "inn": 3, "slot": 3, "seq": "S", "r": "1B"}, {"p": "23", "inn": 3, "slot": 4, "seq": "S", "r": "F"}, {"p": "1", "inn": 4, "slot": 1, "seq": "bbbb", "r": "BB"}, {"p": "1", "inn": 4, "slot": 2, "seq": "SSSS", "r": "K"}, {"p": "1", "inn": 4, "slot": 5, "seq": "SbbSS", "r": "K"}, {"p": "1", "inn": 4, "slot": 6, "seq": "bSbbSb", "r": "BB"}, {"p": "1", "inn": 4, "slot": 7, "seq": "SbbS", "r": "1B"}, {"p": "1", "inn": 4, "slot": 8, "seq": "bSbSbb", "r": "BB"}, {"p": "1", "inn": 4, "slot": 9, "seq": "S", "r": "1B"}, {"p": "18", "inn": 5, "slot": 3, "seq": "S", "r": "E"}, {"p": "18", "inn": 5, "slot": 4, "seq": "bS", "r": "G"}, {"p": "18", "inn": 5, "slot": 5, "seq": "SSbbbS", "r": "KL"}, {"p": "18", "inn": 6, "slot": 6, "seq": "S", "r": "G"}, {"p": "18", "inn": 6, "slot": 7, "seq": "SSbS", "r": "1B"}, {"p": "18", "inn": 6, "slot": 8, "seq": "bSbS", "r": "G"}, {"p": "18", "inn": 6, "slot": 9, "seq": "bbS", "r": "G"}, {"p": "18", "inn": 7, "slot": 1, "seq": "bbbb", "r": "BB"}, {"p": "18", "inn": 7, "slot": 2, "seq": "bbSSS", "r": "KL"}, {"p": "18", "inn": 7, "slot": 3, "seq": "S", "r": "G"}, {"p": "18", "inn": 7, "slot": 4, "seq": "bbbSSSSb", "r": "BB"}, {"p": "18", "inn": 7, "slot": 5, "seq": "SS", "r": "G"}]}, {"date": "2026-10-25", "opp": "Owls 11U", "bat": [{"n": "44", "inn": 1, "slot": 1, "seq": "S", "r": "E"}, {"n": "27", "inn": 1, "slot": 2, "seq": "bSS", "r": "1B"}, {"n": "23", "inn": 1, "slot": 3, "seq": "bbbSb", "r": "BB"}, {"n": "1", "inn": 1, "slot": 4, "seq": "bSbSS", "r": "KL"}, {"n": "7", "inn": 1, "slot": 5, "seq": "bbbb", "r": "BB"}, {"n": "9", "inn": 1, "slot": 6, "seq": "bS", "r": "FC"}, {"n": "3", "inn": 1, "slot": 7, "seq": "SbbbSS", "r": "K"}, {"n": "18", "inn": 2, "slot": 8, "seq": "S", "r": "1B"}, {"n": "22", "inn": 2, "slot": 9, "seq": "SbbSS", "r": "1B"}, {"n": "11", "inn": 2, "slot": 10, "seq": "bSS", "r": "G"}, {"n": "44", "inn": 3, "slot": 1, "seq": "SbSS", "r": "K"}, {"n": "27", "inn": 3, "slot": 2, "seq": "bbbb", "r": "BB"}, {"n": "23", "inn": 3, "slot": 3, "seq": "bbSbSSS", "r": "KL"}, {"n": "6", "inn": 3, "slot": 11, "seq": "bSSbS", "r": "KL"}, {"n": "1", "inn": 4, "slot": 4, "seq": "bbbb", "r": "BB"}, {"n": "7", "inn": 4, "slot": 5, "seq": "bbbSb", "r": "BB"}, {"n": "9", "inn": 4, "slot": 6, "seq": "S", "r": "G"}, {"n": "3", "inn": 4, "slot": 7, "seq": "bSSbb", "r": "inc"}, {"n": "44", "inn": 5, "slot": 1, "seq": "SS", "r": "1B"}, {"n": "27", "inn": 5, "slot": 2, "seq": "SbbbS", "r": "1B"}, {"n": "23", "inn": 5, "slot": 3, "seq": "bbS", "r": "F"}, {"n": "3", "inn": 5, "slot": 7, "seq": "SbSS", "r": "1B"}, {"n": "18", "inn": 5, "slot": 8, "seq": "SSS", "r": "KL"}, {"n": "22", "inn": 5, "slot": 9, "seq": "bbbb", "r": "BB"}, {"n": "11", "inn": 5, "slot": 10, "seq": "SbS", "r": "G"}, {"n": "6", "inn": 5, "slot": 11, "seq": "S", "r": "1B"}, {"n": "1", "inn": 6, "slot": 4, "seq": "bSS", "r": "G"}, {"n": "7", "inn": 6, "slot": 5, "seq": "SbSbbS", "r": "K"}, {"n": "9", "inn": 6, "slot": 6, "seq": "SbbbSS", "r": "KL"}], "pit": [{"p": "7", "inn": 1, "slot": 1, "seq": "S", "r": "F"}, {"p": "7", "inn": 1, "slot": 2, "seq": "SSS", "r": "KL"}, {"p": "7", "inn": 1, "slot": 3, "seq": "SSS", "r": "K"}, {"p": "7", "inn": 1, "slot": 4, "seq": "SSS", "r": "1B"}, {"p": "7", "inn": 1, "slot": 5, "seq": "SSbbbSb", "r": "BB"}, {"p": "7", "inn": 1, "slot": 6, "seq": "S", "r": "1B"}, {"p": "7", "inn": 1, "slot": 7, "seq": "bbSb", "r": "HBP"}, {"p": "7", "inn": 1, "slot": 8, "seq": "bSSSS", "r": "F"}, {"p": "7", "inn": 2, "slot": 1, "seq": "bSSbSSbSS", "r": "L"}, {"p": "7", "inn": 2, "slot": 2, "seq": "SbbSS", "r": "KL"}, {"p": "7", "inn": 2, "slot": 3, "seq": "SS", "r": "1B"}, {"p": "7", "inn": 2, "slot": 4, "seq": "bbSbS", "r": "G"}, {"p": "7", "inn": 2, "slot": 9, "seq": "SbS", "r": "1B"}, {"p": "7", "inn": 2, "slot": 10, "seq": "SS", "r": "E"}, {"p": "1", "inn": 3, "slot": 1, "seq": "bbbSSS", "r": "1B"}, {"p": "1", "inn": 3, "slot": 5, "seq": "SbS", "r": "1B"}, {"p": "1", "inn": 3, "slot": 6, "seq": "bbSS", "r": "G"}, {"p": "1", "inn": 3, "slot": 7, "seq": "bS", "r": "F"}, {"p": "1", "inn": 3, "slot": 8, "seq": "bbS", "r": "2B"}, {"p": "1", "inn": 3, "slot": 9, "seq": "Sb", "r": "HBP"}, {"p": "1", "inn": 3, "slot": 10, "seq": "bbbSb", "r": "BB"}, {"p": "23", "inn": 4, "slot": 2, "seq": "SSbS", "r": "K"}, {"p": "23", "inn": 4, "slot": 3, "seq": "SS", "r": "G"}, {"p": "23", "inn": 4, "slot": 4, "seq": "bS", "r": "1B"}, {"p": "23", "inn": 4, "slot": 5, "seq": "bS", "r": "G"}, {"p": "23", "inn": 5, "slot": 6, "seq": "S", "r": "F"}, {"p": "23", "inn": 5, "slot": 7, "seq": "bS", "r": "G"}, {"p": "23", "inn": 5, "slot": 8, "seq": "S", "r": "G"}, {"p": "23", "inn": 6, "slot": 1, "seq": "bSSbS", "r": "KL"}, {"p": "23", "inn": 6, "slot": 9, "seq": "S", "r": "G"}, {"p": "23", "inn": 6, "slot": 10, "seq": "S", "r": "L"}]}, {"date": "2026-10-25b", "opp": "High Standards 11U", "bat": [{"n": "27", "inn": 1, "slot": 1, "seq": "bbS", "r": "F"}, {"n": "23", "inn": 1, "slot": 2, "seq": "bS", "r": "G"}, {"n": "7", "inn": 1, "slot": 3, "seq": "bbbSSb", "r": "BB"}, {"n": "1", "inn": 1, "slot": 4, "seq": "S", "r": "G"}, {"n": "9", "inn": 2, "slot": 5, "seq": "Sb", "r": "HBP"}, {"n": "15", "inn": 2, "slot": 6, "seq": "Sbbbb", "r": "BB"}, {"n": "18", "inn": 2, "slot": 7, "seq": "S", "r": "G"}, {"n": "6", "inn": 2, "slot": 8, "seq": "bbSS", "r": "F"}, {"n": "22", "inn": 2, "slot": 9, "seq": "SSS", "r": "KL"}, {"n": "27", "inn": 3, "slot": 1, "seq": "S", "r": "G"}, {"n": "13", "inn": 3, "slot": 10, "seq": "S", "r": "G"}, {"n": "66", "inn": 3, "slot": 11, "seq": "SSSbS", "r": "F"}, {"n": "23", "inn": 4, "slot": 2, "seq": "bS", "r": "F"}, {"n": "7", "inn": 4, "slot": 3, "seq": "bS", "r": "1B"}, {"n": "1", "inn": 4, "slot": 4, "seq": "SS", "r": "1B"}, {"n": "9", "inn": 4, "slot": 5, "seq": "bSSbS", "r": "K"}, {"n": "15", "inn": 5, "slot": 6, "seq": "S", "r": "G"}, {"n": "18", "inn": 5, "slot": 7, "seq": "bSSS", "r": "K"}, {"n": "6", "inn": 5, "slot": 8, "seq": "S", "r": "G"}, {"n": "27", "inn": 6, "slot": 1, "seq": "bSbbSSb", "r": "BB"}, {"n": "23", "inn": 6, "slot": 2, "seq": "S", "r": "1B"}, {"n": "7", "inn": 6, "slot": 3, "seq": "S", "r": "G"}, {"n": "1", "inn": 6, "slot": 4, "seq": "SbbSS", "r": "2B"}, {"n": "9", "inn": 6, "slot": 5, "seq": "bS", "r": "G"}, {"n": "15", "inn": 6, "slot": 6, "seq": "SSbS", "r": "K"}, {"n": "22", "inn": 6, "slot": 9, "seq": "bbSSbb", "r": "BB"}, {"n": "13", "inn": 6, "slot": 10, "seq": "Sbbbb", "r": "BB"}, {"n": "66", "inn": 6, "slot": 11, "seq": "bbbb", "r": "BB"}], "pit": [{"p": "44", "inn": 1, "slot": 1, "seq": "SS", "r": "1B"}, {"p": "44", "inn": 1, "slot": 2, "seq": "SbSbbS", "r": "F"}, {"p": "44", "inn": 1, "slot": 3, "seq": "SbbS", "r": "2B"}, {"p": "44", "inn": 1, "slot": 4, "seq": "bS", "r": "E"}, {"p": "44", "inn": 1, "slot": 5, "seq": "SbbbS", "r": "G"}, {"p": "44", "inn": 1, "slot": 6, "seq": "SS", "r": "1B"}, {"p": "44", "inn": 1, "slot": 7, "seq": "bS", "r": "F"}, {"p": "44", "inn": 2, "slot": 1, "seq": "bS", "r": "1B"}, {"p": "44", "inn": 2, "slot": 2, "seq": "SSbbSS", "r": "1B"}, {"p": "44", "inn": 2, "slot": 3, "seq": "S", "r": "G"}, {"p": "44", "inn": 2, "slot": 8, "seq": "SS", "r": "2B"}, {"p": "44", "inn": 2, "slot": 9, "seq": "SSbS", "r": "F"}, {"p": "44", "inn": 2, "slot": 10, "seq": "SS", "r": "F"}, {"p": "9", "inn": 3, "slot": 4, "seq": "SbS", "r": "1B"}, {"p": "9", "inn": 3, "slot": 5, "seq": "bbS", "r": "G"}, {"p": "9", "inn": 3, "slot": 6, "seq": "SS", "r": "1B"}, {"p": "9", "inn": 3, "slot": 7, "seq": "Sbbbb", "r": "BB"}, {"p": "9", "inn": 3, "slot": 8, "seq": "SSS", "r": "1B"}, {"p": "9", "inn": 3, "slot": 9, "seq": "SbSSbbSSS", "r": "KL"}, {"p": "9", "inn": 3, "slot": 10, "seq": "S", "r": "G"}, {"p": "18", "inn": 4, "slot": 1, "seq": "SSS", "r": "1B"}, {"p": "18", "inn": 4, "slot": 2, "seq": "SSbbSS", "r": "KL"}, {"p": "18", "inn": 4, "slot": 3, "seq": "bSSS", "r": "KL"}, {"p": "18", "inn": 4, "slot": 4, "seq": "Sbbbb", "r": "BB"}, {"p": "18", "inn": 4, "slot": 5, "seq": "SS", "r": "1B"}, {"p": "18", "inn": 4, "slot": 6, "seq": "SbbSS", "r": "K"}, {"p": "18", "inn": 5, "slot": 7, "seq": "bSSS", "r": "K"}, {"p": "18", "inn": 5, "slot": 8, "seq": "SSbbbS", "r": "K"}, {"p": "18", "inn": 5, "slot": 9, "seq": "SbSS", "r": "K"}, {"p": "18", "inn": 6, "slot": 1, "seq": "SbbSbS", "r": "KL"}, {"p": "18", "inn": 6, "slot": 2, "seq": "S", "r": "1B"}, {"p": "18", "inn": 6, "slot": 3, "seq": "SS", "r": "2B"}, {"p": "18", "inn": 6, "slot": 4, "seq": "SSS", "r": "K"}, {"p": "18", "inn": 6, "slot": 5, "seq": "SSbS", "r": "K"}]}, {"date": "2026-11-07", "opp": "AZBC 2034 DF 11U", "bat": [{"n": "44", "inn": 1, "slot": 1, "seq": "SSS", "r": "K"}, {"n": "3b", "inn": 1, "slot": 2, "seq": "S", "r": "G"}, {"n": "1", "inn": 1, "slot": 3, "seq": "SS", "r": "E"}, {"n": "33", "inn": 1, "slot": 4, "seq": "bSbbS", "r": "G"}, {"n": "9", "inn": 2, "slot": 5, "seq": "SbSbb", "r": "HBP"}, {"n": "6", "inn": 2, "slot": 6, "seq": "bbSbb", "r": "BB"}, {"n": "11", "inn": 2, "slot": 7, "seq": "bbbSSS", "r": "K"}, {"n": "29", "inn": 2, "slot": 8, "seq": "bbbSSS", "r": "KL"}, {"n": "13", "inn": 3, "slot": 9, "seq": "S", "r": "1B"}, {"n": "87", "inn": 3, "slot": 10, "seq": "bSS", "r": "F"}, {"n": "66", "inn": 3, "slot": 11, "seq": "SbSbS", "r": "K"}, {"n": "44", "inn": 3, "slot": 1, "seq": "bSbSSbS", "r": "KL"}, {"n": "3b", "inn": 4, "slot": 2, "seq": "SS", "r": "1B"}, {"n": "1", "inn": 4, "slot": 3, "seq": "bSbbb", "r": "BB"}, {"n": "33", "inn": 4, "slot": 4, "seq": "bbbSSS", "r": "L"}, {"n": "9", "inn": 4, "slot": 5, "seq": "S", "r": "1B"}, {"n": "6", "inn": 4, "slot": 6, "seq": "bSSbbS", "r": "F"}, {"n": "11", "inn": 4, "slot": 7, "seq": "bbSb", "r": "HBP"}, {"n": "29", "inn": 4, "slot": 8, "seq": "SSS", "r": "K"}], "pit": [{"p": "33", "inn": 1, "slot": 1, "seq": "S", "r": "1B"}, {"p": "33", "inn": 1, "slot": 2, "seq": "S", "r": "F"}, {"p": "33", "inn": 1, "slot": 3, "seq": "SSS", "r": "1B"}, {"p": "33", "inn": 1, "slot": 4, "seq": "SbSS", "r": "K"}, {"p": "33", "inn": 1, "slot": 5, "seq": "bbSSSbSS", "r": "2B"}, {"p": "33", "inn": 1, "slot": 6, "seq": "SSbS", "r": "K"}, {"p": "33", "inn": 1, "slot": 7, "seq": "bS", "r": "1B"}, {"p": "33", "inn": 1, "slot": 8, "seq": "SbS", "r": "1B"}, {"p": "33", "inn": 1, "slot": 9, "seq": "S", "r": "G"}, {"p": "1", "inn": 2, "slot": 10, "seq": "S", "r": "G"}, {"p": "1", "inn": 2, "slot": 11, "seq": "bS", "r": "3B"}, {"p": "1", "inn": 2, "slot": 1, "seq": "S", "r": "1B"}, {"p": "1", "inn": 2, "slot": 2, "seq": "S", "r": "F"}, {"p": "1", "inn": 2, "slot": 3, "seq": "bbSS", "r": "1B"}, {"p": "1", "inn": 2, "slot": 4, "seq": "SbSbS", "r": "E"}, {"p": "1", "inn": 2, "slot": 5, "seq": "S", "r": "1B"}, {"p": "1", "inn": 2, "slot": 6, "seq": "bSSS", "r": "F"}, {"p": "1", "inn": 3, "slot": 7, "seq": "SbSbS", "r": "KL"}, {"p": "1", "inn": 3, "slot": 8, "seq": "bSSb", "r": "HBP"}, {"p": "1", "inn": 3, "slot": 9, "seq": "SbSS", "r": "F"}, {"p": "1", "inn": 3, "slot": 10, "seq": "S", "r": "1B"}, {"p": "1", "inn": 3, "slot": 11, "seq": "S", "r": "inc"}, {"p": "1", "inn": 4, "slot": 11, "seq": "bSSS", "r": "G"}, {"p": "1", "inn": 4, "slot": 1, "seq": "S", "r": "1B"}, {"p": "1", "inn": 4, "slot": 2, "seq": "bbSbS", "r": "1B"}, {"p": "1", "inn": 4, "slot": 3, "seq": "SSbbSS", "r": "3B"}, {"p": "1", "inn": 4, "slot": 4, "seq": "bbbSb", "r": "BB"}]}, {"date": "2026-11-07b", "opp": "Dynasty Baseball 11U Moody", "bat": [{"n": "3b", "inn": 1, "slot": 1, "seq": "S", "r": "G"}, {"n": "23", "inn": 1, "slot": 2, "seq": "SSSSS", "r": "3B"}, {"n": "1", "inn": 1, "slot": 3, "seq": "SSS", "r": "KL"}, {"n": "33", "inn": 1, "slot": 4, "seq": "bbbSb", "r": "BB"}, {"n": "27", "inn": 1, "slot": 5, "seq": "bSSSS", "r": "KL"}, {"n": "29", "inn": 2, "slot": 6, "seq": "SSS", "r": "G"}, {"n": "7", "inn": 2, "slot": 7, "seq": "S", "r": "G"}, {"n": "9", "inn": 2, "slot": 8, "seq": "SbSbS", "r": "G"}, {"n": "15", "inn": 3, "slot": 9, "seq": "bSSSS", "r": "K"}, {"n": "14", "inn": 3, "slot": 10, "seq": "bSbSbb", "r": "BB"}, {"n": "6", "inn": 3, "slot": 11, "seq": "bbSSS", "r": "KL"}, {"n": "3b", "inn": 3, "slot": 1, "seq": "S", "r": "G"}, {"n": "23", "inn": 4, "slot": 2, "seq": "S", "r": "1B"}, {"n": "1", "inn": 4, "slot": 3, "seq": "bbbSb", "r": "BB"}, {"n": "33", "inn": 4, "slot": 4, "seq": "bbbb", "r": "BB"}, {"n": "27", "inn": 4, "slot": 5, "seq": "SSS", "r": "DP"}, {"n": "29", "inn": 4, "slot": 6, "seq": "bSS", "r": "1B"}, {"n": "7", "inn": 4, "slot": 7, "seq": "SbSS", "r": "F"}], "pit": [{"p": "3b", "inn": 1, "slot": 1, "seq": "bSSbS", "r": "E"}, {"p": "3b", "inn": 1, "slot": 2, "seq": "b", "r": "HBP"}, {"p": "3b", "inn": 1, "slot": 3, "seq": "bSS", "r": "1B"}, {"p": "3b", "inn": 1, "slot": 4, "seq": "SbS", "r": "2B"}, {"p": "3b", "inn": 1, "slot": 5, "seq": "bSSSbSbSb", "r": "BB"}, {"p": "3b", "inn": 1, "slot": 6, "seq": "SbSSS", "r": "F"}, {"p": "9", "inn": 1, "slot": 7, "seq": "SbbSbb", "r": "BB"}, {"p": "9", "inn": 1, "slot": 8, "seq": "bSS", "r": "1B"}, {"p": "9", "inn": 1, "slot": 9, "seq": "SSbbS", "r": "KL"}, {"p": "9", "inn": 1, "slot": 10, "seq": "SSSbbS", "r": "1B"}, {"p": "9", "inn": 1, "slot": 11, "seq": "bS", "r": "1B"}, {"p": "9", "inn": 1, "slot": 1, "seq": "SbSS", "r": "KL"}, {"p": "9", "inn": 2, "slot": 2, "seq": "S", "r": "G"}, {"p": "9", "inn": 2, "slot": 3, "seq": "SbbSS", "r": "F"}, {"p": "9", "inn": 2, "slot": 4, "seq": "bSbSS", "r": "G"}, {"p": "7", "inn": 3, "slot": 5, "seq": "bSS", "r": "E"}, {"p": "7", "inn": 3, "slot": 6, "seq": "SbbSS", "r": "K"}, {"p": "7", "inn": 3, "slot": 7, "seq": "SSbS", "r": "DP"}, {"p": "7", "inn": 4, "slot": 8, "seq": "SS", "r": "F"}, {"p": "7", "inn": 4, "slot": 9, "seq": "bbSSbSb", "r": "BB"}, {"p": "7", "inn": 4, "slot": 10, "seq": "bb", "r": "HBP"}, {"p": "7", "inn": 4, "slot": 11, "seq": "SbS", "r": "E"}, {"p": "7", "inn": 4, "slot": 1, "seq": "SS", "r": "1B"}, {"p": "7", "inn": 4, "slot": 2, "seq": "S", "r": "1B"}]}]}};
+</script>
+<script>
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const P=DATA.players, PI=DATA.pitchers, G=DATA.games, TB=DATA.teamBat;
+const gd=d=>({"2026-08-30":"Aug 30","2026-09-13":"Sep 13","2026-09-20":"Sep 20","2026-09-27":"Sep 27","2026-10-04":"Oct 4","2026-10-18":"Oct 18","2026-10-25":"Oct 25 (1)","2026-10-25b":"Oct 25 (2)","2026-11-07":"Nov 7 (1)","2026-11-07b":"Nov 7 (2)"}[d]||d);
+const fmt3=v=>v.toFixed(3).replace(/^0\./,'.');
+let selected="";
+
+/* ---------- player selector ---------- */
+const sel=$('#pfilter');
+[...P].sort((a,b)=>a.name.localeCompare(b.name)).forEach(p=>{
+  const o=document.createElement('option'); o.value=p.name; o.textContent=`#${p.num} ${p.name}`; sel.appendChild(o);
+});
+sel.addEventListener('change',()=>{selected=sel.value; renderPlayerCard(); applyHighlight();});
+
+/* ---------- tabs ---------- */
+$$('.tab').forEach(t=>t.addEventListener('click',()=>{
+  $$('.tab').forEach(x=>x.setAttribute('aria-selected','false'));
+  t.setAttribute('aria-selected','true');
+  $$('.panel').forEach(p=>p.classList.remove('on'));
+  $('#'+t.dataset.panel).classList.add('on');
+  applyHighlight();
+}));
+
+/* ---------- KPIs ---------- */
+$('#kpis').innerHTML=[
+  [DATA.meta.record.replaceAll('-','–'),`Record · <b>${DATA.meta.rs}</b> RS / <b>${DATA.meta.ra}</b> RA`],
+  [fmt3(TB.ops),`Team OPS · ${fmt3(TB.avg)}/${fmt3(TB.obp)}/${fmt3(TB.slg)}`],
+  [`${TB.SB}`,`Stolen bases · <b>${TB.BB}</b> walks drawn`],
+  [`${DATA.meta.nPitchers}`,`Kids who pitched · of <b>${DATA.meta.nPlayers}</b> on roster`]
+].map(([k,l])=>`<div class="kpi"><div class="k tnum">${k}</div><div class="l">${l}</div></div>`).join('');
+
+/* ---------- game cards ---------- */
+$('#gamecards').innerHTML=G.map(g=>{
+  const inn=g.ncwl_line.map((_,i)=>`<th>${i+1}</th>`).join('');
+  const nc=g.ncwl_line.map(x=>`<td>${x}</td>`).join('');
+  const op=g.opp_line.map(x=>`<td>${x}</td>`).join('');
+  return `<div class="game">
+    <div class="gd">${gd(g.date)}</div>
+    <div><span class="gr ${g.result==='W'?'w':g.result==='T'?'t':'l'}">${g.result==='W'?'WIN':g.result==='T'?'TIE':'LOSS'}</span></div>
+    <div class="gs tnum">${g.rs}–${g.ra}</div>
+    <div class="go">vs ${g.opp}</div>
+    <table class="linescore tnum"><tr><th></th>${inn}<th class="rr">R</th></tr>
+      <tr><td class="tm">NCW</td>${nc}<td class="rr">${g.rs}</td></tr>
+      <tr><td class="tm">OPP</td>${op}<td class="rr">${g.ra}</td></tr></table>
+  </div>`;
+}).join('');
+
+/* ---------- team line ---------- */
+$('#teamline').innerHTML=`<div class="tbl-scroll"><table class="stat" style="min-width:auto">
+  <tr><th class="name">Team totals</th><th>PA</th><th>AB</th><th>R</th><th>H</th><th>RBI</th><th>BB</th><th>SO</th><th>SB</th><th>AVG</th><th>OBP</th><th>SLG</th><th>OPS</th></tr>
+  <tr><td class="name">Batting (${G.length} G)</td><td>${TB.PA}</td><td>${TB.AB}</td><td>${TB.R}</td><td>${TB.H}</td><td>${TB.RBI}</td><td>${TB.BB}</td><td>${TB.SO}</td><td>${TB.SB}</td>
+  <td class="big">${fmt3(TB.avg)}</td><td class="big">${fmt3(TB.obp)}</td><td class="big">${fmt3(TB.slg)}</td><td class="big">${fmt3(TB.ops)}</td></tr>
+  </table></div>`;
+
+/* ---------- bar chart helper ---------- */
+function barChart(el,rows,{max,cls,fmt,avg,colorFn}={}){
+  const mx=max||Math.max(...rows.map(r=>r.v));
+  const avgpct = avg!=null ? (avg/mx*100).toFixed(1) : null;
+  const avgMark = avgpct!=null ? `<div style="position:absolute;top:-3px;bottom:-3px;left:${avgpct}%;width:0;border-left:2px dashed var(--ink-3);z-index:2"></div>` : '';
+  el.innerHTML=rows.map(r=>{
+    const pct=Math.max(1,(r.v/mx*100));
+    const c=colorFn?colorFn(r):(cls||'reps');
+    return `<div class="row" data-name="${r.name}">
+      <div class="rl">${r.label}</div>
+      <div class="track"><div class="fill ${c}" style="width:${pct}%"></div>${avgMark}</div>
+      <div class="rv tnum">${fmt?fmt(r.v):r.v}</div></div>`;
+  }).join('');
+}
+
+/* ---------- Playing Time ---------- */
+function ptRows(){return P.map(p=>({...p, pag:p.PA/p.games}));}
+const teamPAG = P.reduce((s,p)=>s+p.PA,0)/P.reduce((s,p)=>s+p.games,0);
+function drawPT(){
+  const rows=ptRows().sort((a,b)=>b.pag-a.pag).map(p=>({
+    name:p.name, label:`<span class="jersey">#${p.num}</span>${p.name}`,
+    v:p.pag, games:p.games }));
+  barChart($('#pt-chart'),rows,{max:Math.max(...rows.map(r=>r.v)),
+    fmt:v=>v.toFixed(1), avg:teamPAG,
+    colorFn:r=>r.games===G.length?'reps':'warn'});
+  // avg marker simpler: append label
+}
+const PT_COLS=[
+  ['name','Player','name',p=>`<span class="jersey">#${p.num}</span>${p.name}`],
+  ['games','G',null,p=>p.games],
+  ['PA','PA',null,p=>p.PA],
+  ['pag','PA/G','big',p=>(p.PA/p.games).toFixed(1)],
+  ['orderAvg','Avg slot',null,p=>p.orderAvg],
+  ['pos','Positions','name',p=>p.positions.map(x=>`<span class="pos-tag">${x}</span>`).join('')]
+];
+let ptSort={k:'pag',dir:-1};
+function drawPTtable(){
+  const t=$('#pt-table');
+  const rows=ptRows().sort((a,b)=>{
+    let av=a[ptSort.k],bv=b[ptSort.k];
+    if(ptSort.k==='pos')return 0;
+    return (av<bv?-1:av>bv?1:0)*ptSort.dir;});
+  t.innerHTML=`<thead><tr>${PT_COLS.map(c=>`<th class="${c[2]==='name'?'name':''} ${ptSort.k===c[0]?'sorted':''}" data-k="${c[0]}">${c[1]}</th>`).join('')}</tr></thead>
+    <tbody>${rows.map(p=>`<tr data-name="${p.name}"><td class="name"><span class="jersey">#${p.num}</span>${p.name}</td>
+      <td>${p.games}</td><td>${p.PA}</td><td class="big">${(p.PA/p.games).toFixed(1)}</td>
+      <td>${p.orderAvg}</td><td class="name">${p.positions.map(x=>`<span class="pos-tag">${x}</span>`).join('')}</td></tr>`).join('')}</tbody>`;
+  $$('#pt-table th').forEach(th=>th.addEventListener('click',()=>{
+    const k=th.dataset.k; if(k==='pos')return;
+    ptSort.dir = ptSort.k===k? -ptSort.dir : -1; ptSort.k=k; drawPTtable(); applyHighlight();}));
+}
+$('#pt-callouts').innerHTML=[
+  ['Most reps','<b>G Nebo</b> (2.6 PA/G) turns the lineup over most, then <b>A Stanford</b> (2.6), <b>R Johnson</b> (2.5) and <b>C Davis</b> (2.4); Grissinger sits at 2.4 and Osterberg at 2.3.'],
+  ['Fewest reps','<b>C Ponsford</b> and <b>L Mercuriali</b> (1.3 PA/G), <b>N Koletsos</b> and <b>G Chionis</b> (1.4) see the fewest turns among the regulars; J Macias has one plate appearance in his one game. On Oct 4 and Oct 18 several kids split a lineup slot with a sub, which pulls their counts down — on Oct 18 Chionis and Currier shared slot 6, Ponsford and Mercuriali slot 7. Both Oct 25 games and both Nov 7 games used 11-batter lineups with no splits.'],
+  ['Missed a game','Only G Nebo has played all 10 games. A Kasak has played 6 of 10; L Mercuriali, H Nichols and B Currier 7 of 10; J Grissinger, R Johnson, B Osterberg, N Fujishiro, N Koletsos and C Ponsford 8 of 10; and C Davis, A Stanford, F Lane and G Chionis 9 of 10. Nov 7 split the roster: the AZBC game used Grissinger, Koletsos, Currier, Nichols and Macias, while Davis, Stanford, Johnson, Osterberg and Mercuriali played only the Dynasty game. Lovati, Balogh and Sanford (new to this report), Nebo, Lane and Chionis played both; Kasak, Fujishiro and Ponsford sat out both.'],
+  ['Position flexibility','A Stanford (LF/RF/CF/P), C Davis (SS/CF/P), R Johnson (1B/SS/3B), A Kasak (1B/CF/RF) and C Ponsford (LF/CF/C) move around most. On Oct 18 alone, Davis went P→SS, Nebo LF→P→LF and Fujishiro SS→P; on Oct 25 (game 1) Stanford went P→CF, Nebo LF→P→CF and Davis SS→P, and in game 2 Lane went 3B→P→3B, Fujishiro SS→P and Davis moved from catcher to SS. On Nov 7 (first game) Nebo went LF→P and Balogh P→LF in the 2nd, and bench bats Sanford and Nichols came in at LF and 2B in the 3rd; in the second game Lovati went P→LF in the 1st, Lane 3B→P (back to 3B in the 4th), Stanford CF→P in the 3rd, Nebo LF→3B→LF and Johnson 1B→3B→1B. Mercuriali and Koletsos have stayed at one spot all season; Currier has split time between LF and C.']
+].map(([t,b])=>`<div class="callout"><div class="ct">${t}</div><div class="cb">${b}</div></div>`).join('');
+
+/* ---------- Pitching ---------- */
+function drawPI(){
+  const rows=[...PI].sort((a,b)=>b.pitches-a.pitches).map(p=>({
+    name:p.name,label:`<span class="jersey">#${p.num}</span>${p.name}`,v:p.pitches}));
+  barChart($('#pi-chart'),rows,{max:Math.max(...rows.map(r=>r.v)),cls:'brand',fmt:v=>v});
+}
+const PI_COLS=[
+  ['name','Pitcher','name'],['apps','App',null],['ipNum','IP',null],['pitches','Pit','big'],
+  ['stpct','Str%',null],['BF','BF',null],['H','H',null],['R','R',null],['ER','ER',null],
+  ['BB','BB',null],['SO','K',null],['era','ERA','big'],['whip','WHIP',null]
+];
+let piSort={k:'outs',dir:-1};
+function drawPItable(){
+  const t=$('#pi-table');
+  const rows=[...PI].sort((a,b)=>{
+    let k=piSort.k==='ipNum'?'outs':piSort.k;
+    return ((a[k]<b[k])?-1:(a[k]>b[k])?1:0)*piSort.dir;});
+  t.innerHTML=`<thead><tr>${PI_COLS.map(c=>`<th class="${c[2]==='name'?'name':''} ${piSort.k===c[0]?'sorted':''}" data-k="${c[0]}">${c[1]}</th>`).join('')}</tr></thead>
+   <tbody>${rows.map(p=>`<tr data-name="${p.name}">
+     <td class="name"><span class="jersey">#${p.num}</span>${p.name}</td>
+     <td>${p.apps}</td><td>${p.ip}</td><td class="big">${p.pitches}</td><td>${p.stpct}%</td>
+     <td>${p.BF}</td><td>${p.H}</td><td>${p.R}</td><td>${p.ER}</td><td>${p.BB}</td><td>${p.SO}</td>
+     <td class="big">${p.era==null?'—':p.era.toFixed(2)}</td><td>${p.whip.toFixed(2)}</td></tr>`).join('')}</tbody>
+   <tfoot><tr><td class="name">Staff (${G.length} G)</td><td>—</td><td>${(()=>{const o=PI.reduce((s,p)=>s+p.outs,0);return Math.floor(o/3)+'.'+(o%3);})()}</td>
+     <td>${PI.reduce((s,p)=>s+p.pitches,0)}</td>
+     <td>${Math.round(PI.reduce((s,p)=>s+p.strikes,0)/PI.reduce((s,p)=>s+p.pitches,0)*100)}%</td>
+     <td>${PI.reduce((s,p)=>s+p.BF,0)}</td><td>${PI.reduce((s,p)=>s+p.H,0)}</td>
+     <td>${PI.reduce((s,p)=>s+p.R,0)}</td><td>${PI.reduce((s,p)=>s+p.ER,0)}</td>
+     <td>${PI.reduce((s,p)=>s+p.BB,0)}</td><td>${PI.reduce((s,p)=>s+p.SO,0)}</td><td>—</td><td>—</td></tr></tfoot>`;
+  $$('#pi-table th').forEach(th=>th.addEventListener('click',()=>{
+    const k=th.dataset.k; piSort.dir=piSort.k===k?-piSort.dir:-1; piSort.k=k; drawPItable(); applyHighlight();}));
+}
+function drawPIpc(){
+  const outings=[];
+  PI.forEach(p=>p.pergame.forEach(g=>outings.push({name:p.name,num:p.num,date:g.date,pc:g.pc})));
+  outings.sort((a,b)=>b.pc-a.pc);
+  const rows=outings.map(o=>({name:o.name,label:`<span class="jersey">#${o.num}</span>${o.name} · ${gd(o.date)}`,pc:o.pc,v:o.pc}));
+  const el=$('#pi-pc'); const mx=85;
+  const bands=[[85,'85 cap'],[66,'66 → 4d rest'],[51,'51 → 3d'],[36,'36 → 2d']];
+  let html=rows.map(r=>{
+    const pct=Math.min(100,r.pc/mx*100);
+    const col = r.pc>=66?'warn':r.pc>=36?'reps':'pos';
+    return `<div class="row" data-name="${r.name}">
+      <div class="rl">${r.label}</div>
+      <div class="track">${bands.map(b=>`<div style="position:absolute;top:0;bottom:0;left:${b[0]/mx*100}%;width:0;border-left:1px dashed var(--ink-3);opacity:.5"></div>`).join('')}
+        <div class="fill ${col}" style="width:${pct}%"></div></div>
+      <div class="rv tnum">${r.pc}</div></div>`;
+  }).join('');
+  el.innerHTML=html;
+  $('#pi-pc-leg').innerHTML=`<span><i class="dot" style="background:var(--pos)"></i> ≤35 pitches (0–1 day rest)</span>
+    <span><i class="dot" style="background:var(--reps)"></i> 36–65 (2–3 days)</span>
+    <span><i class="dot" style="background:var(--warn)"></i> 66–85 (4 days)</span>
+    <span style="color:var(--ink-3)">dashed = 36 / 51 / 66 / 85 thresholds</span>`;
+}
+
+/* ---------- Hitting ---------- */
+function drawHI(){
+  const maxPA=Math.max(...P.map(p=>p.PA)), maxOPS=Math.max(...P.map(p=>p.ops));
+  const rows=[...P].sort((a,b)=>b.ops-a.ops);
+  $('#hi-chart').innerHTML=rows.map(p=>`
+    <div class="row" data-name="${p.name}" style="grid-template-columns:112px 1fr 46px">
+      <div class="rl"><span class="jersey">#${p.num}</span>${p.name}</div>
+      <div style="display:flex;flex-direction:column;gap:3px">
+        <div class="track" style="height:11px"><div class="fill reps" style="width:${p.PA/maxPA*100}%"></div></div>
+        <div class="track" style="height:11px"><div class="fill pos" style="width:${p.ops/maxOPS*100}%"></div></div>
+      </div>
+      <div class="rv tnum" title="OPS">${fmt3(p.ops)}</div></div>`).join('');
+}
+const HI_COLS=[
+  ['name','Player','name'],['PA','PA',null],['AB','AB',null],['H','H',null],['R','R',null],
+  ['RBI','RBI',null],['BB','BB',null],['SO','K',null],['SB','SB',null],
+  ['avg','AVG',null],['obp','OBP',null],['slg','SLG',null],['ops','OPS','big'],
+  ['kpct','K%',null],['bbpct','BB%',null]
+];
+let hiSort={k:'ops',dir:-1};
+function drawHItable(){
+  const t=$('#hi-table');
+  const rows=[...P].sort((a,b)=>((a[hiSort.k]<b[hiSort.k])?-1:(a[hiSort.k]>b[hiSort.k])?1:0)*hiSort.dir);
+  t.innerHTML=`<thead><tr>${HI_COLS.map(c=>`<th class="${c[2]==='name'?'name':''} ${hiSort.k===c[0]?'sorted':''}" data-k="${c[0]}">${c[1]}</th>`).join('')}</tr></thead>
+   <tbody>${rows.map(p=>`<tr data-name="${p.name}">
+     <td class="name"><span class="jersey">#${p.num}</span>${p.name}</td>
+     <td>${p.PA}</td><td>${p.AB}</td><td>${p.H}</td><td>${p.R}</td><td>${p.RBI}</td><td>${p.BB}</td><td>${p.SO}</td><td>${p.SB}</td>
+     <td>${fmt3(p.avg)}</td><td>${fmt3(p.obp)}</td><td>${fmt3(p.slg)}</td><td class="big">${fmt3(p.ops)}</td>
+     <td>${p.kpct}%</td><td>${p.bbpct}%</td></tr>`).join('')}</tbody>
+   <tfoot><tr><td class="name">Team</td><td>${TB.PA}</td><td>${TB.AB}</td><td>${TB.H}</td><td>${TB.R}</td><td>${TB.RBI}</td>
+     <td>${TB.BB}</td><td>${TB.SO}</td><td>${TB.SB}</td><td>${fmt3(TB.avg)}</td><td>${fmt3(TB.obp)}</td>
+     <td>${fmt3(TB.slg)}</td><td class="big">${fmt3(TB.ops)}</td><td>—</td><td>—</td></tr></tfoot>`;
+  $$('#hi-table th').forEach(th=>th.addEventListener('click',()=>{
+    const k=th.dataset.k; hiSort.dir=hiSort.k===k?-hiSort.dir:-1; hiSort.k=k; drawHItable(); applyHighlight();}));
+}
+$('#hi-callouts').innerHTML=[
+  ['On-base engine','<b>A Kasak</b> (.636 OBP, 1.386 OPS), <b>R Johnson</b> (.600, 1.129), <b>C Davis</b> (.591, 1.258) and <b>G Nebo</b> (.577, 1.103) reach base most. On Oct 25 Johnson went 2-for-2 with a walk in the first game and Nebo 2-for-3 with a double in the second. On Nov 7 Nebo walked and scored and Lane’s single drove in both runs in the first game; in the second Davis tripled and singled and Sanford’s single drove in our only run.'],
+  ['Table-setters','<b>J Grissinger</b> (.421 OBP, 7 BB, 9 SB) and <b>B Osterberg</b> (.389 OBP, 7 SB) get on without much hitting — 16 steals between them; G Nebo leads the team with 12. Grissinger got his first hit of the season on Oct 25.'],
+  ['Best contact','<b>A Stanford</b> has 1 strikeout in 23 PA (4%); <b>R Johnson</b> has 2 in 20 (10%) and <b>G Nebo</b> 3 in 26 (12%).'],
+  ['Chase to watch','<b>B Osterberg</b> (39% K rate), <b>G Chionis</b> (38%), <b>N Fujishiro</b> (36%), <b>L Mercuriali</b> (33%) and <b>F Lane</b> (28%) — small samples, but strikeouts to trim.']
+].map(([t,b])=>`<div class="callout"><div class="ct">${t}</div><div class="cb">${b}</div></div>`).join('');
+
+/* ---------- player card ---------- */
+function renderPlayerCard(){
+  const card=$('#playercard');
+  if(!selected){card.classList.remove('on');return;}
+  const p=P.find(x=>x.name===selected);
+  const pit=PI.find(x=>x.name===selected);
+  card.classList.add('on');
+  const splitRows=p.pergame.map(g=>`<tr>
+     <td class="name">${gd(g.date)}</td><td>${g.pos}</td><td>${g.order}</td>
+     <td>${g.AB}</td><td>${g.R}</td><td>${g.H}</td><td>${g.RBI}</td><td>${g.BB}</td><td>${g.SO}</td>
+     <td>${g.TB}</td><td>${g.SB}</td></tr>`).join('');
+  let pitchBlock='';
+  if(pit){
+    pitchBlock=`<div class="splits"><div class="eyebrow" style="margin-bottom:6px">Pitching splits</div>
+     <div class="tbl-scroll"><table class="stat" style="min-width:auto">
+      <thead><tr><th class="name">Game</th><th>IP</th><th>Pit</th><th>Str</th><th>BF</th><th>H</th><th>R</th><th>ER</th><th>BB</th><th>K</th></tr></thead>
+      <tbody>${pit.pergame.map(g=>`<tr><td class="name">${gd(g.date)}</td><td>${g.ip}</td><td class="big">${g.pc}</td>
+        <td>${g.st}</td><td>${g.bf}</td><td>${g.H}</td><td>${g.R}</td><td>${g.ER??'—'}</td><td>${g.BB}</td><td>${g.SO}</td></tr>`).join('')}
+      <tr style="border-top:2px solid var(--line)"><td class="name big">Total</td><td class="big">${pit.ip}</td><td class="big">${pit.pitches}</td>
+        <td>${pit.strikes}</td><td>${pit.BF}</td><td>${pit.H}</td><td>${pit.R}</td><td>${pit.ER}</td><td>${pit.BB}</td><td>${pit.SO}</td></tr></tbody>
+     </table></div></div>`;
+  }
+  card.innerHTML=`
+    <div class="pc-head">
+      <div class="pc-num">${p.num}</div>
+      <div>
+        <div class="pc-name">${p.name}</div>
+        <div class="pc-sub">${p.games} game${p.games>1?'s':''} · ${p.PA} PA · avg slot ${p.orderAvg} · ${p.positions.join(', ')}${pit?` · pitched ${pit.ip} IP`:''}</div>
+      </div>
+      <div class="pc-slash tnum">
+        <div><div class="v">${fmt3(p.avg)}</div><div class="t">AVG</div></div>
+        <div><div class="v">${fmt3(p.obp)}</div><div class="t">OBP</div></div>
+        <div><div class="v">${fmt3(p.slg)}</div><div class="t">SLG</div></div>
+        <div><div class="v" style="color:var(--brand)">${fmt3(p.ops)}</div><div class="t">OPS</div></div>
+      </div>
+    </div>
+    <div class="splits"><div class="eyebrow" style="margin-bottom:6px">Game-by-game hitting</div>
+      <div class="tbl-scroll"><table class="stat" style="min-width:auto">
+      <thead><tr><th class="name">Game</th><th>Pos</th><th>Slot</th><th>AB</th><th>R</th><th>H</th><th>RBI</th><th>BB</th><th>K</th><th>TB</th><th>SB</th></tr></thead>
+      <tbody>${splitRows}</tbody></table></div></div>
+    ${pitchBlock}
+    <div style="margin-top:14px"><button class="clear-btn" id="clearsel">Clear selection ✕</button></div>`;
+  $('#clearsel').addEventListener('click',()=>{sel.value="";selected="";renderPlayerCard();applyHighlight();});
+  card.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ---------- highlight across views ---------- */
+function applyHighlight(){
+  $$('[data-name]').forEach(el=>{
+    const hit = selected && el.dataset.name===selected;
+    el.classList.toggle('hl',!!hit);
+  });
+}
+
+/* ---------- Situational (scorebook) ---------- */
+function pct(n,d){return d? Math.round(n/d*100):0;}
+function drawSituational(){
+  const games = DATA.scorebookGames || [];
+  if(!games.length){
+    $('#sit-summary').innerHTML = '';
+    $('#sit-thirds').innerHTML = '<div class="note">No scorebook uploaded yet — box scores alone don\'t carry batting-order or pitch-sequence detail.</div>';
+    $('#sit-pitchers').innerHTML = '';
+    $('#sit-baserunning').innerHTML = '';
+    return;
+  }
+  const pick=$('#sitgame');
+  if(!pick.options.length){
+    games.forEach((x,i)=>{const o=document.createElement('option');o.value=i;o.textContent=x.label||`${gd(x.date)}`;pick.appendChild(o);});
+    pick.value=games.length-1;
+    pick.addEventListener('change',drawSituational);
+  }
+  const g = games[+pick.value];
+  const gameLabel = games.length>1 ? `<div class="eyebrow" style="margin-bottom:8px">${g.label||gd(g.date)}</div>` : '';
+  const thirdsRows = g.thirds.map(t=>`<tr>
+     <td class="name">${t.label}<div style="font-size:11px;color:var(--ink-3);font-weight:400">${t.who}</div></td>
+     <td>${t.pa}</td><td>${t.k}</td><td>${t.bb}</td><td>${t.h}</td><td>${t.roe||0}</td><td>${t.outsInPlay}</td>
+     <td class="big">${t.onBase}/${t.pa} (${pct(t.onBase,t.pa)}%)</td></tr>`).join('');
+  $('#sit-summary').innerHTML = (g.summary||[]).map(p=>`<p style="margin:0 0 10px;line-height:1.6">${p}</p>`).join('');
+  $('#sit-thirds').innerHTML = gameLabel + `<div class="tbl-scroll"><table class="stat">
+    <thead><tr><th class="name">Lineup third</th><th>PA</th><th>K</th><th>BB</th><th>H</th><th>ROE</th><th>Outs in play</th><th>On base</th></tr></thead>
+    <tbody>${thirdsRows}</tbody></table></div>
+    <div class="callouts" style="margin-top:12px">${g.thirds.map(t=>`<div class="callout"><div class="ct">${t.label}</div><div class="cb">${t.note}</div></div>`).join('')}</div>`;
+
+  $('#sit-pitchers').innerHTML = g.byPitcher.map(p=>`<div class="callout">
+    <div class="ct"><span class="jersey">#${p.num}</span>${p.name} · inn ${p.innings} · ${p.bf} BF</div>
+    <div class="cb">${p.line}<br>${p.note}</div></div>`).join('');
+
+  function sbList(arr){return arr.map(s=>`${s.name} (${s.count||1}${s.inning?', inn '+s.inning:''})`).join('; ')||'—';}
+  function hitList(arr){return arr.length? '<ul style="margin:4px 0 0;padding-left:18px">'+arr.map(h=>`<li>${h.name} — inn ${h.inning}: ${h.note||''}</li>`).join('')+'</ul>' : '<div style="color:var(--ink-3)">none</div>';}
+
+  $('#sit-baserunning').innerHTML = `<div class="callouts">
+    <div class="callout">
+      <div class="ct">Us — stolen bases</div><div class="cb">${sbList(g.us.sb)}</div>
+      <div class="ct" style="margin-top:10px">Us — caught stealing</div><div class="cb">${sbList(g.us.cs)}</div>
+      <div class="ct" style="margin-top:10px">Hits with runners on</div><div class="cb">${hitList(g.us.hitsWithRunnersOn)}</div>
+      <div class="ct" style="margin-top:10px">Hits, bases empty</div><div class="cb">${g.us.hitsBasesEmpty.map(h=>`${h.name} (inn ${h.inning})`).join('; ')}</div>
+    </div>
+    <div class="callout">
+      <div class="ct">Them — stolen bases</div><div class="cb">${sbList(g.opp.sb)}</div>
+      <div class="ct" style="margin-top:10px">Hits with runners on</div><div class="cb">${hitList(g.opp.hitsWithRunnersOn)}</div>
+      <div class="ct" style="margin-top:10px">Hits, bases empty</div><div class="cb">${g.opp.hitsBasesEmpty.map(h=>`${h.name} (inn ${h.inning})`).join('; ')}</div>
+    </div>
+  </div>
+  <div class="note"><b>Us:</b> ${g.us.note}</div>
+  <div class="note" style="margin-top:8px"><b>Them:</b> ${g.opp.note}</div>`;
+}
+
+/* ---------- Plate discipline (scorebook pitch grids) ---------- */
+const PL = DATA.pitchLog || {games:[]};
+const IN_PLAY = new Set(['1B','2B','3B','HR','G','F','L','SF','E','FC','DP','SAC']);
+const REACHED = new Set(['BB','HBP','1B','2B','3B','HR','E','FC']);
+const LONG_PA = 6;
+let dcSort={k:'ppa',dir:-1}, dpSort={k:'pit',dir:-1};
+
+// Walk one plate appearance pitch by pitch. seq is e.g. "bSSbS" (b = ball, S = strike/foul/in play), r is the result code.
+function analyzePA(seq,r){
+  let b=0,s=0,foul2=0,r2=false,r3=false,full=false;
+  const last=seq.length-1, ender=(r==='K'||r==='KL'||IN_PLAY.has(r));
+  for(let i=0;i<seq.length;i++){
+    if(s>=2) r2=true;
+    if(b>=3) r3=true;
+    if(b>=3&&s>=2) full=true;
+    if(seq[i]==='b') b++;
+    else if(i===last&&ender){ /* final strike or ball in play: does not change the count */ }
+    else if(s<2) s++;
+    else foul2++;
+  }
+  return {r2,r3,full,foul2};
+}
+function dcBatters(){
+  const A={};
+  PL.games.forEach(g=>g.bat.forEach(x=>{
+    const a=A[x.n]||(A[x.n]={n:x.n,PA:0,pit:0,pitPA:0,fps:0,fpBIP:0,long:0,r2:0,surv:0,r3:0,full:0,foul2:0,Ks:0,Kl:0,BB:0});
+    a.pit+=x.seq.length;
+    if(x.r==='inc') return;
+    const m=analyzePA(x.seq,x.r);
+    a.PA++; a.pitPA+=x.seq.length;
+    if(x.seq[0]==='S') a.fps++;
+    if(x.seq.length===1&&IN_PLAY.has(x.r)) a.fpBIP++;
+    if(x.seq.length>=LONG_PA) a.long++;
+    if(m.r2){a.r2++; if(x.r!=='K'&&x.r!=='KL') a.surv++;}
+    if(m.r3) a.r3++;
+    if(m.full) a.full++;
+    a.foul2+=m.foul2;
+    if(x.r==='K') a.Ks++;
+    if(x.r==='KL') a.Kl++;
+    if(x.r==='BB') a.BB++;
+  }));
+  return Object.values(A).filter(a=>a.PA>0).map(a=>{
+    const pl=P.find(p=>(p.pk||p.num)===a.n)||{name:'#'+a.n};
+    return {...a,name:pl.name,num:pl.num||a.n,ppa:a.pitPA/a.PA,fpsPct:a.fps/a.PA*100,survPct:a.r2?a.surv/a.r2*100:null};
+  });
+}
+function dcPitchers(){
+  const A={};
+  PL.games.forEach(g=>g.pit.forEach(x=>{
+    const a=A[x.p]||(A[x.p]={p:x.p,BF:0,pit:0,str:0,fps:0,r3:0,full:0,foul2:0,Ks:0,Kl:0,BB:0});
+    const strikes=[...x.seq].filter(c=>c==='S').length;
+    a.pit+=x.seq.length; a.str+=strikes;
+    if(x.r==='inc') return;
+    const m=analyzePA(x.seq,x.r);
+    a.BF++;
+    if(x.seq[0]==='S') a.fps++;
+    if(m.r3) a.r3++;
+    if(m.full) a.full++;
+    a.foul2+=m.foul2;
+    if(x.r==='K') a.Ks++;
+    if(x.r==='KL') a.Kl++;
+    if(x.r==='BB') a.BB++;
+  }));
+  return Object.values(A).map(a=>{
+    const pi=PI.find(p=>(p.pk||p.num)===a.p)||{name:'#'+a.p};
+    return {...a,name:pi.name,num:pi.num||a.p,strPct:a.pit?a.str/a.pit*100:0,pbf:a.BF?a.pit/a.BF:0,fpsPct:a.BF?a.fps/a.BF*100:0};
+  });
+}
+function dcLeverage(side){
+  const out={S:{pa:0,reached:0,k:0},b:{pa:0,reached:0,k:0}};
+  PL.games.forEach(g=>g[side].forEach(x=>{
+    if(x.r==='inc') return;
+    const o=out[x.seq[0]]; o.pa++;
+    if(REACHED.has(x.r)) o.reached++;
+    if(x.r==='K'||x.r==='KL') o.k++;
+  }));
+  return out;
+}
+function dcSorted(rows,st){
+  return [...rows].sort((a,b)=>{
+    const av=a[st.k], bv=b[st.k];
+    if(typeof av==='string') return av.localeCompare(bv)*-st.dir;
+    return ((av??-1)<(bv??-1)?-1:(av??-1)>(bv??-1)?1:0)*st.dir;
+  });
+}
+function dcTable(el,cols,rows,st,redraw){
+  el.innerHTML=`<thead><tr>${cols.map(c=>`<th class="${c.cls==='name'?'name':''} ${st.k===c.k?'sorted':''}" data-k="${c.k}" title="${c.tip||''}">${c.h}</th>`).join('')}</tr></thead>
+   <tbody>${dcSorted(rows,st).map(r=>`<tr data-name="${r.name}">${cols.map(c=>`<td class="${c.cls||''}">${c.f(r)}</td>`).join('')}</tr>`).join('')}</tbody>`;
+  $$('th',el).forEach(th=>th.addEventListener('click',()=>{
+    const k=th.dataset.k; st.dir=st.k===k?-st.dir:-1; st.k=k; redraw(); applyHighlight();}));
+}
+const dcName=r=>`<span class="jersey">#${r.num}</span>${r.name}`;
+const f1=v=>v.toFixed(1), pc=v=>Math.round(v)+'%';
+
+function drawDiscipline(){
+  const games=PL.games||[];
+  if(!games.length){
+    $('#dc-asof').textContent='No scorebook pitch data yet.';
+    ['#dc-summary','#dc-chart','#dc-table','#dc-callouts','#dp-table','#dl-table','#dc-source'].forEach(s=>{$(s).innerHTML='';});
+    return;
+  }
+  const dates=games.map(g=>gd(g.date)).join(', ');
+  $('#dc-asof').textContent=`Pitch-by-pitch data from ${games.length} scorebook game${games.length>1?'s':''} (${dates}). Box-score-only games carry no pitch sequences, so they are not included here.`;
+  $('#dc-summary').innerHTML=(PL.summary||[]).map(t=>`<p style="margin:0 0 10px;line-height:1.6">${t}</p>`).join('');
+
+  const B=dcBatters(), minPA=PL.minPA||2;
+  const tot=B.reduce((s,a)=>({PA:s.PA+a.PA,pitPA:s.pitPA+a.pitPA,r2:s.r2+a.r2,surv:s.surv+a.surv,Ks:s.Ks+a.Ks,Kl:s.Kl+a.Kl,fps:s.fps+a.fps}),{PA:0,pitPA:0,r2:0,surv:0,Ks:0,Kl:0,fps:0});
+  const teamPPA=tot.pitPA/tot.PA;
+
+  // chart: pitches per PA
+  const rows=B.filter(a=>a.PA>=minPA).sort((a,b)=>b.ppa-a.ppa).map(a=>({name:a.name,label:`<span class="jersey">#${a.num}</span>${a.name}`,v:a.ppa,ppa:a.ppa}));
+  barChart($('#dc-chart'),rows,{max:Math.max(...rows.map(r=>r.v)),fmt:f1,avg:teamPPA,
+    colorFn:r=>r.ppa>=teamPPA+0.5?'pos':r.ppa<=teamPPA-0.5?'warn':'reps'});
+
+  // table
+  const cols=[
+    {k:'name',h:'Player',cls:'name',f:dcName,tip:'Player'},
+    {k:'PA',h:'PA',f:r=>r.PA,tip:'Finished plate appearances'},
+    {k:'ppa',h:'P/PA',cls:'big',f:r=>f1(r.ppa),tip:'Pitches per finished plate appearance'},
+    {k:'Kl',h:'K-L',cls:'big',f:r=>r.Kl,tip:'Strikeouts looking (called third strike)'},
+    {k:'Ks',h:'K-S',f:r=>r.Ks,tip:'Strikeouts swinging'},
+    {k:'fpsPct',h:'FPS%',f:r=>pc(r.fpsPct),tip:'Share of plate appearances where the first pitch was a strike (swing, take, foul or in play)'},
+    {k:'long',h:'6+',f:r=>r.long,tip:'Plate appearances of 6 or more pitches'},
+    {k:'r2',h:'2K',f:r=>r.r2,tip:'Plate appearances that reached a two-strike count'},
+    {k:'survPct',h:'Surv%',f:r=>r.survPct==null?'—':pc(r.survPct),tip:'Of the plate appearances that reached two strikes, the share that did not end in a strikeout'},
+    {k:'full',h:'Full',f:r=>r.full,tip:'Plate appearances that reached a 3-2 count'},
+    {k:'foul2',h:'Fl2',f:r=>r.foul2,tip:'Fouls with two strikes (fighting a pitch off)'},
+    {k:'BB',h:'BB',f:r=>r.BB,tip:'Walks'},
+    {k:'pit',h:'Pit',f:r=>r.pit,tip:'Total pitches seen, including any unfinished plate appearance'}
+  ];
+  const draw=()=>dcTable($('#dc-table'),cols,B,dcSort,draw); draw();
+
+  // auto callouts
+  const elig=B.filter(a=>a.PA>=minPA);
+  const top=[...elig].sort((a,b)=>b.ppa-a.ppa).slice(0,3), low=[...elig].sort((a,b)=>a.ppa-b.ppa).slice(0,3);
+  const lst=(arr,fn)=>arr.length?arr.map(fn).join(', '):'none yet';
+  const looking=B.filter(a=>a.Kl>0).sort((a,b)=>b.Kl-a.Kl);
+  const fouls=B.filter(a=>a.foul2>0).sort((a,b)=>b.foul2-a.foul2);
+  $('#dc-callouts').innerHTML=[
+    ['Deepest at-bats',`${lst(top,a=>`<b>${a.name}</b> ${f1(a.ppa)} (${a.PA} PA)`)}. Team average ${f1(teamPPA)}.`],
+    ['Quickest to the result',`${lst(low,a=>`<b>${a.name}</b> ${f1(a.ppa)} (${a.PA} PA)`)}. Check whether that is early-count aggression or quick outs.`],
+    ['Looking at strike three',looking.length?`${lst(looking,a=>`<b>${a.name}</b> ${a.Kl} of ${a.Kl+a.Ks} K`)}. Team: ${tot.Kl} looking, ${tot.Ks} swinging.`:`No called third strikes yet. Team: ${tot.Ks} swinging.`],
+    ['Fighting with two strikes',`${tot.r2?pc(tot.surv/tot.r2*100):'—'} of two-strike counts survived (${tot.surv} of ${tot.r2}). Fouls with two strikes: ${lst(fouls,a=>`<b>${a.name}</b> ${a.foul2}`)}.`]
+  ].map(([t,b])=>`<div class="callout"><div class="ct">${t}</div><div class="cb">${b}</div></div>`).join('');
+
+  // pitchers
+  const pcols=[
+    {k:'name',h:'Pitcher',cls:'name',f:dcName,tip:'Pitcher'},
+    {k:'BF',h:'BF',f:r=>r.BF,tip:'Batters faced'},
+    {k:'pit',h:'Pit',cls:'big',f:r=>r.pit,tip:'Pitches thrown'},
+    {k:'strPct',h:'Str%',f:r=>pc(r.strPct),tip:'Strikes divided by pitches (fouls and balls in play count as strikes)'},
+    {k:'pbf',h:'P/BF',f:r=>r.pbf.toFixed(1),tip:'Pitches per batter faced'},
+    {k:'fpsPct',h:'FPS%',cls:'big',f:r=>pc(r.fpsPct),tip:'First-pitch strike rate'},
+    {k:'r3',h:'3-ball',f:r=>r.r3,tip:'Batters who reached a three-ball count'},
+    {k:'full',h:'Full',f:r=>r.full,tip:'Batters who reached a 3-2 count'},
+    {k:'Ks',h:'K-S',f:r=>r.Ks,tip:'Strikeouts swinging'},
+    {k:'Kl',h:'K-L',f:r=>r.Kl,tip:'Strikeouts looking (called third strike)'},
+    {k:'BB',h:'BB',f:r=>r.BB,tip:'Walks'},
+    {k:'foul2',h:'Fl2',f:r=>r.foul2,tip:'Fouls the hitter got off with two strikes'}
+  ];
+  const dpRows=dcPitchers();
+  const dpDraw=()=>dcTable($('#dp-table'),pcols,dpRows,dpSort,dpDraw); dpDraw();
+
+  // first-pitch leverage
+  const lv=[['Our hitters','bat'],['Our pitchers (opposing hitters)','pit']];
+  $('#dl-table').innerHTML=`<thead><tr><th class="name">Side</th><th class="name">First pitch</th><th>PA</th><th>Reached</th><th>Reached%</th><th>K</th></tr></thead><tbody>${
+    lv.map(([lab,side])=>{const o=dcLeverage(side);
+      return [['S','strike'],['b','ball']].map(([k,nm],i)=>`<tr><td class="name">${i?'':lab}</td><td class="name">${nm}</td><td>${o[k].pa}</td><td>${o[k].reached}</td><td class="big">${o[k].pa?pc(o[k].reached/o[k].pa*100):'—'}</td><td>${o[k].k}</td></tr>`).join('');
+    }).join('')}</tbody>`;
+  $('#dc-source').innerHTML=`<b>Source and check.</b> Read from the scorebook pitch grids. For every game included, the grid totals were matched to the printed box score pitch counts (both teams) and strikeout totals before being added. Sep 27 matched exactly. Oct 18 matched on every strikeout total and on all but two pitch counts: C Davis is one strike short of the box score (42 pitches, 27 strikes versus 43 and 28; a plate appearance that ended on the bases shows no pitches in the scorebook) and N Fujishiro is one strike over (22 versus 21 on 41 pitches). Small samples swing a lot: a single walk moves a hitter's P/PA by a full pitch. The two Oct 25 games and both Nov 7 games have no box scores, so their pitch totals could not be checked against printed counts. The Oct 25 games agree with the scorebooks' 18 outs per side and with each team's strikeout total; The AZBC game agrees with its 12 and 10 outs (it ended with one out in AZBC's last turn), and the Dynasty game does too (one out in Dynasty's 4th). In Nov 7 AZBC's 3rd inning an unfinished at-bat (one pitch) is counted in pitches thrown but is not a plate appearance, and the pitcher splits are confirmed (AZBC game: Balogh the 1st, Nebo the rest; Dynasty game: Lovati, Lane for the 1st-2nd and Stanford for the 3rd-4th), except that the Lovati-to-Lane change inside the 1st is placed after Lovati's sixth batter. Dropped third strikes where the batter reached are counted as strikeouts.`;
+}
+
+/* ---------- init ---------- */
+drawPT(); drawPTtable(); drawPI(); drawPItable(); drawPIpc(); drawHI(); drawHItable(); drawSituational(); drawDiscipline();
+applyHighlight();
+</script>
+
+</html>
+</body></html>
