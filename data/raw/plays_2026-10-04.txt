@@ -1,0 +1,63 @@
+T1 ~ Single ~ BCFX ~ HAWKS #7 singles on a fly ball to left fielder B Currier.
+T1 ~ Single ~ X ~ HAWKS #8 singles on a line drive to left fielder B Currier, HAWKS #7 advances to 3rd on the throw, HAWKS #8 advances to 2nd on the throw.
+T1 ~ Ground Out/11(G 1 - NCWL 0 / 1 Out ~ FBBFX ~ HAWKS #26 grounds out to third baseman F Lane, HAWKS #7 scores, HAWKS #8 advances to 3rd.
+T1 ~ Double/11(G 2 - NCWL 0 ~ FFX ~ HAWKS #24 doubles on a line drive to left fielder B Currier, HAWKS #8 scores.
+T1 ~ Error/11(G 3 - NCWL 0 ~ {Courtesy runner HAWKS #9 in for HAWKS #24}BX ~ HAWKS #66 hits a fly ball and reaches on an error, HAWKS #9 scores.
+T1 ~ Fielder's Choice/2 Outs ~ X ~ HAWKS #44 grounds into fielder's choice to first baseman R Johnson, HAWKS #66 out advancing to 2nd.
+T1 ~ Walk ~ C{HAWKS #44 advances to 2nd on defensive indifference}FB{HAWKS #44 advances to 3rd on passed ball}FBFFFBB ~ HAWKS #5 walks, G Nebo pitching, HAWKS #44 remains at 3rd.
+T1 ~ Dropped 3rd Strike/3 Outs ~ C{HAWKS #5 advances to 2nd on passed ball}SBFS ~ HAWKS #23 out at first on dropped 3rd strike.
+B1 ~ Strikeout/1 Out ~ FFC ~ B Osterberg strikes out looking, HAWKS #26 pitching.
+B1 ~ Fly Out/2 Outs ~ X ~ A Stanford flies out to center fielder HAWKS #9.
+B1 ~ Fly Out/3 Outs ~ BX ~ G Nebo flies out in foul territory to first baseman HAWKS #5.
+T2 ~ Single ~ BX ~ HAWKS #9 singles on a line drive to left fielder B Currier.
+T2 ~ Single ~ X ~ HAWKS #7 singles on a line drive to left fielder B Currier, HAWKS #9 advances to 2nd.
+T2 ~ Fielder's Choice/1 Out ~ CFX ~ HAWKS #8 grounds into fielder's choice to shortstop C Davis, HAWKS #7 out advancing to 2nd, HAWKS #9 advances to 3rd.
+T2 ~ Error/11(G 4 - NCWL 0 ~ X ~ HAWKS #26 hits a fly ball and reaches on an error by left fielder B Currier, HAWKS #9 scores, HAWKS #8 advances to 2nd.
+T2 ~ Home Run/11(G 7 - NCWL 0 ~ FB{HAWKS #8 advances to 3rd on defensive indifference}{HAWKS #26 advances to 2nd on defensive indifference}FX ~ HAWKS #24 homers on a fly ball to left field, HAWKS #8 scores, HAWKS #26 scores.
+T2 ~ Strikeout/2 Outs ~ CBCC ~ HAWKS #66 strikes out looking, A Stanford pitching.
+T2 ~ Walk ~ BCBBB ~ HAWKS #44 walks, A Stanford pitching.
+T2 ~ Ground Out/3 Outs ~ FBX ~ HAWKS #5 grounds out to shortstop C Davis.
+B2 ~ Ground Out/1 Out ~ FBBCX ~ C Davis grounds out to third baseman HAWKS #8.
+B2 ~ Single ~ FCFX ~ R Johnson singles on a hard ground ball to center fielder HAWKS #9.
+B2 ~ Walk ~ {R Johnson steals 2nd}SBP2BBB ~ G Chionis walks, HAWKS #26 pitching, R Johnson remains at 2nd.
+B2 ~ Walk ~ FCBBFB{R Johnson steals 3rd}{G Chionis steals 2nd}B ~ F Lane walks, HAWKS #26 pitching, R Johnson remains at 3rd, G Chionis remains at 2nd.
+B2 ~ Walk/11(G 7 - NCWL 1 ~ BBP3BP1B ~ A Kasak walks, HAWKS #26 pitching, R Johnson scores, G Chionis advances to 3rd, F Lane advances to 2nd.
+B2 ~ Fielder's Choice/11(G 7 - NCWL 3 / 2 Outs ~ BBCFBX ~ C Ponsford grounds into fielder's choice, shortstop HAWKS #7 to first baseman HAWKS #5, A Kasak out advancing to 2nd, F Lane scores on error by first baseman HAWKS #5, G Chionis scores.
+B2 ~ Runner Out/3 Outs ~ BBC{C Ponsford caught stealing 2nd}{catcher HAWKS #24} ~ Half-inning ended by out on the base paths.
+T3 ~ Strikeout/1 Out ~ SBSS ~ HAWKS #23 strikes out swinging, F Lane pitching.
+T3 ~ Single ~ BBFX ~ HAWKS #9 singles on a hard ground ball to third baseman R Johnson.
+T3 ~ Walk ~ {Lineup changed: in for batter HAWKS #7}C{HAWKS #9 steals 2nd}BFP2FBBFB ~ walks, F Lane pitching, HAWKS #9 remains at 2nd.
+T3 ~ Walk ~ {Lineup changed: HAWKS #7 in for batter HAWKS #8}BB{HAWKS #9 advances to 3rd on wild pitch}{advances to 2nd on the same pitch}BB ~ HAWKS #7 walks, F Lane pitching, HAWKS #9 remains at 3rd, remains at 2nd.
+T3 ~ Double/11(G 9 - NCWL 3 ~ {Lineup changed: HAWKS #8 in for batter HAWKS #26}X ~ HAWKS #8 doubles on a hard ground ball to third baseman R Johnson, HAWKS #9 scores, scores, HAWKS #7 advances to 3rd.
+T3 ~ Fly Out/2 Outs ~ {Lineup changed: HAWKS #26 in for batter HAWKS #24}X ~ HAWKS #26 flies out to shortstop C Davis, HAWKS #7 remains at 3rd, HAWKS #8 remains at 2nd.
+T3 ~ Fly Out/3 Outs ~ {Lineup changed: HAWKS #24 in for batter HAWKS #66}BX ~ HAWKS #24 flies out to right fielder J Grissinger.
+B3 ~ Ground Out/1 Out ~ SX ~ J Grissinger grounds out to first baseman HAWKS #5.
+B3 ~ Ground Out/2 Outs ~ X ~ N Koletsos grounds out to third baseman HAWKS #7.
+B3 ~ Ground Out/3 Outs ~ FCBX ~ B Osterberg grounds out to first baseman HAWKS #5.
+T4 ~ Strikeout/1 Out ~ SFBFFBS ~ HAWKS #66 strikes out swinging, F Lane pitching.
+T4 ~ Triple ~ BBX ~ HAWKS #44 triples on a fly ball to right fielder J Grissinger.
+T4 ~ Error/11(G 10 - NCWL 3 ~ X ~ HAWKS #5 hits a ground ball and reaches on an error by shortstop N Fujishiro, HAWKS #44 scores.
+T4 ~ Ground Out/2 Outs ~ FB{HAWKS #5 advances to 2nd on defensive indifference}SBX ~ HAWKS #23 grounds out to first baseman A Kasak, HAWKS #5 advances to 3rd.
+T4 ~ Fly Out/3 Outs ~ X ~ HAWKS #9 flies out to left fielder G Nebo.
+B4 ~ Walk ~ CBBCBB ~ A Stanford walks, HAWKS #66 pitching.
+B4 ~ Double ~ P1BX ~ G Nebo doubles on a line drive to center fielder HAWKS #9, A Stanford advances to 3rd.
+B4 ~ Single/11(G 10 - NCWL 4 / 1 Out ~ {A Stanford picked off at 3rd}{third baseman HAWKS #7}{G Nebo steals 3rd}CB{G Nebo scores on wild pitch}BX ~ C Davis singles on a hard ground ball to center fielder HAWKS #9.
+B4 ~ Single ~ P1FFP1X ~ R Johnson singles on a ground ball to right fielder HAWKS #44, C Davis advances to 2nd.
+B4 ~ Strikeout/3 Outs ~ {C Davis caught stealing 3rd}{right fielder HAWKS #44}CP1BFP1BS ~ B Currier strikes out swinging, HAWKS #24 pitching.
+T5 ~ Double ~ BBX ~ doubles on a line drive to right fielder A Kasak.
+T5 ~ Strikeout/1 Out ~ BFCFC ~ HAWKS #7 strikes out looking, C Davis pitching, remains at 2nd.
+T5 ~ Walk ~ SBSBB{advances to 3rd on passed ball}B ~ HAWKS #8 walks, C Davis pitching, remains at 3rd.
+T5 ~ Dropped 3rd Strike/2 Outs ~ B{HAWKS #8 advances to 2nd on defensive indifference}BFBCS ~ HAWKS #26 out at first on dropped 3rd strike, remains at 3rd, HAWKS #8 remains at 2nd.
+T5 ~ Fly Out/3 Outs ~ CCFX ~ HAWKS #24 flies out to left fielder G Nebo.
+B5 ~ Strikeout/1 Out ~ SBFFC ~ L Mercuriali strikes out looking, HAWKS #9 pitching.
+B5 ~ Ground Out/2 Outs ~ BBFCX ~ N Fujishiro grounds out to second baseman.
+B5 ~ Single ~ FBX ~ H Nichols singles on a line drive to center fielder.
+B5 ~ Ground Out/3 Outs ~ CSB{H Nichols advances to 2nd on passed ball}BX ~ J Grissinger grounds out to pitcher HAWKS #9.
+T6 ~ Single ~ BX ~ HAWKS #66 singles on a fly ball to right fielder G Chionis.
+T6 ~ Strikeout/1 Out ~ FSS ~ HAWKS #44 strikes out swinging, C Davis pitching, HAWKS #66 remains at 1st.
+T6 ~ Ground Out/11(G 11 - NCWL 4 / 2 Outs ~ {HAWKS #66 steals 2nd}FB{HAWKS #66 advances to 3rd on wild pitch}X ~ HAWKS #5 grounds out to first baseman R Johnson, HAWKS #66 scores.
+T6 ~ Fly Out/3 Outs ~ CSX ~ HAWKS #23 flies out to shortstop N Fujishiro.
+B6 ~ Single ~ CFBFX ~ N Koletsos singles on a ground ball to third baseman.
+B6 ~ Single/1 Out ~ {N Koletsos caught stealing 2nd}{pitcher HAWKS #7}BBBX ~ B Osterberg singles on a ground ball to pitcher HAWKS #7.
+B6 ~ Fly Out/3 Outs ~ C{B Osterberg picked off at 1st}{catcher HAWKS #26}BX ~ A Stanford flies out to second baseman.
+T7 ~ HAWKS #9 at bat ~  ~ 

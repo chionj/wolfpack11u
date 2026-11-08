@@ -1,0 +1,56 @@
+T1 ~ Strikeout/1 Out ~ BSSS ~ SNMR #17 strikes out swinging, N Fujishiro pitching.
+T1 ~ Error ~ X ~ SNMR #50 hits a ground ball and reaches on an error.
+T1 ~ Walk ~ BB{SNMR #50 steals 2nd}B{SNMR #50 steals 3rd}CB ~ SNMR #11 walks, N Fujishiro pitching, SNMR #50 remains at 3rd.
+T1 ~ Sacrifice Fly/SNMR 1 - NCWL 0 / 2 Outs ~ C{SNMR #11 advances to 2nd on defensive indifference}SFX ~ SNMR #00 out on sacrifice fly to right fielder G Chionis, SNMR #11 held up at 2nd, SNMR #50 scores.
+T1 ~ Ground Out/3 Outs ~ SBSX ~ SNMR #27 grounds out to second baseman N Koletsos.
+B1 ~ Line Out/1 Out ~ CBBFX ~ A Stanford lines out to second baseman SNMR #5.
+B1 ~ Single ~ CFX ~ B Osterberg singles on a fly ball to right fielder SNMR #19, B Osterberg advances to 2nd on error by right fielder SNMR #19.
+B1 ~ Walk/SNMR 1 - NCWL 1 ~ B{B Osterberg steals 3rd}{B Osterberg scores on error by third baseman SNMR #27}BFBCB ~ G Nebo walks, SNMR #17 pitching.
+B1 ~ Single ~ X ~ C Davis singles on a line drive to center fielder SNMR #00, G Nebo advances to 2nd.
+B1 ~ Single ~ P2X ~ R Johnson singles on a line drive to left fielder SNMR #52, G Nebo advances to 3rd, C Davis advances to 2nd.
+B1 ~ Hit By Pitch/SNMR 1 - NCWL 2 ~ FFBBFB ~ G Chionis is hit by pitch, SNMR #17 pitching, G Nebo scores, C Davis advances to 3rd, R Johnson advances to 2nd.
+B1 ~ Strikeout/2 Outs ~ BFCC ~ C Ponsford strikes out looking, SNMR #17 pitching, C Davis remains at 3rd, R Johnson remains at 2nd, G Chionis remains at 1st.
+B1 ~ Walk/SNMR 1 - NCWL 3 ~ B{C Davis scores on passed ball}{R Johnson advances to 3rd on the same pitch}{G Chionis advances to 2nd on the same pitch}FBSBB ~ A Kasak walks, SNMR #17 pitching, R Johnson remains at 3rd, G Chionis remains at 2nd.
+B1 ~ Ground Out/3 Outs ~ BSBFBX ~ B Currier grounds out to first baseman SNMR #11.
+T2 ~ Single ~ BBX ~ SNMR #7 singles on a ground ball to right fielder G Chionis.
+T2 ~ Strikeout/1 Out ~ C{SNMR #7 advances to 1st}FC ~ SNMR #51 strikes out looking, N Fujishiro pitching, SNMR #7 remains at 1st.
+T2 ~ Ground Out/2 Outs ~ BCBX ~ SNMR #52 grounds out to second baseman N Koletsos, SNMR #7 advances to 2nd.
+T2 ~ Single/SNMR 2 - NCWL 3 ~ BX ~ SNMR #5 singles on a ground ball to third baseman R Johnson, SNMR #7 scores on error by third baseman R Johnson.
+T2 ~ Single/3 Outs ~ BP1FBB{SNMR #5 advances to 2nd on passed ball}SFX ~ SNMR #19 singles on a line drive to center fielder A Stanford, SNMR #5 out advancing to home.
+B2 ~ Walk ~ BFBBB ~ J Grissinger walks, SNMR #19 pitching.
+B2 ~ Single ~ B{J Grissinger steals 2nd}FP2X ~ A Stanford singles on a ground ball to third baseman SNMR #27, J Grissinger advances to 3rd.
+B2 ~ Strikeout/SNMR 2 - NCWL 4 / 2 Outs ~ {A Stanford caught stealing 2nd}{shortstop SNMR #51}{J Grissinger scores on steal of home}BBBCFS ~ B Osterberg strikes out swinging, SNMR #19 pitching.
+B2 ~ Single ~ BFFBFX ~ G Nebo singles on a fly ball to shortstop SNMR #51.
+B2 ~ Runner Out/3 Outs ~ P1B{G Nebo advances to 2nd on defensive indifference}B{G Nebo caught stealing 3rd}{catcher SNMR #50} ~ Half-inning ended by out on the base paths.
+T3 ~ Fly Out/1 Out ~ SX ~ SNMR #17 flies out to center fielder A Stanford.
+T3 ~ Ground Out/2 Outs ~ BX ~ SNMR #50 grounds out to second baseman B Osterberg.
+T3 ~ Single ~ X ~ SNMR #11 singles on a line drive to right fielder J Grissinger.
+T3 ~ Ground Out/3 Outs ~ B{SNMR #11 steals 2nd}X ~ SNMR #00 grounds out to second baseman B Osterberg.
+B3 ~ Single ~ BCCBBX ~ C Davis singles on a hard ground ball to right fielder.
+B3 ~ Single ~ CX ~ R Johnson singles on a line drive to right fielder, C Davis advances to 3rd on the throw.
+B3 ~ Walk/SNMR 2 - NCWL 5 ~ P3C{C Davis scores on error by third baseman SNMR #27}{R Johnson advances to 3rd on the same error}BBBB ~ G Chionis walks, SNMR #5 pitching, R Johnson remains at 3rd.
+B3 ~ Single/SNMR 2 - NCWL 6 ~ {G Chionis advances to 2nd on defensive indifference}BX ~ C Ponsford singles on a fly ball to right fielder, C Ponsford advances to 2nd on the throw, R Johnson scores, G Chionis advances to 3rd.
+B3 ~ Strikeout/1 Out ~ CSS ~ A Kasak strikes out swinging, SNMR #5 pitching, G Chionis remains at 3rd, C Ponsford remains at 2nd.
+B3 ~ Ground Out/SNMR 2 - NCWL 7 / 2 Outs ~ BCFX ~ B Currier grounds out to third baseman SNMR #27, G Chionis scores, C Ponsford advances to 3rd.
+B3 ~ Walk ~ BBCCBFB ~ J Grissinger walks, SNMR #5 pitching, C Ponsford remains at 3rd.
+B3 ~ Inning Ended/SNMR 2 - NCWL 8 / 3 Outs ~ {Lineup changed: N Fujishiro in for batter A Stanford}{C Ponsford scores on steal of home}{J Grissinger steals 2nd} ~ Half-inning ended by scorekeeper.
+T4 ~ Strikeout/1 Out ~ FBBCS ~ SNMR #27 strikes out swinging, G Nebo pitching.
+T4 ~ Dropped 3rd Strike/2 Outs ~ BBCFS ~ SNMR #7 out at first on dropped 3rd strike.
+T4 ~ Strikeout/3 Outs ~ BSCC ~ SNMR #51 strikes out looking, G Nebo pitching.
+B4 ~ Fly Out/1 Out ~ FSX ~ N Fujishiro flies out to left fielder SNMR #52.
+B4 ~ Dropped 3rd Strike/2 Outs ~ {Lineup changed: L Mercuriali in for batter B Osterberg}BFSS ~ L Mercuriali out at first on dropped 3rd strike.
+B4 ~ Line Out/3 Outs ~ {Lineup changed: A Stanford in for batter G Nebo}BBBCCX ~ A Stanford lines out to center fielder SNMR #00.
+T5 ~ Walk ~ {Lineup changed: A Stanford in at pitcher}BFBBB ~ SNMR #52 walks, A Kasak pitching.
+T5 ~ Strikeout/1 Out ~ P1B{SNMR #52 advances to 2nd on passed ball}CCS ~ SNMR #5 strikes out swinging, A Kasak pitching, SNMR #52 remains at 2nd.
+T5 ~ Walk ~ {SNMR #52 advances to 3rd on defensive indifference}BBBB ~ SNMR #19 walks, A Kasak pitching, SNMR #52 remains at 3rd.
+T5 ~ Error ~ B{SNMR #19 advances to 2nd on wild pitch}BFFX ~ SNMR #17 hits a fly ball and reaches on an error by pitcher A Kasak, SNMR #19 held up at 2nd, SNMR #52 held up at 3rd.
+T5 ~ Fly Out/SNMR 3 - NCWL 8 / 2 Outs ~ X ~ SNMR #50 flies out to left fielder G Nebo, SNMR #52 scores after tagging up, SNMR #19 remains at 2nd, SNMR #17 remains at 1st.
+T5 ~ Dropped 3rd Strike/3 Outs ~ SFFB{SNMR #19 advances to 3rd on passed ball}B{SNMR #17 advances to 2nd on defensive indifference}S ~ SNMR #11 out at first on dropped 3rd strike.
+B5 ~ Ground Out/1 Out ~ {Lineup changed: N Koletsos in for batter C Davis}FBCBX ~ N Koletsos grounds out to pitcher SNMR #11.
+B5 ~ Walk ~ {Lineup changed: G Nebo in for batter R Johnson}BBBB ~ G Nebo walks, SNMR #11 pitching.
+B5 ~ Hit By Pitch ~ {Lineup changed: C Davis in for batter G Chionis}B{G Nebo steals 2nd}P2B{G Nebo advances to 3rd on passed ball}B ~ C Davis is hit by pitch, SNMR #11 pitching, G Nebo remains at 3rd.
+B5 ~ Fly Out/SNMR 3 - NCWL 9 / 3 Outs ~ {Lineup changed: R Johnson in for batter C Ponsford}{C Davis caught stealing 2nd}{shortstop SNMR #51}{G Nebo scores on steal of home}BCSX ~ R Johnson flies out to right fielder.
+T6 ~ Line Out/1 Out ~ SSBX ~ SNMR #00 lines out to right fielder G Chionis.
+T6 ~ Strikeout/2 Outs ~ BFBBFC ~ SNMR #27 strikes out looking, C Davis pitching.
+T6 ~ Fly Out/3 Outs ~ SX ~ SNMR #7 flies out to first baseman A Kasak.
+B6 ~ A Kasak at bat ~  ~ 

@@ -1,0 +1,49 @@
+T1 ~ Strikeout/1 Out ~ SCBBC ~ J Grissinger strikes out looking, CRLS #6 pitching.
+T1 ~ Walk ~ CBBBFB ~ B Osterberg walks, CRLS #6 pitching.
+T1 ~ Ground Out/2 Outs ~ B{B Osterberg steals 2nd}CBBCFX ~ G Nebo grounds out to second baseman, B Osterberg held up at 2nd.
+T1 ~ Strikeout/3 Outs ~ C{B Osterberg steals 3rd}CBC ~ C Davis strikes out looking, CRLS #6 pitching.
+B1 ~ Ground Out/1 Out ~ BX ~ CRLS #48 grounds out to third baseman F Lane.
+B1 ~ Double ~ CBBCX ~ CRLS #19 doubles on a line drive to center fielder A Stanford.
+B1 ~ Strikeout/3 Outs ~ CB{CRLS #19 caught stealing 3rd}{catcher L Mercuriali to catcher Unknown Player}CBS ~ CRLS #13 strikes out swinging, C Davis pitching.
+T2 ~ Ground Out/1 Out ~ CBFX ~ R Johnson grounds out to pitcher CRLS #19.
+T2 ~ Walk ~ CBBBFB ~ F Lane walks, CRLS #19 pitching.
+T2 ~ Double/NCWL 1 - CRLS 0 ~ BCSBX ~ A Kasak doubles on a line drive to left fielder, F Lane scores on the throw.
+T2 ~ Ground Out/2 Outs ~ FFFX ~ C Ponsford grounds out to pitcher CRLS #19, A Kasak advances to 3rd.
+T2 ~ Fly Out/3 Outs ~ BCX ~ N Fujishiro flies out to third baseman.
+B2 ~ Error ~ CFFX ~ CRLS #6 hits a ground ball and reaches on an error.
+B2 ~ Fly Out/1 Out ~ B{CRLS #6 advances to 2nd on passed ball}X ~ CRLS #10 flies out to first baseman R Johnson, CRLS #6 remains at 2nd.
+B2 ~ Fly Out/2 Outs ~ SCBFB{CRLS #6 steals 3rd}X ~ CRLS #9 flies out to third baseman F Lane, CRLS #6 remains at 3rd.
+B2 ~ Fly Out/3 Outs ~ X ~ CRLS #12 flies out to pitcher C Davis.
+T3 ~ Single ~ FSX ~ A Stanford singles on a line drive to left fielder.
+T3 ~ Double Play/2 Outs ~ BX ~ J Grissinger grounds into a double play to pitcher CRLS #12, A Stanford out advancing to 2nd.
+T3 ~ Strikeout/3 Outs ~ CCS ~ B Osterberg strikes out swinging, CRLS #12 pitching.
+B3 ~ Ground Out/1 Out ~ X ~ CRLS #11 grounds out to third baseman F Lane.
+B3 ~ Error ~ BX ~ CRLS #16 hits a ground ball and reaches on an error.
+B3 ~ Fly Out/2 Outs ~ X ~ CRLS #31 flies out to right fielder J Grissinger, CRLS #16 advances to 2nd after tagging up.
+B3 ~ Single/NCWL 1 - CRLS 1 ~ BFCBB{CRLS #16 advances to 3rd on wild pitch}X ~ CRLS #48 singles on a hard ground ball to right fielder J Grissinger, CRLS #16 scores.
+B3 ~ Single/NCWL 1 - CRLS 2 ~ B{CRLS #48 steals 2nd}X ~ CRLS #19 singles on a fly ball to right fielder J Grissinger, CRLS #48 scores.
+B3 ~ Strikeout/3 Outs ~ BC{CRLS #19 steals 2nd}BB{CRLS #19 steals 3rd}SC ~ CRLS #13 strikes out looking, C Davis pitching.
+T4 ~ Single ~ CBBX ~ G Nebo singles on a ground ball to left fielder.
+T4 ~ Walk ~ S{G Nebo steals 2nd}CBBBB ~ C Davis walks, CRLS #13 pitching, G Nebo remains at 2nd.
+T4 ~ Ground Out/NCWL 2 - CRLS 2 / 1 Out ~ {G Nebo advances to 3rd on wild pitch}F{C Davis advances to 2nd}X ~ R Johnson grounds out to second baseman, G Nebo scores, C Davis advances to 3rd.
+T4 ~ Strikeout/3 Outs ~ B{C Davis caught stealing home}{first baseman}BSFS ~ F Lane strikes out swinging, CRLS #13 pitching.
+B4 ~ Strikeout/1 Out ~ BBSCBC ~ CRLS #6 strikes out looking, A Stanford pitching.
+B4 ~ Error ~ BBCX ~ CRLS #10 hits a ground ball and reaches on an error, CRLS #10 advances to 2nd on the same error.
+B4 ~ Single/NCWL 2 - CRLS 4 ~ B{CRLS #10 steals 3rd}{CRLS #10 scores}CX ~ CRLS #9 singles on a fly ball to left fielder B Currier, CRLS #9 advances to 2nd on the throw, CRLS #9 advances to 3rd on the throw, CRLS #9 scores on the throw.
+B4 ~ Pop Out/2 Outs ~ BBSX ~ CRLS #12 pops out to third baseman C Davis.
+B4 ~ Strikeout/3 Outs ~ SCC ~ CRLS #11 strikes out looking, A Stanford pitching.
+T5 ~ Ground Out/1 Out ~ CSX ~ A Kasak grounds out to third baseman.
+T5 ~ Catcher's Interference ~ CB ~ C Ponsford reaches on catcher's interference.
+T5 ~ Single ~ B{C Ponsford steals 2nd}CX ~ N Fujishiro singles on a line drive to center fielder, C Ponsford advances to 3rd.
+T5 ~ Single/NCWL 3 - CRLS 4 ~ X ~ A Stanford singles on a fly ball to right fielder, C Ponsford scores, N Fujishiro advances to 2nd.
+T5 ~ Strikeout/3 Outs ~ {Lineup changed: N Koletsos in for batter J Grissinger}C{N Fujishiro caught stealing 3rd}{catcher}{A Stanford steals 2nd}C{A Stanford steals 3rd}S ~ N Koletsos strikes out swinging, CRLS #31 pitching.
+B5 ~ Fly Out/1 Out ~ BBCCX ~ CRLS #16 flies out to left fielder G Nebo.
+B5 ~ Single ~ CFX ~ CRLS #31 singles on a fly ball to right fielder A Kasak.
+B5 ~ Error/NCWL 3 - CRLS 5 ~ SB{CRLS #31 steals 2nd}X ~ CRLS #48 bunts and reaches on an error, CRLS #31 scores on the throw, CRLS #48 advances to 3rd on the same error.
+B5 ~ Single/2 Outs ~ BX ~ CRLS #19 singles on a ground ball to pitcher F Lane, CRLS #48 out advancing to home.
+B5 ~ Runner Out/3 Outs ~ {CRLS #19 advances to 2nd on defensive indifference}B{CRLS #19 caught stealing 3rd}{catcher L Mercuriali} ~ Half-inning ended by out on the base paths.
+T6 ~ Ground Out/1 Out ~ {Lineup changed: B Currier in for batter B Osterberg}CBCBX ~ B Currier grounds out to first baseman.
+T6 ~ Walk ~ {Lineup changed: L Mercuriali in for batter G Nebo}BBCBB ~ L Mercuriali walks, CRLS #10 pitching.
+T6 ~ Single ~ {Courtesy runner B Currier in for L Mercuriali}{Lineup changed: H Nichols in for batter C Davis}X ~ H Nichols singles on a ground ball to pitcher CRLS #10, B Currier advances to 2nd.
+T6 ~ Double Play/3 Outs ~ {Lineup changed: G Nebo in for batter R Johnson}BFX ~ G Nebo grounds into a double play to shortstop, H Nichols out advancing to 2nd, B Currier advances to 3rd.
+B6 ~ CRLS #13 at bat ~  ~ 

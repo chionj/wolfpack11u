@@ -1,0 +1,43 @@
+T1 ~ Ground Out/1 Out ~ X ~ R Lovati grounds out to pitcher DYNS #9.
+T1 ~ Triple ~ CCFFX ~ C Davis triples on a hard ground ball to left fielder DYNS #31.
+T1 ~ Strikeout/2 Outs ~ CFC ~ G Nebo strikes out looking, DYNS #9 pitching, C Davis remains at 3rd.
+T1 ~ Walk ~ BBBFB ~ G Balogh walks, DYNS #9 pitching, C Davis remains at 3rd.
+T1 ~ Strikeout/3 Outs ~ B{G Balogh advances to 2nd on defensive indifference}SCFC ~ R Johnson strikes out looking, DYNS #9 pitching.
+B1 ~ Error ~ BCCBX ~ DYNS #11 hits a ground ball and reaches on an error by third baseman F Lane.
+B1 ~ Hit By Pitch ~ B ~ DYNS #13 is hit by pitch, R Lovati pitching, DYNS #11 advances to 2nd.
+B1 ~ Single/NCWL 0 - DYNS 2 ~ B{DYNS #11 advances to 3rd on wild pitch}{DYNS #13 advances to 2nd on the same pitch}CX ~ DYNS #6 singles on a line drive to center fielder A Stanford, DYNS #13 scores on error by center fielder A Stanford, DYNS #6 advances to 2nd on the same error, DYNS #11 scores.
+B1 ~ Double/NCWL 0 - DYNS 3 ~ CB{DYNS #6 advances to 3rd on passed ball}X ~ DYNS #19 doubles on a fly ball to center fielder A Stanford, DYNS #6 scores.
+B1 ~ Walk ~ P2BSSFBFBFB ~ DYNS #27 walks, R Lovati pitching, DYNS #19 remains at 2nd.
+B1 ~ Fly Out/1 Out ~ {DYNS #19 advances to 2nd}CB{DYNS #19 advances to 3rd on wild pitch}{DYNS #27 advances to 2nd on the same pitch}CFX ~ DYNS #24 flies out to center fielder A Stanford, DYNS #19 remains at 3rd, DYNS #27 remains at 2nd.
+B1 ~ Walk/NCWL 0 - DYNS 4 ~ CBB{DYNS #19 scores on error by catcher L Mercuriali}{DYNS #27 advances to 3rd on the same error}CBB ~ DYNS #41 walks, R Lovati pitching, DYNS #27 remains at 3rd.
+B1 ~ Single/NCWL 0 - DYNS 6 ~ {DYNS #27 scores on passed ball}B{DYNS #41 advances to 2nd on wild pitch}FX ~ DYNS #22 singles on a line drive to center fielder A Stanford, DYNS #41 scores.
+B1 ~ Strikeout/2 Outs ~ CC{DYNS #22 steals 2nd}BB{DYNS #22 advances to 3rd on wild pitch}C ~ DYNS #34 strikes out looking, R Lovati pitching, DYNS #22 remains at 3rd.
+B1 ~ Single/NCWL 0 - DYNS 7 ~ CCFBBX ~ DYNS #31 singles on a fly ball to left fielder G Nebo, DYNS #22 scores.
+B1 ~ Single ~ BX ~ DYNS #9 singles on a ground ball to second baseman B Osterberg, DYNS #31 advances to 2nd.
+B1 ~ Strikeout/3 Outs ~ CB{DYNS #31 advances to 3rd on passed ball}{DYNS #9 advances to 2nd on the same pitch}CC ~ DYNS #11 strikes out looking, F Lane pitching.
+T2 ~ Ground Out/1 Out ~ FCX ~ J Sanford grounds out to shortstop DYNS #27.
+T2 ~ Ground Out/2 Outs ~ X ~ A Stanford grounds out to shortstop DYNS #27.
+T2 ~ Ground Out/3 Outs ~ SBSBX ~ F Lane grounds out to pitcher DYNS #9.
+B2 ~ Ground Out/1 Out ~ X ~ DYNS #13 grounds out to first baseman G Chionis.
+B2 ~ Fly Out/2 Outs ~ CBBFX ~ DYNS #6 flies out to center fielder A Stanford.
+B2 ~ Ground Out/3 Outs ~ BFBCX ~ DYNS #19 grounds out to first baseman G Chionis.
+T3 ~ Strikeout/1 Out ~ BSCFS ~ B Osterberg strikes out swinging, DYNS #31 pitching.
+T3 ~ Walk ~ BSBCBB ~ L Mercuriali walks, DYNS #31 pitching.
+T3 ~ Strikeout/2 Outs ~ BB{L Mercuriali steals 2nd}SCC ~ G Chionis strikes out looking, DYNS #31 pitching, L Mercuriali remains at 2nd.
+T3 ~ Ground Out/3 Outs ~ X ~ R Lovati grounds out to shortstop DYNS #27.
+B3 ~ Error ~ BFX ~ DYNS #27 hits a fly ball and reaches on an error by pitcher A Stanford.
+B3 ~ Strikeout/1 Out ~ CB{DYNS #27 advances to 2nd on wild pitch}BCT ~ DYNS #24 is out on foul tip, A Stanford pitching, DYNS #27 remains at 2nd.
+B3 ~ Double Play/3 Outs ~ CFP2BX ~ DYNS #41 flies into a double play to pitcher A Stanford, DYNS #27 out advancing to 2nd.
+T4 ~ Single ~ X ~ C Davis singles on a line drive to center fielder DYNS #13.
+T4 ~ Walk ~ P1BBB{C Davis steals 2nd}CB ~ G Nebo walks, DYNS #31 pitching, C Davis remains at 2nd.
+T4 ~ Walk ~ BBBB ~ G Balogh walks, DYNS #31 pitching, C Davis advances to 3rd, G Nebo advances to 2nd.
+T4 ~ Double Play/2 Outs ~ SSX ~ R Johnson flies into a double play, second baseman DYNS #6 to first baseman DYNS #19, G Balogh doubled off at 1st, C Davis remains at 3rd, G Nebo remains at 2nd.
+T4 ~ Single/NCWL 1 - DYNS 7 ~ BCX ~ J Sanford singles on a line drive to left fielder DYNS #11, J Sanford advances to 2nd on the throw, C Davis scores, G Nebo advances to 3rd.
+T4 ~ Fly Out/3 Outs ~ FBFX ~ A Stanford flies out to center fielder DYNS #13.
+B4 ~ Fly Out/1 Out ~ CX ~ DYNS #22 flies out to third baseman F Lane.
+B4 ~ Walk ~ BBFSBFB ~ DYNS #34 walks, J Macias pitching.
+B4 ~ Hit By Pitch ~ {Courtesy runner DYNS #22 in for DYNS #34}B{DYNS #22 advances to 3rd on wild pitch}B ~ DYNS #31 is hit by pitch, J Macias pitching, DYNS #22 remains at 3rd.
+B4 ~ Error/NCWL 1 - DYNS 8 ~ F{Balk by pitcher J Macias}{DYNS #22 scores}{DYNS #31 advances to 2nd}BX ~ DYNS #9 hits a line drive and reaches on an error by shortstop C Davis, DYNS #31 held up at 2nd.
+B4 ~ Single/NCWL 1 - DYNS 9 ~ CX ~ DYNS #11 singles on a line drive to right fielder J Sanford, DYNS #31 scores, DYNS #9 advances to 3rd.
+B4 ~ Single/NCWL 1 - DYNS 10 ~ X ~ DYNS #13 singles on a ground ball to left fielder G Nebo, DYNS #9 scores, DYNS #11 advances to 2nd.
+B4 ~ DYNS #6 at bat ~  ~ 

@@ -1,0 +1,55 @@
+Sun Oct 18, 12:00 PM - 2:00 PM PT FINAL 4 - 4 OutKast Baseball Club 10U NC Wolfpack 11U OTKS NCWL 1	2	3	4	5	6	7 1	0	1	1	0	1	0 0	1	1	1	1	0	0 R	H	E 4	8	1 4	6	4
+OutKast Baseball Club 10U
+OTKS #26 #26 (P) 2 1 1 1 2 0
+OTKS #23 #23 (P) 4 1 1 0 0 2
+OTKS #32 #32 (P) 3 0 1 1 1 0
+OTKS #99 #99 (P) 3 0 0 0 1 1
+OTKS #1 #1 4 0 0 0 0 3
+OTKS #24 #24 (P) 2 0 1 0 1 0
+OTKS #13 #13 (P) 3 2 3 0 0 0
+OTKS #35 #35 2 0 0 1 1 0
+OTKS #19 #19 3 0 1 0 0 1
+TEAM 26 4 8 3 6 7
+2B: OTKS #26
+TB: OTKS #13 3, OTKS #26 2, OTKS #23 1, OTKS #24 1, OTKS #19 1, OTKS #32 1
+SB: OTKS #23, OTKS #13, OTKS #32
+CS: OTKS #26, OTKS #32
+OTKS #32 #32 1.0 0 0 0 1 2
+OTKS #99 #99 1.0 2 1 0 0 1
+OTKS #24 #24 1.0 1 1 0 1 3
+OTKS #13 #13 1.0 1 1 1 2 0
+OTKS #26 #26 1.0 1 1 1 0 1
+OTKS #23 #23 2.0 1 0 0 3 2
+TEAM 7.0 6 4 2 7 9
+HBP: OTKS #99, OTKS #32
+Pitches-Strikes: OTKS #23 40-17, OTKS #32 23-12, OTKS #24 21-13, OTKS #13 19-5, OTKS #99 16-10, OTKS #26 11-7
+Batters Faced: OTKS #23 10, OTKS #24 6, OTKS #26 4, OTKS #32 4, OTKS #13 4, OTKS #99 4
+NC Wolfpack 11U
+J Grissinger #44 (RF) 1 0 0 0 2 1
+B Osterberg #15 (2B) 2 0 0 0 0 2
+G Nebo #1 (LF, P, LF) 2 1 0 0 1 1
+C Davis #23 (P, SS) 2 0 0 0 1 1
+A Stanford #7 (CF) 3 0 1 0 0 0
+G Chionis #6 (RF, 1B, RF) 1 0 0 0 0 1
+B Currier #13 (LF, C) 2 0 1 1 0 1
+C Ponsford #22 (C, LF) 0 1 0 0 0 0
+L Mercuriali #14 (C) 1 1 1 0 1 0
+F Lane #9 (3B) 3 0 1 1 0 1
+H Nichols #66 (2B) 2 1 0 1 0 0
+N Koletsos #11 (2B) 1 0 0 0 1 0
+N Fujishiro #18 (SS, P) 1 0 0 0 1 1
+A Kasak (1B) 2 0 2 1 0 0
+TEAM 23 4 6 4 7 9
+2B: A Kasak
+TB: A Kasak 3, A Stanford 1, B Currier 1, F Lane 1, L Mercuriali 1
+HBP: B Osterberg, C Ponsford
+SB: L Mercuriali 3, B Osterberg 2, G Nebo 2, B Currier, C Ponsford, H Nichols, J Grissinger
+CS: B Currier, J Grissinger
+E: F Lane 2, A Kasak, L Mercuriali
+C Davis #23 3.1 6 3 2 3 4
+G Nebo #1 0.2 1 0 0 1 1
+N Fujishiro #18 3.0 1 1 0 2 2
+TEAM 7.0 8 4 2 6 7
+WP: C Davis
+Pitches-Strikes: C Davis 63-36, N Fujishiro 41-22, G Nebo 9-5
+Batters Faced: C Davis 17, N Fujishiro 12, G Nebo 3

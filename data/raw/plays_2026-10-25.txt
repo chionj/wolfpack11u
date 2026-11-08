@@ -1,0 +1,61 @@
+T1 ~ Pop Out/1 Out ~ X ~ OWLS #66 pops out to right fielder R Johnson.
+T1 ~ Strikeout/2 Outs ~ CSC ~ OWLS #12 strikes out looking, A Stanford pitching.
+T1 ~ Dropped 3rd Strike ~ SSS ~ OWLS #7 reaches on dropped 3rd strike (passed ball).
+T1 ~ Error/OWLS 1 - NCWL 0 ~ {OWLS #7 steals 2nd}CS{OWLS #7 steals 3rd}X ~ OWLS #50 hits a fly ball and reaches on an error, OWLS #7 scores.
+T1 ~ Walk ~ {OWLS #50 steals 2nd}CS{OWLS #50 advances to 3rd}BBBFB ~ OWLS #44 walks, A Stanford pitching, OWLS #50 remains at 3rd.
+T1 ~ Single/OWLS 2 - NCWL 0 ~ X ~ OWLS #3 singles on a ground ball to left fielder G Nebo, OWLS #44 advances to 3rd, OWLS #50 scores.
+T1 ~ Hit By Pitch ~ B{OWLS #3 advances to 2nd on defensive indifference}BSB ~ OWLS #19 is hit by pitch, A Stanford pitching, OWLS #44 remains at 3rd, OWLS #3 remains at 2nd.
+T1 ~ Pop Out/3 Outs ~ BSFFX ~ OWLS #13 pops out to first baseman R Johnson.
+B1 ~ Error ~ X ~ J Grissinger hits a ground ball and reaches on an error by second baseman.
+B1 ~ Single ~ B{J Grissinger advances to 2nd on defensive indifference}FX ~ R Johnson singles on a line drive to right fielder, R Johnson advances to 2nd on the throw, J Grissinger advances to 3rd.
+B1 ~ Walk ~ BBBCB ~ C Davis walks, OWLS #66 pitching, J Grissinger remains at 3rd, R Johnson remains at 2nd.
+B1 ~ Strikeout/1 Out ~ BSBCC ~ G Nebo strikes out looking, OWLS #66 pitching, J Grissinger remains at 3rd, R Johnson remains at 2nd, C Davis remains at 1st.
+B1 ~ Walk/OWLS 2 - NCWL 1 ~ P2BBBB ~ A Stanford walks, OWLS #66 pitching, J Grissinger scores, R Johnson advances to 3rd, C Davis advances to 2nd.
+B1 ~ Fielder's Choice/2 Outs ~ BX ~ F Lane grounds into fielder's choice to pitcher OWLS #66, R Johnson out advancing to home, C Davis advances to 3rd, A Stanford advances to 2nd.
+B1 ~ Strikeout/3 Outs ~ SBBBCS ~ A Kasak strikes out swinging, OWLS #66 pitching.
+T2 ~ Single ~ FBX ~ OWLS #23 singles on a hard ground ball to center fielder C Ponsford.
+T2 ~ Error ~ C{OWLS #23 steals 2nd}X ~ OWLS #51 hits a ground ball and reaches on an error by shortstop C Davis, OWLS #23 advances to 3rd.
+T2 ~ Line Out/1 Out ~ B{OWLS #51 advances to 2nd on defensive indifference}FCBFFBFX ~ OWLS #66 lines out to shortstop C Davis, OWLS #23 remains at 3rd, OWLS #51 remains at 2nd.
+T2 ~ Strikeout/2 Outs ~ FBBFC ~ OWLS #12 strikes out looking, A Stanford pitching, OWLS #23 remains at 3rd, OWLS #51 remains at 2nd.
+T2 ~ Single/OWLS 4 - NCWL 1 ~ CX ~ OWLS #7 singles on a line drive to left fielder G Nebo, OWLS #51 scores, OWLS #23 scores.
+T2 ~ Ground Out/3 Outs ~ B{OWLS #7 advances to 2nd on wild pitch}BCBX ~ OWLS #50 grounds out to pitcher A Stanford.
+B2 ~ Single ~ X ~ N Fujishiro singles on a ground ball to right fielder.
+B2 ~ Single/1 Out ~ P1S{N Fujishiro advances to 2nd on defensive indifference}{N Fujishiro picked off at 2nd}{third baseman}BBCX ~ C Ponsford singles on a line drive to left fielder.
+B2 ~ Ground Out/3 Outs ~ P1{C Ponsford picked off at 1st}{first baseman}BSX ~ N Koletsos grounds out to second baseman.
+T3 ~ Single ~ {Lineup changed: A Stanford in at pitcher}FBX ~ OWLS #44 singles on a line drive to left fielder J Grissinger.
+T3 ~ Ground Out/OWLS 5 - NCWL 1 / 1 Out ~ P1B{OWLS #44 advances to 2nd on wild pitch}B{OWLS #44 advances to 3rd on wild pitch}FX ~ OWLS #3 grounds out to second baseman N Koletsos, OWLS #44 scores.
+T3 ~ Fly Out/2 Outs ~ BX ~ OWLS #19 flies out to center fielder A Stanford.
+T3 ~ Double ~ BBX ~ OWLS #13 doubles on a line drive to center fielder A Stanford.
+T3 ~ Hit By Pitch ~ FB ~ OWLS #23 is hit by pitch, G Nebo pitching, OWLS #13 remains at 2nd.
+T3 ~ Walk ~ BBBCB ~ OWLS #51 walks, G Nebo pitching, OWLS #13 advances to 3rd, OWLS #23 advances to 2nd.
+T3 ~ Single/OWLS 6 - NCWL 1 / 3 Outs ~ BBBFFX ~ OWLS #66 singles on a ground ball, left fielder J Grissinger to catcher C Ponsford, OWLS #23 out advancing to home, OWLS #13 scores, OWLS #51 advances to 2nd.
+B3 ~ Strikeout/1 Out ~ BFFBC ~ G Chionis strikes out looking, OWLS #66 pitching.
+B3 ~ Strikeout/2 Outs ~ CBSS ~ J Grissinger strikes out swinging, OWLS #66 pitching.
+B3 ~ Walk ~ BBBB ~ R Johnson walks, OWLS #66 pitching.
+B3 ~ Strikeout/3 Outs ~ B{R Johnson advances to 2nd on defensive indifference}BFBFFP2C ~ C Davis strikes out looking, OWLS #51 pitching.
+T4 ~ Dropped 3rd Strike/1 Out ~ CFBS ~ OWLS #12 out at first on dropped 3rd strike.
+T4 ~ Ground Out/2 Outs ~ SX ~ OWLS #7 grounds out to third baseman R Johnson.
+T4 ~ Single ~ BX ~ OWLS #50 singles on a fly ball to right fielder G Chionis.
+T4 ~ Ground Out/3 Outs ~ B{OWLS #50 advances to 2nd on defensive indifference}X ~ OWLS #44 grounds out to shortstop N Fujishiro.
+B4 ~ Walk ~ BBBB ~ G Nebo walks, OWLS #13 pitching.
+B4 ~ Walk/1 Out ~ P1P1B{G Nebo caught stealing 2nd}{shortstop}BBSB ~ A Stanford walks, OWLS #13 pitching.
+B4 ~ Ground Out/2 Outs ~ P1X ~ F Lane grounds out to pitcher OWLS #13, A Stanford advances to 2nd.
+B4 ~ Runner Out/3 Outs ~ P2P2P2BCSBB{A Stanford caught stealing 3rd}{third baseman} ~ Half-inning ended by out on the base paths.
+T5 ~ Fly Out/1 Out ~ X ~ OWLS #3 flies out to right fielder G Chionis.
+T5 ~ Ground Out/2 Outs ~ BX ~ OWLS #19 grounds out to shortstop N Fujishiro.
+T5 ~ Ground Out/3 Outs ~ X ~ OWLS #13 grounds out to pitcher C Davis.
+B5 ~ Single ~ FBFX ~ A Kasak singles on a ground ball to second baseman.
+B5 ~ Strikeout/1 Out ~ CCC ~ N Fujishiro strikes out looking, OWLS #13 pitching, A Kasak remains at 1st.
+B5 ~ Walk ~ BBBB ~ C Ponsford walks, OWLS #13 pitching, A Kasak advances to 2nd.
+B5 ~ Ground Out/OWLS 6 - NCWL 2 / 2 Outs ~ SB{A Kasak advances to 3rd on wild pitch}{C Ponsford advances to 2nd on the same pitch}X ~ N Koletsos grounds out to second baseman, A Kasak scores, C Ponsford advances to 3rd.
+B5 ~ Single/OWLS 6 - NCWL 3 ~ P3X ~ G Chionis singles on a line drive to center fielder, C Ponsford scores.
+B5 ~ Single ~ SX ~ J Grissinger singles on a ground ball to shortstop, G Chionis advances to 2nd.
+B5 ~ Single/OWLS 6 - NCWL 4 ~ FBBBP2X ~ R Johnson singles on a hard ground ball to right fielder, G Chionis scores, J Grissinger advances to 3rd.
+B5 ~ Fly Out/3 Outs ~ P3B{R Johnson advances to 2nd on defensive indifference}BX ~ C Davis flies out to center fielder.
+T6 ~ Ground Out/1 Out ~ X ~ OWLS #23 grounds out to second baseman B Osterberg.
+T6 ~ Line Out/2 Outs ~ X ~ OWLS #51 lines out to second baseman B Osterberg.
+T6 ~ Strikeout/3 Outs ~ BCSBC ~ OWLS #66 strikes out looking, C Davis pitching.
+B6 ~ Ground Out/1 Out ~ BSX ~ G Nebo grounds out to third baseman.
+B6 ~ Strikeout/2 Outs ~ CBCBBS ~ A Stanford strikes out swinging, OWLS #7 pitching.
+B6 ~ Strikeout/3 Outs ~ FBBBSC ~ F Lane strikes out looking, OWLS #7 pitching.
+T7 ~ OWLS #12 at bat ~  ~ 

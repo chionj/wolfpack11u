@@ -1,0 +1,66 @@
+T1 ~ Walk ~ CBBBB ~ SOX #23 walks, G Nebo pitching.
+T1 ~ Walk ~ BC{SOX #23 steals 2nd}BSB{SOX #23 advances to 3rd on wild pitch}FFFB ~ SOX #10 walks, G Nebo pitching, SOX #23 remains at 3rd.
+T1 ~ Error/SX11 1 - NCWL 0 / 1 Out ~ X ~ SOX #19 hits a fly ball and reaches on an error, SOX #10 out advancing to 2nd, SOX #23 scores.
+T1 ~ Double ~ BFBBCX ~ SOX #24 doubles on a hard ground ball to left fielder A Stanford, SOX #19 advances to 3rd.
+T1 ~ Strikeout/2 Outs ~ SCS ~ SOX #11 strikes out swinging, G Nebo pitching, SOX #19 remains at 3rd, SOX #24 remains at 2nd.
+T1 ~ Walk ~ BBBB ~ SOX #17 walks, G Nebo pitching, SOX #19 remains at 3rd, SOX #24 remains at 2nd.
+T1 ~ Ground Out/3 Outs ~ BCX ~ SOX #12 grounds out to pitcher G Nebo.
+B1 ~ Walk ~ BFBBB ~ J Grissinger walks, SOX #24 pitching.
+B1 ~ Ground Out/1 Out ~ B{J Grissinger steals 2nd}X ~ B Osterberg grounds out to right fielder SOX #2, J Grissinger advances to 3rd.
+B1 ~ Walk ~ CBBCBB ~ G Nebo walks, SOX #24 pitching, J Grissinger remains at 3rd.
+B1 ~ Single/SX11 1 - NCWL 2 ~ {J Grissinger scores on steal of home}{G Nebo steals 2nd}FBX ~ C Davis singles on a line drive to center fielder SOX #10, G Nebo scores.
+B1 ~ Strikeout/2 Outs ~ CFB{C Davis steals 2nd}C ~ R Johnson strikes out looking, SOX #24 pitching, C Davis remains at 2nd.
+B1 ~ Runner Out/3 Outs ~ BBC{C Davis caught stealing 3rd}{third baseman SOX #11} ~ Half-inning ended by out on the base paths.
+T2 ~ Ground Out/1 Out ~ BX ~ SOX #13 grounds out to third baseman F Lane.
+T2 ~ Single ~ BX ~ SOX #2 singles on a fly ball to center fielder J Grissinger.
+T2 ~ Strikeout/2 Outs ~ CB{SOX #2 steals 2nd}B{SOX #2 advances to 3rd on passed ball}CS ~ SOX #9 strikes out swinging, G Nebo pitching, SOX #2 remains at 3rd.
+T2 ~ Fly Out/3 Outs ~ CBBX ~ SOX #23 flies out to center fielder J Grissinger.
+B2 ~ Strikeout/1 Out ~ SBBBFC ~ F Lane strikes out looking, SOX #24 pitching.
+B2 ~ Dropped 3rd Strike/2 Outs ~ CBBSBS ~ G Chionis out at first on dropped 3rd strike.
+B2 ~ Strikeout/3 Outs ~ FFFBBBC ~ N Fujishiro strikes out looking, SOX #24 pitching.
+T3 ~ Error ~ FBX ~ SOX #10 hits a ground ball and reaches on an error.
+T3 ~ Error/SX11 2 - NCWL 2 ~ B{SOX #10 steals 2nd}SX ~ SOX #19 hits a line drive and reaches on an error, SOX #10 scores, SOX #19 advances to 2nd on the same error.
+T3 ~ Single/SX11 3 - NCWL 2 ~ B{SOX #19 steals 3rd}X ~ SOX #24 singles on a fly ball to left fielder C Ponsford, SOX #19 scores.
+T3 ~ Ground Out/1 Out ~ SSBBB{SOX #24 steals 2nd}X ~ SOX #11 grounds out to first baseman A Kasak, SOX #24 advances to 3rd.
+T3 ~ Fly Out/2 Outs ~ BBBX ~ SOX #17 flies out to second baseman H Nichols, SOX #24 remains at 3rd.
+T3 ~ Walk ~ BBBCSB ~ SOX #12 walks, G Nebo pitching, SOX #24 remains at 3rd.
+T3 ~ Pop Out/3 Outs ~ {Courtesy runner SOX #11 in for SOX #12}B{SOX #11 advances to 2nd on defensive indifference}CBX ~ SOX #13 pops out to pitcher G Nebo.
+B3 ~ Walk ~ BBBFB ~ L Mercuriali walks, SOX #17 pitching.
+B3 ~ Ground Out/1 Out ~ SFBX ~ H Nichols grounds out to pitcher SOX #17, L Mercuriali advances to 2nd.
+B3 ~ Ground Out/SX11 3 - NCWL 3 / 2 Outs ~ BS{L Mercuriali steals 3rd}BCX ~ J Grissinger grounds out to second baseman SOX #9, L Mercuriali scores.
+B3 ~ Ground Out/3 Outs ~ SCX ~ B Osterberg grounds out to pitcher SOX #17.
+T4 ~ Fly Out/1 Out ~ BBCX ~ SOX #2 flies out to first baseman G Chionis.
+T4 ~ Walk ~ CBBBB ~ SOX #9 walks, F Lane pitching.
+T4 ~ Fly Out/2 Outs ~ BBBCX ~ SOX #23 flies out to second baseman H Nichols, SOX #9 remains at 1st.
+T4 ~ Line Out/3 Outs ~ X ~ SOX #10 lines out to first baseman G Chionis.
+B4 ~ Single ~ BBFBSFX ~ G Nebo singles on a ground ball to shortstop SOX #23.
+B4 ~ Single ~ BCX ~ C Davis singles on a ground ball to second baseman SOX #9, G Nebo advances to 2nd.
+B4 ~ Single/1 Out ~ CFB{G Nebo steals 3rd}{C Davis steals 2nd}BX ~ R Johnson singles on a ground ball to shortstop SOX #23, G Nebo out advancing to home, C Davis advances to 3rd.
+B4 ~ Ground Out/SX11 3 - NCWL 4 / 2 Outs ~ {R Johnson advances to 2nd on defensive indifference}{Lineup changed: A Stanford in for batter F Lane}CFX ~ A Stanford grounds out to second baseman SOX #9, C Davis scores, R Johnson advances to 3rd.
+B4 ~ Strikeout/3 Outs ~ {Lineup changed: A Kasak in for batter G Chionis}SSBFBBS ~ A Kasak strikes out swinging, SOX #17 pitching.
+T5 ~ Single ~ X ~ SOX #19 singles on a line drive to left fielder C Ponsford.
+T5 ~ Ground Out/1 Out ~ SX ~ SOX #24 grounds out to third baseman G Nebo, SOX #19 advances to 2nd.
+T5 ~ Ground Out/2 Outs ~ BX ~ SOX #11 grounds out to pitcher A Stanford, SOX #19 advances to 3rd.
+T5 ~ Single/SX11 4 - NCWL 4 ~ BFBX ~ SOX #17 singles on a ground ball to third baseman G Nebo, SOX #19 scores.
+T5 ~ Walk ~ S{SOX #17 advances to 2nd on defensive indifference}B{SOX #17 steals 3rd}BBFB ~ SOX #12 walks, F Lane pitching, SOX #17 remains at 3rd.
+T5 ~ Dropped 3rd Strike/SX11 5 - NCWL 4 / 3 Outs ~ B{SOX #12 advances to 2nd on defensive indifference}FFFB{SOX #17 scores on error by catcher R Johnson}{SOX #12 advances to 3rd on the same error}FS ~ SOX #13 out at first on dropped 3rd strike.
+B5 ~ Single ~ X ~ N Fujishiro singles on a line drive to center fielder SOX #10.
+B5 ~ Ground Out/1 Out ~ {Lineup changed: C Ponsford in for batter L Mercuriali}SSX ~ C Ponsford grounds out to right fielder SOX #2, N Fujishiro advances to 2nd.
+B5 ~ Strikeout/2 Outs ~ CSS ~ H Nichols strikes out swinging, SOX #17 pitching, N Fujishiro remains at 2nd.
+B5 ~ Ground Out/3 Outs ~ BS{N Fujishiro steals 3rd}FBBX ~ J Grissinger grounds out to first baseman SOX #19.
+T6 ~ Walk ~ CFBBFBB ~ SOX #2 walks, C Davis pitching.
+T6 ~ Single/SX11 6 - NCWL 4 ~ B{SOX #2 steals 2nd}B{SOX #2 steals 3rd}FBFX ~ SOX #9 singles on a ground ball to first baseman G Chionis, SOX #2 scores.
+T6 ~ Single ~ BX ~ SOX #23 singles on a line drive to right fielder B Osterberg, SOX #9 advances to 2nd.
+T6 ~ Error ~ CX ~ SOX #10 hits a ground ball and reaches on an error, SOX #9 advances to 3rd, SOX #23 advances to 2nd.
+T6 ~ Error/SX11 9 - NCWL 4 ~ {SOX #9 scores on steal of home}{SOX #23 advances to 3rd}{SOX #10 advances to 2nd}BB{SOX #23 scores on steal of home}{SOX #10 steals 3rd}FBFX ~ SOX #19 hits a fly ball and reaches on an error, SOX #10 scores.
+T6 ~ Ground Out/SX11 10 - NCWL 4 / 1 Out ~ S{SOX #19 advances to 2nd on defensive indifference}B{SOX #19 steals 3rd}{SOX #19 scores on steal of home}FX ~ SOX #24 grounds out to third baseman F Lane.
+T6 ~ Ground Out/2 Outs ~ FSBBX ~ SOX #11 grounds out to third baseman F Lane.
+T6 ~ Strikeout/3 Outs ~ FSC ~ SOX #17 strikes out looking, C Davis pitching.
+B6 ~ Walk ~ {Lineup changed: N Koletsos in for batter B Osterberg}CBSBBB ~ N Koletsos walks, SOX #2 pitching.
+B6 ~ Fly Out/1 Out ~ BX ~ G Nebo flies out to left fielder SOX #13, N Koletsos remains at 1st.
+B6 ~ Fly Out/2 Outs ~ BX ~ C Davis flies out to right fielder SOX #9, N Koletsos remains at 1st.
+B6 ~ Walk ~ FCBFBBB ~ R Johnson walks, SOX #2 pitching, N Koletsos advances to 2nd.
+B6 ~ Single ~ CBX ~ A Stanford singles on a ground ball to first baseman SOX #19, N Koletsos advances to 3rd, R Johnson advances to 2nd.
+B6 ~ Walk/SX11 10 - NCWL 5 ~ BCBBB ~ A Kasak walks, SOX #2 pitching, N Koletsos scores, R Johnson advances to 3rd, A Stanford advances to 2nd.
+B6 ~ Strikeout/3 Outs ~ CBBSBC ~ N Fujishiro strikes out looking, SOX #2 pitching.
+T7 ~ SOX #12 at bat ~  ~

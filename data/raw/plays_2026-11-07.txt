@@ -1,0 +1,47 @@
+T1 ~ Strikeout/1 Out ~ SSS ~ J Grissinger strikes out swinging, AZBC #6 pitching.
+T1 ~ Ground Out/2 Outs ~ X ~ R Lovati grounds out to second baseman AZBC #2.
+T1 ~ Error ~ CX ~ G Nebo hits a ground ball and reaches on an error by shortstop AZBC #5.
+T1 ~ Ground Out/3 Outs ~ P1BFBB{G Nebo steals 2nd}X ~ G Balogh grounds out to catcher AZBC #3.
+B1 ~ Single ~ X ~ AZBC #21 singles on a fly ball to center fielder R Lovati.
+B1 ~ Fly Out/1 Out ~ X ~ AZBC #5 flies out to right fielder J Grissinger, AZBC #21 remains at 1st.
+B1 ~ Single/NCWL 0 - AZBC 1 ~ CP1P1C{AZBC #21 steals 2nd}X ~ AZBC #12 singles on a ground ball to right fielder J Grissinger, AZBC #21 scores on the throw.
+B1 ~ Strikeout/2 Outs ~ CP1B{AZBC #12 steals 2nd}FS ~ AZBC #24 strikes out swinging, G Balogh pitching, AZBC #12 remains at 2nd.
+B1 ~ Double/NCWL 0 - AZBC 2 ~ B{AZBC #12 advances to 3rd on passed ball}B{AZBC #12 scores on passed ball}FCFBFX ~ AZBC #3 doubles on a fly ball to right fielder J Grissinger.
+B1 ~ Dropped 3rd Strike ~ SFBS ~ AZBC #15 reaches on dropped 3rd strike (passed ball), AZBC #3 advances to 3rd.
+B1 ~ Single/NCWL 0 - AZBC 4 ~ B{AZBC #15 advances to 2nd on defensive indifference}X ~ AZBC #6 singles on a fly ball to center fielder R Lovati, AZBC #15 scores on the throw, AZBC #3 scores.
+B1 ~ Single/NCWL 0 - AZBC 5 ~ FB{AZBC #6 advances to 2nd on wild pitch}X ~ AZBC #17 singles on a fly ball to right fielder J Grissinger, AZBC #6 scores.
+B1 ~ Ground Out/3 Outs ~ X ~ AZBC #2 grounds out to third baseman F Lane.
+T2 ~ Hit By Pitch ~ SBCBB ~ F Lane is hit by pitch, AZBC #6 pitching.
+T2 ~ Walk/1 Out ~ BB{F Lane caught stealing 2nd}{catcher AZBC #3}SBB ~ G Chionis walks, AZBC #6 pitching.
+T2 ~ Strikeout/2 Outs ~ P1BBBCSS ~ N Koletsos strikes out swinging, AZBC #6 pitching, G Chionis remains at 1st.
+T2 ~ Strikeout/3 Outs ~ BBBSSC ~ J Sanford strikes out looking, AZBC #6 pitching.
+B2 ~ Ground Out/1 Out ~ X ~ AZBC #23 grounds out to second baseman N Koletsos.
+B2 ~ Triple ~ BX ~ AZBC #13 triples on a line drive to center fielder R Lovati.
+B2 ~ Single/NCWL 0 - AZBC 6 ~ X ~ AZBC #21 singles on a fly ball to center fielder R Lovati, AZBC #13 scores.
+B2 ~ Fly Out/2 Outs ~ P1X ~ AZBC #5 flies out to center fielder R Lovati, AZBC #21 remains at 1st.
+B2 ~ Single/NCWL 0 - AZBC 7 ~ B{AZBC #21 advances to 2nd on wild pitch}BCX ~ AZBC #12 singles on a fly ball to left fielder G Nebo, AZBC #21 scores on the throw, AZBC #12 advances to 2nd on the throw.
+B2 ~ Error/NCWL 0 - AZBC 8 ~ CBFB{AZBC #12 advances to 3rd on wild pitch}X ~ AZBC #24 hits a ground ball and reaches on an error by first baseman G Chionis, AZBC #12 scores.
+B2 ~ Single ~ P1X ~ AZBC #3 singles on a line drive to center fielder R Lovati, AZBC #24 advances to 2nd.
+B2 ~ Fly Out/3 Outs ~ BSCX ~ AZBC #15 flies out to center fielder R Lovati.
+T3 ~ Single ~ X ~ B Currier singles on a ground ball to pitcher AZBC #6.
+T3 ~ Fly Out/1 Out ~ BC{B Currier steals 2nd}X ~ J Macias flies out to shortstop AZBC #5, B Currier remains at 2nd.
+T3 ~ Strikeout/2 Outs ~ CBSBS ~ H Nichols strikes out swinging, AZBC #6 pitching, B Currier remains at 2nd.
+T3 ~ Strikeout/3 Outs ~ BSBCFBC ~ J Grissinger strikes out looking, AZBC #6 pitching.
+B3 ~ Strikeout/1 Out ~ CBFBC ~ AZBC #6 strikes out looking, G Nebo pitching.
+B3 ~ Hit By Pitch ~ BFCB ~ AZBC #17 is hit by pitch, G Nebo pitching.
+B3 ~ Fly Out/2 Outs ~ C{AZBC #17 advances to 2nd on defensive indifference}BCX ~ AZBC #2 flies out to pitcher G Nebo, AZBC #17 remains at 2nd.
+B3 ~ Single/NCWL 0 - AZBC 9 ~ X ~ AZBC #23 singles on a fly ball to left fielder J Sanford, AZBC #17 scores on the throw.
+B3 ~ Runner Out/3 Outs ~ S{AZBC #23 caught stealing 3rd}{third baseman F Lane} ~ Half-inning ended by out on the base paths.
+T4 ~ Single ~ CX ~ R Lovati singles on a line drive to right fielder AZBC #23.
+T4 ~ Walk ~ B{R Lovati advances to 2nd on defensive indifference}SBBB ~ G Nebo walks, AZBC #17 pitching, R Lovati remains at 2nd.
+T4 ~ Line Out/1 Out ~ BBB{R Lovati steals 3rd}{G Nebo steals 2nd}FFX ~ G Balogh lines out to shortstop AZBC #5, R Lovati remains at 3rd, G Nebo remains at 2nd.
+T4 ~ Single/NCWL 2 - AZBC 9 ~ X ~ F Lane singles on a hard ground ball to left fielder AZBC #24, G Nebo scores, F Lane advances to 2nd on the throw, R Lovati scores.
+T4 ~ Fly Out/2 Outs ~ BCFBBX ~ G Chionis flies out to second baseman AZBC #2, F Lane remains at 2nd.
+T4 ~ Hit By Pitch ~ BB{F Lane advances to 3rd on wild pitch}SB ~ N Koletsos is hit by pitch, AZBC #17 pitching, F Lane remains at 3rd.
+T4 ~ Strikeout/3 Outs ~ P3SS{N Koletsos advances to 2nd on defensive indifference}S ~ J Sanford strikes out swinging, AZBC #17 pitching.
+B4 ~ Ground Out/1 Out ~ BCFX ~ AZBC #13 grounds out to third baseman F Lane.
+B4 ~ Single ~ X ~ AZBC #21 singles on a fly ball to right fielder J Grissinger.
+B4 ~ Single ~ B{AZBC #21 advances to 2nd on wild pitch}BCBX ~ AZBC #5 singles on a ground ball to shortstop J Macias, AZBC #21 advances to 3rd.
+B4 ~ Triple/NCWL 2 - AZBC 11 ~ FFBB{AZBC #21 scores on passed ball}{AZBC #5 advances to 3rd on the same pitch}FX ~ AZBC #12 triples on a fly ball to center fielder R Lovati, AZBC #5 scores.
+B4 ~ Walk ~ BBBCB ~ AZBC #24 walks, G Nebo pitching, AZBC #12 remains at 3rd.
+B4 ~ AZBC #3 at bat/NCWL 2 - AZBC 12 ~ B{AZBC #12 scores on wild pitch}{AZBC #24 advances to 3rd on the same pitch} ~

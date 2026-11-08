@@ -1,0 +1,68 @@
+T1 ~ Error ~ BBCX ~ OTKS #26 hits a ground ball and reaches on an error by first baseman A Kasak.
+T1 ~ Single ~ BX ~ OTKS #23 singles on a line drive to center fielder A Stanford, OTKS #26 advances to 3rd on the throw.
+T1 ~ Walk/OTKS 1 - NCWL 0 / 1 Out ~ C{OTKS #23 advances to 2nd on defensive indifference}B{OTKS #26 caught stealing home}{catcher L Mercuriali}{OTKS #23 steals 3rd}BB{OTKS #23 scores on passed ball}B ~ OTKS #32 walks, C Davis pitching.
+T1 ~ Strikeout/2 Outs ~ C{OTKS #32 steals 2nd}FBFFS ~ OTKS #99 strikes out swinging, C Davis pitching, OTKS #32 remains at 2nd.
+T1 ~ Runner Out/3 Outs ~ {OTKS #32 picked off at 2nd}{shortstop N Fujishiro} ~ Half-inning ended by out on the base paths.
+B1 ~ Walk ~ BCBCBB ~ J Grissinger walks, OTKS #32 pitching.
+B1 ~ Hit By Pitch/1 Out ~ S{J Grissinger steals 2nd}BC{J Grissinger caught stealing 3rd}{third baseman}BFBB ~ B Osterberg is hit by pitch, OTKS #32 pitching.
+B1 ~ Strikeout/2 Outs ~ BFS{B Osterberg steals 2nd}BBFC ~ G Nebo strikes out looking, OTKS #32 pitching, B Osterberg remains at 2nd.
+B1 ~ Strikeout/3 Outs ~ {B Osterberg steals 3rd}CCS ~ C Davis strikes out swinging, OTKS #32 pitching.
+T2 ~ Strikeout/1 Out ~ SFS ~ OTKS #1 strikes out swinging, C Davis pitching.
+T2 ~ Single ~ CBX ~ OTKS #24 singles on a hard ground ball to center fielder A Stanford.
+T2 ~ Single ~ B{OTKS #24 advances to 2nd on error by catcher L Mercuriali}BX ~ OTKS #13 singles on a ground ball, left fielder G Nebo to third baseman F Lane, OTKS #13 advances to 2nd on error by third baseman F Lane, OTKS #24 advances to 3rd.
+T2 ~ Ground Out/2 Outs ~ CX ~ OTKS #35 grounds out to third baseman F Lane, OTKS #13 held up at 2nd, OTKS #24 held up at 3rd.
+T2 ~ Strikeout/3 Outs ~ BBCCS ~ OTKS #19 strikes out swinging, C Davis pitching.
+B2 ~ Single ~ X ~ A Stanford singles on a ground ball to left fielder.
+B2 ~ Strikeout/2 Outs ~ FP1C{A Stanford picked off at 1st}{shortstop}BC ~ G Chionis strikes out looking, OTKS #99 pitching.
+B2 ~ Hit By Pitch ~ B ~ C Ponsford is hit by pitch, OTKS #99 pitching.
+B2 ~ Single/OTKS 1 - NCWL 1 ~ C{C Ponsford steals 2nd}B{C Ponsford advances to 3rd on passed ball}BBFFFX ~ F Lane singles on a line drive to center fielder, C Ponsford scores.
+B2 ~ Runner Out/3 Outs ~ BFP1{F Lane picked off at 1st}{first baseman} ~ Half-inning ended by out on the base paths.
+T3 ~ Double ~ CBCBFX ~ OTKS #26 doubles on a pop fly to left fielder B Currier.
+T3 ~ Pop Out/1 Out ~ X ~ OTKS #23 pops out to shortstop N Fujishiro, OTKS #26 remains at 2nd.
+T3 ~ Single/OTKS 2 - NCWL 1 / 2 Outs ~ X ~ OTKS #32 singles on a ground ball to right fielder J Grissinger, OTKS #32 out advancing to 2nd, OTKS #26 scores.
+T3 ~ Fly Out/3 Outs ~ X ~ OTKS #99 flies out to second baseman B Osterberg.
+B3 ~ Error ~ X ~ H Nichols hits a ground ball and reaches on an error by second baseman.
+B3 ~ Walk ~ BBB{H Nichols steals 2nd}SB ~ N Koletsos walks, OTKS #24 pitching, H Nichols remains at 2nd.
+B3 ~ Strikeout/1 Out ~ SBFS ~ N Fujishiro strikes out swinging, OTKS #24 pitching, H Nichols remains at 2nd, N Koletsos remains at 1st.
+B3 ~ Double/OTKS 2 - NCWL 2 ~ X ~ A Kasak doubles on a hard ground ball to left fielder, H Nichols scores, N Koletsos advances to 3rd.
+B3 ~ Strikeout/2 Outs ~ SSBBBC ~ J Grissinger strikes out looking, OTKS #24 pitching, N Koletsos remains at 3rd, A Kasak remains at 2nd.
+B3 ~ Strikeout/3 Outs ~ CFC ~ B Osterberg strikes out looking, OTKS #24 pitching.
+T4 ~ Strikeout/1 Out ~ FBBFS ~ OTKS #1 strikes out swinging, C Davis pitching.
+T4 ~ Walk ~ BFBBCB ~ OTKS #24 walks, C Davis pitching.
+T4 ~ Single ~ P1FBB{OTKS #24 advances to 2nd on wild pitch}X ~ OTKS #13 singles on a bunt to pitcher C Davis, OTKS #24 advances to 3rd.
+T4 ~ Walk ~ {OTKS #13 advances to 2nd on defensive indifference}BCBSBB ~ OTKS #35 walks, C Davis pitching, OTKS #24 remains at 3rd, OTKS #13 remains at 2nd.
+T4 ~ Single/2 Outs ~ X ~ OTKS #19 singles on a bunt to catcher C Ponsford, OTKS #24 out advancing to home, OTKS #13 advances to 3rd, OTKS #35 advances to 2nd.
+T4 ~ Walk/OTKS 3 - NCWL 2 ~ BBBB ~ OTKS #26 walks, G Nebo pitching, OTKS #13 scores, OTKS #35 advances to 3rd, OTKS #19 advances to 2nd.
+T4 ~ Strikeout/3 Outs ~ CFFS ~ OTKS #23 strikes out swinging, G Nebo pitching.
+B4 ~ Walk ~ FBBBB ~ G Nebo walks, OTKS #13 pitching.
+B4 ~ Walk ~ B{G Nebo steals 2nd}CCBBB ~ C Davis walks, OTKS #13 pitching, G Nebo remains at 2nd.
+B4 ~ Infield Fly/1 Out ~ BX ~ A Stanford out on infield fly to first baseman, G Nebo remains at 2nd, C Davis remains at 1st.
+B4 ~ Single/OTKS 3 - NCWL 3 / 2 Outs ~ {C Davis out at 1st}{first baseman}BBB{G Nebo steals 3rd}X ~ B Currier singles on a line drive to right fielder, G Nebo scores.
+B4 ~ Runner Out/3 Outs ~ B{B Currier steals 2nd}FB{B Currier caught stealing 3rd}{third baseman} ~ Half-inning ended by out on the base paths.
+T5 ~ Error ~ X ~ OTKS #32 hits a ground ball and reaches on an error by third baseman F Lane.
+T5 ~ Ground Out/1 Out ~ B{OTKS #32 advances to 2nd on passed ball}X ~ OTKS #99 grounds out to pitcher N Fujishiro, OTKS #32 advances to 3rd.
+T5 ~ Strikeout/3 Outs ~ SS{OTKS #32 caught stealing home}{catcher B Currier}BBBC ~ OTKS #1 strikes out looking, N Fujishiro pitching.
+B5 ~ Single ~ X ~ L Mercuriali singles on a ground ball to right fielder.
+B5 ~ Strikeout/1 Out ~ BS{L Mercuriali steals 2nd}P2BFB{L Mercuriali steals 3rd}C ~ F Lane strikes out looking, OTKS #26 pitching, L Mercuriali remains at 3rd.
+B5 ~ Ground Out/OTKS 3 - NCWL 4 / 2 Outs ~ X ~ H Nichols grounds out to third baseman, L Mercuriali scores.
+B5 ~ Ground Out/3 Outs ~ BFX ~ N Koletsos grounds out to third baseman.
+T6 ~ Ground Out/1 Out ~ X ~ OTKS #24 grounds out to second baseman N Koletsos.
+T6 ~ Single ~ FSBX ~ OTKS #13 singles on a hard ground ball to left fielder G Nebo.
+T6 ~ Ground Out/OTKS 4 - NCWL 4 / 2 Outs ~ BS{OTKS #13 steals 2nd}B{OTKS #13 advances to 3rd on passed ball}X ~ OTKS #35 grounds out to shortstop C Davis, OTKS #13 scores.
+T6 ~ Ground Out/3 Outs ~ BBX ~ OTKS #19 grounds out to second baseman N Koletsos.
+B6 ~ Walk ~ BCBBB ~ N Fujishiro walks, OTKS #23 pitching.
+B6 ~ Single ~ B{N Fujishiro advances to 2nd on passed ball}X ~ A Kasak singles on a line drive to left fielder, N Fujishiro advances to 3rd.
+B6 ~ Walk ~ B{A Kasak advances to 2nd on defensive indifference}CBBB ~ J Grissinger walks, OTKS #23 pitching, N Fujishiro remains at 3rd, A Kasak remains at 2nd.
+B6 ~ Strikeout/1 Out ~ BFFBFBS ~ B Osterberg strikes out swinging, OTKS #23 pitching, N Fujishiro remains at 3rd, A Kasak remains at 2nd, J Grissinger remains at 1st.
+B6 ~ Line Out/2 Outs ~ CBBX ~ G Nebo lines out to right fielder, N Fujishiro remains at 3rd, A Kasak remains at 2nd, J Grissinger remains at 1st.
+B6 ~ Ground Out/3 Outs ~ X ~ C Davis grounds out to second baseman.
+T7 ~ Walk ~ BBBB ~ OTKS #26 walks, N Fujishiro pitching.
+T7 ~ Strikeout/1 Out ~ B{OTKS #26 advances to 2nd on passed ball}BFCC ~ OTKS #23 strikes out looking, N Fujishiro pitching, OTKS #26 remains at 2nd.
+T7 ~ Ground Out/2 Outs ~ X ~ OTKS #32 grounds out to first baseman A Kasak, OTKS #26 advances to 3rd.
+T7 ~ Walk ~ BBBCCFFB ~ OTKS #99 walks, N Fujishiro pitching, OTKS #26 remains at 3rd.
+T7 ~ Ground Out/3 Outs ~ C{OTKS #99 advances to 2nd on defensive indifference}X ~ OTKS #1 grounds out to pitcher N Fujishiro.
+B7 ~ Ground Out/1 Out ~ BX ~ A Stanford grounds out to pitcher OTKS #23.
+B7 ~ Strikeout/2 Outs ~ CSBBS ~ B Currier strikes out swinging, OTKS #23 pitching.
+B7 ~ Walk ~ BBSBSB ~ L Mercuriali walks, OTKS #23 pitching.
+B7 ~ Ground Out/3 Outs ~ P1B{L Mercuriali steals 2nd}BX ~ F Lane grounds out to first baseman.
+T8 ~ OTKS #24 at bat ~  ~ 

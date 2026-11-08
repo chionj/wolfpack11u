@@ -1,0 +1,54 @@
+Sun Sep 20, 3:30 PM - 5:30 PM PT FINAL 3 - 5 NC Wolfpack 11U Carlsbad Crew - Stanford 11U NCWL CRLS 1	2	3	4	5	6 0	1	0	1	1	0 0	0	2	2	1	X R	H	E 3	6	4 5	6	1
+NC Wolfpack 11U
+J Grissinger #44 (RF) 2 0 0 0 0 1
+N Koletsos #11 (2B) 1 0 0 0 0 1
+B Osterberg #15 (2B) 1 0 0 0 1 1
+B Currier #13 (LF) 1 0 0 0 0 0
+G Nebo #1 (LF) 3 1 1 0 0 0
+L Mercuriali #14 (C) 0 0 0 0 1 0
+C Davis #23 (P, 3B, SS) 1 0 0 0 1 1
+H Nichols #66 (C) 1 0 1 0 0 0
+R Johnson #27 (1B, SS, 3B) 2 0 0 1 0 0
+F Lane #9 (3B, P) 1 1 0 0 1 1
+A Kasak (1B, RF) 2 0 1 1 0 0
+C Ponsford #22 (CF) 1 1 0 0 0 0
+N Fujishiro #18 (SS) 2 0 1 0 0 0
+A Stanford #7 (CF, P) 2 0 2 1 0 0
+TEAM 20 3 6 3 4 5
+2B: A Kasak
+TB: A Kasak 2, A Stanford 2, G Nebo 1, H Nichols 1, N Fujishiro 1
+SB: A Stanford 2, B Osterberg 2, C Ponsford, G Nebo
+CS: C Davis, N Fujishiro
+C Davis #23 3.0 3 2 0 0 2
+A Stanford #7 (L) 1.0 1 2 1 0 2
+F Lane #9 1.0 2 1 0 0 0
+TEAM 5.0 6 5 1 0 4
+WP: C Davis
+Pitches-Strikes: C Davis 43-27, A Stanford 20-12, F Lane 14-9
+Batters Faced: C Davis 13, A Stanford 5, F Lane 4
+Carlsbad Crew - Stanford 11U
+CRLS #48 #48 3 1 1 1 0 0
+CRLS #19 #19 (P) 3 0 3 1 0 0
+CRLS #13 #13 (P) 2 0 0 0 0 2
+CRLS #6 #6 (P) 2 0 0 0 0 1
+CRLS #10 #10 (P) 2 1 0 0 0 0
+CRLS #9 #9 2 1 1 1 0 0
+CRLS #12 #12 (P) 2 0 0 0 0 0
+CRLS #11 #11 2 0 0 0 0 1
+CRLS #16 #16 2 1 0 0 0 0
+CRLS #31 #31 (P) 2 1 1 0 0 0
+TEAM 22 5 6 3 0 4
+2B: CRLS #19
+TB: CRLS #19 4, CRLS #31 1, CRLS #9 1, CRLS #48 1
+SB: CRLS #19 2, CRLS #31, CRLS #10, CRLS #48, CRLS #6
+CS: CRLS #19 2
+CRLS #6 #6 1.0 0 0 0 1 2
+CRLS #19 #19 1.0 1 1 1 1 0
+CRLS #12 #12 1.0 1 0 0 0 1
+CRLS #13 #13 1.0 1 1 1 1 1
+CRLS #31 #31 1.0 2 1 0 0 1
+CRLS #10 #10 1.0 1 0 0 1 0
+TEAM 6.0 6 3 2 4 5
+WP: CRLS #13
+Pitches-Strikes: CRLS #19 22-14, CRLS #6 22-12, CRLS #13 17-9, CRLS #10 14-7, CRLS #31 12-10, CRLS #12 8-7
+Batters Faced: CRLS #19 5, CRLS #31 5, CRLS #10 4, CRLS #6 4, CRLS #13 4, CRLS #12 3

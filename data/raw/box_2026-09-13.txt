@@ -1,0 +1,48 @@
+Sun Sep 13, 12:00 PM - 2:00 PM PT FINAL 5 - 8 OutKast Baseball Club 10U NC Wolfpack 11U OTKS NCWL 1	2	3	4	5	6 2	0	1	0	0	2 4	0	4	0	0	X R	H	E 5	5	0 8	9	3
+OutKast Baseball Club 10U
+OTKS #19 #19 3 1 0 0 1 1
+OTKS #32 #32 (P) 3 0 0 0 1 0
+OTKS #1 #1 3 0 0 1 1 1
+OTKS #99 #99 (P) 2 2 1 0 1 1
+OTKS #35 #35 3 0 0 0 1 1
+OTKS #26 #26 3 0 1 1 0 0
+OTKS #23 #23 (P) 2 0 1 1 1 0
+OTKS #13 #13 3 1 1 0 0 1
+OTKS #24 #24 3 1 1 1 0 0
+TEAM 25 5 5 4 6 5
+TB: OTKS #26 1, OTKS #99 1, OTKS #23 1, OTKS #24 1, OTKS #13 1
+HBP: OTKS #99
+SB: OTKS #32 3, OTKS #26 2, OTKS #1 2, OTKS #99 2, OTKS #23, OTKS #24, OTKS #19
+OTKS #99 #99 1.1 4 4 4 3 0
+OTKS #23 #23 0.2 3 4 4 4 0
+OTKS #32 #32 2.0 2 0 0 0 3
+TEAM 4.0 9 8 8 7 3
+Pitches-Strikes: OTKS #99 41-22, OTKS #32 32-20, OTKS #23 31-11
+Batters Faced: OTKS #99 9, OTKS #32 7, OTKS #23 7
+NC Wolfpack 11U
+J Grissinger #44 (RF) 0 1 0 0 2 0
+H Nichols #66 (2B, C) 1 0 0 0 0 0
+B Osterberg #15 (2B, RF) 0 2 0 0 2 0
+N Koletsos #11 (2B) 1 0 0 0 0 1
+G Nebo #1 (LF, 3B, CF, LF) 2 2 2 2 0 0
+N Fujishiro #18 (P, SS) 1 0 1 0 0 0
+C Davis #23 (CF, SS, CF, P) 1 1 1 1 1 0
+C Ponsford #22 (LF) 0 0 0 0 0 0
+R Johnson #27 (SS, 1B, SS) 2 1 2 1 0 0
+F Lane #9 (3B) 2 0 2 2 0 0
+G Chionis #6 (1B) 1 0 0 0 1 1
+B Currier #13 (LF) 2 0 1 0 0 0
+L Mercuriali #14 (C) 2 0 0 0 0 1
+A Stanford #7 (RF, CF, P, CF) 1 1 0 0 1 0
+TEAM 16 8 9 6 7 3
+TB: F Lane 2, G Nebo 2, R Johnson 2, B Currier 1, C Davis 1, N Fujishiro 1
+SB: J Grissinger 3, A Stanford 2, B Currier 2, B Osterberg 2, G Nebo 2, N Fujishiro 2, R Johnson 2, C Davis, F Lane
+CS: G Chionis, J Grissinger
+N Fujishiro #18 (W) 3.2 3 3 2 4 3
+A Stanford #7 1.1 2 2 2 0 1
+C Davis #23 1.0 0 0 0 2 1
+TEAM 6.0 5 5 4 6 5
+WP: N Fujishiro
+HBP: N Fujishiro
+Pitches-Strikes: N Fujishiro 69-33, C Davis 23-10, A Stanford 11-10
+Batters Faced: N Fujishiro 21, A Stanford 6, C Davis 5

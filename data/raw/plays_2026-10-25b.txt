@@ -1,0 +1,63 @@
+T1 ~ Single ~ CX ~ HGHS #13 singles on a fly ball to center fielder G Nebo.
+T1 ~ Fly Out/1 Out ~ CBC{HGHS #13 advances to 2nd on defensive indifference}BBX ~ HGHS #3 flies out to shortstop N Fujishiro, HGHS #13 remains at 2nd.
+T1 ~ Double/HGHS 1 - NCWL 0 ~ FBBX ~ HGHS #9 doubles on a line drive to left fielder A Stanford, HGHS #13 scores.
+T1 ~ Error/HGHS 2 - NCWL 0 ~ BX ~ HGHS #7 hits a ground ball and reaches on an error by first baseman A Kasak, HGHS #9 scores.
+T1 ~ Batter Out/2 Outs ~ C{HGHS #7 steals 2nd}BBB{HGHS #7 steals 3rd}X ~ HGHS #23 out (other), HGHS #7 remains at 3rd.
+T1 ~ Single/HGHS 3 - NCWL 0 ~ CX ~ HGHS #27 singles on a fly ball to third baseman F Lane, HGHS #7 scores.
+T1 ~ Fly Out/3 Outs ~ B{HGHS #27 advances to 2nd on defensive indifference}X ~ HGHS #11 flies out to first baseman A Kasak.
+B1 ~ Fly Out/1 Out ~ BBX ~ R Johnson flies out to first baseman HGHS #13.
+B1 ~ Ground Out/2 Outs ~ BX ~ C Davis grounds out to third baseman HGHS #7.
+B1 ~ Walk ~ BBBCFB ~ A Stanford walks, HGHS #1 pitching.
+B1 ~ Ground Out/3 Outs ~ X ~ G Nebo grounds out to third baseman HGHS #7.
+T2 ~ Double ~ CX ~ HGHS #5 doubles on a fly ball to center fielder A Stanford.
+T2 ~ Fly Out/1 Out ~ FFBX ~ HGHS #1 flies out to center fielder A Stanford, HGHS #5 remains at 2nd.
+T2 ~ Fly Out/2 Outs ~ FX ~ HGHS #8 flies out in foul territory to third baseman F Lane, HGHS #5 remains at 2nd.
+T2 ~ Single/HGHS 4 - NCWL 0 ~ B{HGHS #5 steals 3rd}X ~ HGHS #13 singles on a line drive to right fielder G Chionis, HGHS #5 scores.
+T2 ~ Single/HGHS 5 - NCWL 0 ~ C{HGHS #13 steals 2nd}SBB{HGHS #13 advances to 3rd on defensive indifference}FX ~ HGHS #3 singles on a line drive to right fielder G Chionis, HGHS #13 scores.
+T2 ~ Ground Out/3 Outs ~ X ~ HGHS #9 grounds out to first baseman A Kasak.
+B2 ~ Hit By Pitch ~ FB ~ F Lane is hit by pitch, HGHS #1 pitching.
+B2 ~ Walk ~ P1CBBBB ~ B Osterberg walks, HGHS #1 pitching, F Lane advances to 2nd.
+B2 ~ Ground Out/1 Out ~ X ~ N Fujishiro grounds out to third baseman HGHS #7, F Lane advances to 3rd, B Osterberg advances to 2nd.
+B2 ~ Fly Out/HGHS 5 - NCWL 1 / 2 Outs ~ BBFX ~ G Chionis flies out to center fielder HGHS #27, F Lane scores after tagging up, B Osterberg remains at 2nd.
+B2 ~ Strikeout/3 Outs ~ SFC ~ C Ponsford strikes out looking, HGHS #1 pitching.
+T3 ~ Single ~ FBX ~ HGHS #7 singles on a line drive to center fielder C Ponsford.
+T3 ~ Ground Out/1 Out ~ BB{HGHS #7 steals 2nd}X ~ HGHS #23 grounds out to pitcher F Lane, HGHS #7 advances to 3rd.
+T3 ~ Single/HGHS 6 - NCWL 1 ~ CX ~ HGHS #27 singles on a fly ball to center fielder C Ponsford, HGHS #27 advances to 2nd on the throw, HGHS #7 scores.
+T3 ~ Walk/HGHS 7 - NCWL 1 ~ FB{HGHS #27 advances to 3rd on defensive indifference}B{HGHS #27 scores on wild pitch}BB ~ HGHS #11 walks, F Lane pitching.
+T3 ~ Single ~ FCX ~ HGHS #5 singles on a ground ball to right fielder B Osterberg, HGHS #11 advances to 3rd on the throw, HGHS #5 advances to 2nd on the throw.
+T3 ~ Strikeout/2 Outs ~ FBCFBBFFC ~ HGHS #1 strikes out looking, F Lane pitching, HGHS #11 remains at 3rd, HGHS #5 remains at 2nd.
+T3 ~ Ground Out/3 Outs ~ X ~ HGHS #8 grounds out to shortstop N Fujishiro.
+B3 ~ Ground Out/1 Out ~ X ~ B Currier grounds out to first baseman HGHS #13.
+B3 ~ Fly Out/2 Outs ~ SCFBX ~ H Nichols flies out to right fielder HGHS #3.
+B3 ~ Ground Out/3 Outs ~ X ~ R Johnson grounds out to shortstop HGHS #11.
+T4 ~ Single/HGHS 8 - NCWL 1 ~ {Score changed to 8-1}CFX ~ HGHS #13 singles on a line drive to center fielder A Stanford.
+T4 ~ Strikeout/1 Out ~ P1CC{HGHS #13 steals 2nd}B{HGHS #13 advances to 3rd on wild pitch}BFC ~ HGHS #3 strikes out looking, N Fujishiro pitching, HGHS #13 remains at 3rd.
+T4 ~ Strikeout/2 Outs ~ BCFC ~ HGHS #9 strikes out looking, N Fujishiro pitching, HGHS #13 remains at 3rd.
+T4 ~ Walk ~ FBBBB ~ HGHS #7 walks, N Fujishiro pitching, HGHS #13 remains at 3rd.
+T4 ~ Single/HGHS 10 - NCWL 1 ~ C{HGHS #7 steals 2nd}X ~ HGHS #27 singles on a line drive to center fielder A Stanford, HGHS #7 scores, HGHS #13 scores.
+T4 ~ Strikeout/3 Outs ~ CB{HGHS #27 advances to 2nd on wild pitch}B{HGHS #27 advances to 3rd on wild pitch}SS ~ HGHS #11 strikes out swinging, N Fujishiro pitching.
+B4 ~ Fly Out/1 Out ~ BX ~ C Davis flies out to left fielder.
+B4 ~ Single ~ BX ~ A Stanford singles on a line drive to left fielder.
+B4 ~ Single ~ P1P1C{A Stanford steals 2nd}X ~ G Nebo singles on a hard ground ball to center fielder HGHS #27, A Stanford advances to 3rd.
+B4 ~ Strikeout/3 Outs ~ {G Nebo caught stealing 2nd}{shortstop HGHS #11}BFCBS ~ F Lane strikes out swinging, HGHS #9 pitching.
+T5 ~ Dropped 3rd Strike/1 Out ~ BCFC ~ HGHS #5 out at first on dropped 3rd strike.
+T5 ~ Strikeout/2 Outs ~ SSBBBS ~ HGHS #1 strikes out swinging, N Fujishiro pitching.
+T5 ~ Strikeout/3 Outs ~ CBSS ~ HGHS #8 strikes out swinging, N Fujishiro pitching.
+B5 ~ Ground Out/1 Out ~ X ~ B Osterberg bunts out to catcher HGHS #5.
+B5 ~ Dropped 3rd Strike/2 Outs ~ BFFS ~ N Fujishiro out at first on dropped 3rd strike.
+B5 ~ Ground Out/3 Outs ~ X ~ G Chionis grounds out to second baseman.
+T6 ~ Strikeout/1 Out ~ CBBFBC ~ HGHS #13 strikes out looking, N Fujishiro pitching.
+T6 ~ Single ~ X ~ HGHS #3 singles on a line drive to right fielder J Grissinger.
+T6 ~ Double/HGHS 11 - NCWL 1 ~ CX ~ HGHS #9 doubles on a line drive to center fielder A Stanford, HGHS #3 scores on the throw, HGHS #9 advances to 3rd on the throw.
+T6 ~ Dropped 3rd Strike/HGHS 12 - NCWL 1 / 2 Outs ~ CCC ~ HGHS #7 out at first on dropped 3rd strike, HGHS #9 scores.
+T6 ~ Strikeout/3 Outs ~ SFBS ~ HGHS #27 strikes out swinging, N Fujishiro pitching.
+B6 ~ Walk ~ BBSFBB ~ C Ponsford walks, HGHS #8 pitching.
+B6 ~ Walk ~ CB{C Ponsford advances to 2nd on wild pitch}BBB ~ B Currier walks, HGHS #8 pitching, C Ponsford remains at 2nd.
+B6 ~ Walk/HGHS 12 - NCWL 2 ~ BBB{C Ponsford steals 3rd}{B Currier steals 2nd}{C Ponsford scores on error by third baseman HGHS #7}{B Currier advances to 3rd on the same error}B ~ H Nichols walks, HGHS #8 pitching, B Currier remains at 3rd.
+B6 ~ Walk/HGHS 12 - NCWL 3 ~ BFB{B Currier scores on error by pitcher HGHS #8}{H Nichols advances to 2nd on the same error}BSF{Balk by pitcher HGHS #8}{H Nichols advances to 3rd}B ~ R Johnson walks, HGHS #8 pitching, H Nichols remains at 3rd.
+B6 ~ Single/HGHS 12 - NCWL 5 ~ {R Johnson advances to 2nd on defensive indifference}X ~ C Davis singles on a ground ball to right fielder HGHS #3, R Johnson scores on the throw, C Davis advances to 2nd on the throw, H Nichols scores.
+B6 ~ Ground Out/1 Out ~ X ~ A Stanford grounds out to second baseman, C Davis advances to 3rd.
+B6 ~ Double/HGHS 12 - NCWL 6 ~ FBBFX ~ G Nebo doubles on a line drive to center fielder HGHS #27, C Davis scores.
+B6 ~ Ground Out/2 Outs ~ BP2X ~ F Lane grounds out to second baseman, G Nebo advances to 3rd.
+B6 ~ Dropped 3rd Strike/3 Outs ~ CP3SBS ~ B Osterberg out at first on dropped 3rd strike.
+T7 ~ HGHS #11 at bat ~  ~ 

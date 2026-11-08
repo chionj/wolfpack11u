@@ -1,0 +1,53 @@
+Sun Oct 25, 2:30 PM - 4:30 PM PT FINAL 12 - 6 High Standards 11U NC Wolfpack 11U HGHS NCWL 1	2	3	4	5	6 3	2	2	3	0	2 0	1	0	0	0	5 R	H	E 12	13	2 6	4	1
+High Standards 11U
+HGHS #13 #13 (1B, P) 4 3 3 1 0 1
+HGHS #3 #3 (RF) 4 1 2 1 0 1
+HGHS #9 #9 (LF, P) 4 2 2 2 0 1
+HGHS #7 #7 (3B, P) 3 3 1 1 1 1
+HGHS #23 #23 (2B) 2 0 0 0 0 0
+HGHS #27 #27 (CF) 4 1 3 4 0 1
+HGHS #11 #11 (SS) 2 0 0 0 1 1
+HGHS #5 #5 (C) 3 1 2 0 0 1
+HGHS #1 #1 (P) 3 0 0 0 0 2
+HGHS #8 #8 (P) 3 0 0 0 0 1
+TEAM 32 12 13 9 2 10
+2B: HGHS #9 2, HGHS #5
+TB: HGHS #9 4, HGHS #27 3, HGHS #5 3, HGHS #13 3, HGHS #3 2, HGHS #7 1
+SB: HGHS #7 4, HGHS #13 2, HGHS #5
+E: HGHS #8, HGHS #7
+HGHS #1 #1 2.0 0 1 1 2 1
+HGHS #9 #9 2.0 2 0 0 0 1
+HGHS #13 #13 1.0 0 0 0 0 1
+HGHS #8 #8 0.0 0 4 4 4 0
+HGHS #7 #7 1.0 2 1 1 0 1
+TEAM 6.0 4 6 6 6 4
+WP: HGHS #8
+HBP: HGHS #1
+Pitches-Strikes: HGHS #1 27-13, HGHS #8 22-6, HGHS #9 18-13, HGHS #7 13-9, HGHS #13 6-5
+Batters Faced: HGHS #1 9, HGHS #9 7, HGHS #7 5, HGHS #8 4, HGHS #13 3
+NC Wolfpack 11U
+R Johnson #27 (3B, 1B) 2 1 0 0 1 0
+C Davis #23 (C, SS) 3 1 1 2 0 0
+A Stanford #7 (LF, CF) 2 0 1 0 1 0
+G Nebo #1 (CF, LF) 3 0 2 1 0 0
+F Lane #9 (3B, P, 3B) 2 1 0 0 0 1
+B Osterberg #15 (RF) 2 0 0 0 1 1
+N Fujishiro #18 (SS, P) 2 0 0 0 0 1
+G Chionis #6 (RF, 1B) 2 0 0 1 0 0
+C Ponsford #22 (C, CF, C) 1 1 0 0 1 1
+B Currier #13 (C) 1 1 0 0 1 0
+H Nichols #66 (2B) 1 1 0 0 1 0
+TEAM 21 6 4 4 6 4
+2B: G Nebo
+TB: G Nebo 3, A Stanford 1, C Davis 1
+HBP: F Lane
+SB: A Stanford, B Currier, C Ponsford
+CS: G Nebo
+E: A Kasak
+J Grissinger #44 2.0 6 5 3 0 0
+F Lane #9 1.0 3 2 2 1 1
+N Fujishiro #18 3.0 4 4 4 1 9
+TEAM 6.0 13 12 9 2 10
+WP: N Fujishiro 3, F Lane
+Pitches-Strikes: N Fujishiro 55-37, J Grissinger 40-26, F Lane 26-16
+Batters Faced: N Fujishiro 14, J Grissinger 13, F Lane 7
