@@ -92,6 +92,7 @@ svg text{font-family:var(--f-body)}
 .grid-tbl td.n{text-align:left;color:var(--ink);padding:3px 8px;white-space:nowrap}
 .grid-tbl td .cell{display:block;border-radius:5px;padding:3px 0;min-width:34px;font-variant-numeric:tabular-nums}
 /* html bar rows */
+.hsb{all:unset;cursor:pointer;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;padding:2px 0;border-radius:4px}.hsb:hover,.hsb.on{color:var(--ink)}.hsb:focus-visible{outline:2px solid var(--brand);outline-offset:2px}.hsb.nm2{text-align:right}
 .hrow{display:grid;grid-template-columns:112px 1fr 1fr;gap:10px;align-items:center;font-size:12.5px;margin:5px 0}
 .hrow .nm{text-align:right;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hhead{display:grid;grid-template-columns:112px 1fr 1fr;gap:10px;font:500 11px var(--f-disp);letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
@@ -168,7 +169,7 @@ svg text{font-family:var(--f-body)}
     </div>
   </div>
   <div class="card"><h2><span class="opt">A</span>Paired bars</h2>
-    <div class="cap">Two bars per kid. Pick any stat for the left (blue) and right (green) bars to compare them side by side. The sort above applies to the order of the rows.</div>
+    <div class="cap">Two bars per kid. Pick any stat for the left (blue) and right (green) bars to compare them side by side. Click a column heading to sort by it, and click again to flip the order. Without a click, rows follow the sort above.</div>
     <div class="ctl"><label>Left bar <select id="hL"></select></label><label>Right bar <select id="hR"></select></label><button class="btn" id="hswap" type="button">Swap</button></div>
     <div id="hitA" style="margin-top:12px"></div></div>
   <div class="card"><h2><span class="opt">B</span>Scatter plot</h2>
@@ -213,11 +214,12 @@ svg text{font-family:var(--f-body)}
     <div class="scroll"><div id="discB" style="min-width:560px"></div></div></div>
   <div class="card"><h2><span class="opt">C</span>Strikeouts: swinging vs looking</h2>
     <div class="cap">How each hitter's strikeouts ended. Looking means a called third strike.</div>
+    <div class="ctl"><label>Sort by <select id="csort"><option value="K">Total strikeouts</option><option value="Ks">Swinging</option><option value="Kl">Looking</option><option value="kr">Strikeout rate</option><option value="name">Name</option></select></label></div>
     <div class="scroll"><div id="discC" style="min-width:520px"></div></div>
     <div class="legend"><span><i class="sw" style="background:var(--s1)"></i>swinging</span><span><i class="sw" style="background:var(--s2)"></i>looking</span></div></div>
   <div class="sec">Our pitchers</div>
   <div class="card"><h2><span class="opt">D</span>Throwing strikes</h2>
-    <div class="cap">Share of batters who got a first-pitch strike, and share of all pitches that were strikes. Pitchers with at least 6 batters faced.</div>
+    <div class="cap">Share of batters who got a first-pitch strike, and share of all pitches that were strikes. Pitchers with at least 6 batters faced. Click a heading to sort.</div>
     <div id="discD" style="margin-top:12px"></div>
     <div class="legend"><span><i class="sw" style="background:var(--s1)"></i>first-pitch strike %</span><span><i class="sw" style="background:var(--s3)"></i>strike % of all pitches</span></div></div>
   <div class="card"><h2><span class="opt">E</span>Why the first pitch matters</h2>
@@ -336,6 +338,7 @@ $('#diamond').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){co
 $('#focus').addEventListener('change',drawPlay);
 
 /* ---------- HITTING ---------- */
+let aS=null,dS=null;
 const iF=v=>String(Math.round(v)),pF=v=>v.toFixed(1)+'%';
 const HSTAT={PA:{n:'Plate appearances',k:'PA',f:iF},AB:{n:'At bats',k:'AB',f:iF},H:{n:'Hits',k:'H',f:iF},TB:{n:'Total bases',k:'TB',f:iF},R:{n:'Runs',k:'R',f:iF},RBI:{n:'RBI',k:'RBI',f:iF},BB:{n:'Walks',k:'BB',f:iF},HBP:{n:'Hit by pitch',k:'HBP',f:iF},SO:{n:'Strikeouts',k:'SO',f:iF},SB:{n:'Stolen bases',k:'SB',f:iF},avg:{n:'AVG',k:'avg',f:f3},obp:{n:'OBP',k:'obp',f:f3},slg:{n:'SLG',k:'slg',f:f3},ops:{n:'OPS',k:'ops',f:f3},k:{n:'K%',k:'k',f:pF},bb:{n:'BB%',k:'bb',f:pF}};
 ['hL','hR'].forEach((id,i)=>{$('#'+id).innerHTML=Object.entries(HSTAT).map(([key,s])=>`<option value="${key}"${key===(i?'ops':'PA')?' selected':''}>${s.n}</option>`).join('')});
@@ -355,7 +358,9 @@ function drawHit(){
   if(!rows.length){['hitA','hitB','hitC'].forEach(i=>empty($('#'+i),'No kids meet the minimum plate appearances in the selected games. Lower the minimum or add games.'));return}
   /* A */
   const sL=HSTAT[$('#hL').value],sR=HSTAT[$('#hR').value],mL=Math.max(...rows.map(r=>r[sL.k]))||1,mR=Math.max(...rows.map(r=>r[sR.k]))||1;
-  $('#hitA').innerHTML=`<div class="hhead"><span></span><span>${sL.n}</span><span>${sR.n}</span></div>`+rows.map(r=>`<div class="hrow" data-tip="${esc(htip(r))}"><span class="nm">${esc(r.name)}</span><div class="trk"><div class="fl" style="width:${r[sL.k]/mL*100}%;background:var(--s1)"></div><span>${sL.f(r[sL.k])}</span></div><div class="trk"><div class="fl" style="width:${r[sR.k]/mR*100}%;background:var(--s3)"></div><span>${sR.f(r[sR.k])}</span></div></div>`).join('');
+  if(aS){const f=aS.c==='name'?(a,b)=>a.name.localeCompare(b.name):aS.c==='L'?(a,b)=>a[sL.k]-b[sL.k]:(a,b)=>a[sR.k]-b[sR.k];rows.sort((a,b)=>aS.d?f(b,a):f(a,b))}
+  const ar=c=>aS&&aS.c===c?(aS.d?' ▼':' ▲'):'';
+  $('#hitA').innerHTML=`<div class="hhead"><button class="hsb nm2${aS&&aS.c==='name'?' on':''}" data-a="name" type="button">Kid${ar('name')}</button><button class="hsb${aS&&aS.c==='L'?' on':''}" data-a="L" type="button">${sL.n}${ar('L')}</button><button class="hsb${aS&&aS.c==='R'?' on':''}" data-a="R" type="button">${sR.n}${ar('R')}</button></div>`+rows.map(r=>`<div class="hrow" data-tip="${esc(htip(r))}"><span class="nm">${esc(r.name)}</span><div class="trk"><div class="fl" style="width:${r[sL.k]/mL*100}%;background:var(--s1)"></div><span>${sL.f(r[sL.k])}</span></div><div class="trk"><div class="fl" style="width:${r[sR.k]/mR*100}%;background:var(--s3)"></div><span>${sR.f(r[sR.k])}</span></div></div>`).join('');
   /* B */
   const xk=$('#hx').value,yk=$('#hy').value,XN={PA:'Plate appearances',k:'Strikeout rate (K%)',bb:'Walk rate (BB%)',SB:'Stolen bases'},YN={ops:'OPS',obp:'OBP',slg:'SLG',avg:'AVG'};
   const xs=rows.map(r=>r[xk]),ys=rows.map(r=>r[yk]);const xmax=Math.max(...xs)*1.08||1,ymax=Math.max(...ys)*1.1||1;
@@ -375,7 +380,9 @@ function drawHit(){
 ['hsort','hx','hy','hL','hR'].forEach(i=>$('#'+i).addEventListener('change',drawHit));
 $('#hmin').addEventListener('input',drawHit);
 $('#hswap').addEventListener('click',()=>{const a=$('#hL').value;$('#hL').value=$('#hR').value;$('#hR').value=a;drawHit()});
-$('#hdir').addEventListener('click',()=>{hdesc=!hdesc;drawHit()});
+$('#hdir').addEventListener('click',()=>{hdesc=!hdesc;aS=null;drawHit()});
+$('#hsort').addEventListener('change',()=>{aS=null});
+$('#hitA').addEventListener('click',e=>{const b=e.target.closest('.hsb');if(!b)return;const c=b.dataset.a;aS=aS&&aS.c===c?{c,d:!aS.d}:{c,d:c!=='name'};drawHit()});
 
 /* ---------- SITUATIONAL ---------- */
 const SEG=[['k','Strikeout','var(--s1)'],['out','Out in play','var(--s3)'],['bb','Walk or hit batter','var(--s4)'],['roe','Reached on error','var(--s2)'],['h','Hit','var(--s8)']];
@@ -448,7 +455,7 @@ function drawDisc(){
     pts:rows.map(r=>({x:r.fps,y:r.ppa,label:last(r.name),r:4+Math.sqrt(r.PA)*1.1,color:r.ppa-d.team>=.5?'var(--s3)':r.ppa-d.team<=-.5?'var(--s4)':'var(--s1)',tip:dtip(r)})),
     quad:[{x:'l',y:'t',t:'Takes the first pitch, grinds'},{x:'r',y:'t',t:'Swings early, still grinds'},{x:'l',y:'b',t:'Takes the first pitch, ends quick'},{x:'r',y:'b',t:'Swings early, ends quick'}]});
   /* C stacked K */
-  const kr=rows.slice().sort((a,b)=>b.K-a.K||b.Kl-a.Kl),mk=Math.max(1,...kr.map(r=>r.K)),RH2=26,W2=640,L2=118,H2=kr.length*RH2+10,X2=v=>L2+v/(mk+1)*(W2-L2-130);
+  const csk=$('#csort').value,kr=rows.map(r=>({...r,kr:r.K/r.PA})).sort((a,b)=>csk==='name'?a.name.localeCompare(b.name):(b[csk]-a[csk])||b.K-a.K),mk=Math.max(1,...kr.map(r=>r.K)),RH2=26,W2=640,L2=118,H2=kr.length*RH2+10,X2=v=>L2+v/(mk+1)*(W2-L2-130);
   let t=`<svg viewBox="0 0 ${W2} ${H2}" role="img" aria-label="Strikeouts swinging and looking by hitter">`;
   kr.forEach((r,i)=>{const y=6+i*RH2+RH2/2-2;t+=`<g data-tip="${esc(dtip(r))}"><rect x="0" y="${y-RH2/2+1}" width="${W2}" height="${RH2-1}" fill="transparent"/><text x="${L2-10}" y="${y+4}" text-anchor="end" class="t1" font-size="12">${esc(r.name)}</text>`+
     (r.Ks?`<rect x="${L2}" y="${y-8}" width="${X2(r.Ks)-L2-1}" height="16" rx="3" style="fill:var(--s1)"/>`:'')+(r.Kl?`<rect x="${L2+(X2(r.Ks)-L2)}" y="${y-8}" width="${X2(r.Kl)-L2-1}" height="16" rx="3" style="fill:var(--s2)"/>`:'')+
@@ -456,8 +463,9 @@ function drawDisc(){
   $('#discC').innerHTML=t+'</svg>';
   }
   /* D pitchers */
-  const pr=d.pit.filter(p=>p.BF>=6).sort((a,b)=>b.fps/b.BF-a.fps/a.BF);
-  $('#discD').innerHTML=pr.length?`<div class="hhead"><span></span><span>First-pitch strike %</span><span>Strike % of pitches</span></div>`+pr.map(p=>{const f=p.fps/p.BF*100,sp=p.str/p.pit*100;return `<div class="hrow" data-tip="<b>${esc(p.name)}</b><br>${p.BF} batters · ${p.pit} pitches<br>First-pitch strikes ${p.fps} of ${p.BF}<br>Strikes ${p.str} of ${p.pit}"><span class="nm">${esc(p.name)}</span><div class="trk"><div class="fl" style="width:${f}%;background:var(--s1)"></div><span>${pct(f)} · ${p.BF} BF</span></div><div class="trk"><div class="fl" style="width:${sp}%;background:var(--s3)"></div><span>${pct(sp)}</span></div></div>`}).join(''):'<div class="cap">No pitcher has faced 6 batters in the selected games.</div>';
+  const dc=dS?dS.c:'f',dd=dS?dS.d:true,pr=d.pit.filter(p=>p.BF>=6).sort((a,b)=>{const v=dc==='name'?a.name.localeCompare(b.name):dc==='s'?a.str/a.pit-b.str/b.pit:a.fps/a.BF-b.fps/b.BF;return dd?(dc==='name'?-v:-v):v});
+  const dar=c=>dc===c?(dd?' ▼':' ▲'):'';
+  $('#discD').innerHTML=pr.length?`<div class="hhead"><button class="hsb nm2${dc==='name'?' on':''}" data-d="name" type="button">Pitcher${dar('name')}</button><button class="hsb${dc==='f'?' on':''}" data-d="f" type="button">First-pitch strike %${dar('f')}</button><button class="hsb${dc==='s'?' on':''}" data-d="s" type="button">Strike % of pitches${dar('s')}</button></div>`+pr.map(p=>{const f=p.fps/p.BF*100,sp=p.str/p.pit*100;return `<div class="hrow" data-tip="<b>${esc(p.name)}</b><br>${p.BF} batters · ${p.pit} pitches<br>First-pitch strikes ${p.fps} of ${p.BF}<br>Strikes ${p.str} of ${p.pit}"><span class="nm">${esc(p.name)}</span><div class="trk"><div class="fl" style="width:${f}%;background:var(--s1)"></div><span>${pct(f)} · ${p.BF} BF</span></div><div class="trk"><div class="fl" style="width:${sp}%;background:var(--s3)"></div><span>${pct(sp)}</span></div></div>`}).join(''):'<div class="cap">No pitcher has faced 6 batters in the selected games.</div>';
   /* E first pitch */
   const S={pa:0,r:0},Bq={pa:0,r:0};d.pit.forEach(p=>{S.pa+=p.fS.pa;S.r+=p.fS.r;Bq.pa+=p.fB.pa;Bq.r+=p.fB.r});
   const row=(lbl,o,c)=>`<div style="display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;margin:8px 0"><div><b style="font:600 13px var(--f-disp);letter-spacing:.04em;text-transform:uppercase">${lbl}</b><br><span class="tnum" style="font-size:11.5px;color:var(--ink3)">${o.pa} batters</span></div><div class="trk" style="height:28px" data-tip="${o.r} of ${o.pa} reached base"><div class="fl" style="width:${o.pa?o.r/o.pa*100:0}%;background:${c}"></div><span style="line-height:28px;font-size:12.5px">${o.pa?pct(o.r/o.pa*100)+' reached base ('+o.r+')':'none'}</span></div></div>`;
@@ -466,7 +474,8 @@ function drawDisc(){
 
 /* ---------- render ---------- */
 function render(){ if(tab==='play')drawPlay(); else if(tab==='hit')drawHit(); else if(tab==='sit')drawSit(); else drawDisc() }
-$('#dmin').addEventListener('input',drawDisc);$('#dsort').addEventListener('change',drawDisc);
+$('#dmin').addEventListener('input',drawDisc);$('#dsort').addEventListener('change',drawDisc);$('#csort').addEventListener('change',drawDisc);
+$('#discD').addEventListener('click',e=>{const b=e.target.closest('.hsb');if(!b)return;const c=b.dataset.d;dS=dS&&dS.c===c?{c,d:!dS.d}:{c,d:c!=='name'};drawDisc()});
 drawChips();render();
 </script>
 
